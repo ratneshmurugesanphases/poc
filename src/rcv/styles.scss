@@ -1,0 +1,154 @@
+$beige: #e5e3d9;
+$white: #fff;
+
+:root {
+    --colorBeige: #{$beige};
+}
+
+@mixin applyFadeEffect {
+    -webkit-animation: fadein 750ms;
+    -moz-animation: fadein 750ms;
+    -ms-animation: fadein 750ms;
+    -o-animation: fadein 750ms;
+    animation: fadein 750ms;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.rcv {
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: -ms-grid;
+    max-width: 1440px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: auto 1fr;
+    width: 100%;
+    grid-template-areas:
+        "title ."
+        "barChart instructions"
+        "barChart buttonGroup";
+
+    @media all and (max-width: 426px) {
+        grid-template-areas:
+            "buttonGroup"
+            "title"
+            "barChart"
+            "instructions";
+        .barChart {
+            margin: 10px 0px 30px 0px;
+        }
+        .buttonGroup {
+            background-color: unset;
+        }
+    }
+}
+
+.title {
+    grid-area: title;
+    min-width: 0;
+    margin-top: 20px;
+    font-size: small;
+    @include applyFadeEffect();
+}
+
+.barChart {
+    grid-area: barChart;
+    min-width: 0;
+    @include applyFadeEffect();
+}
+
+.instructions {
+    grid-area: instructions;
+    background-color: var(--colorBeige);
+    min-width: 0;
+    padding: 10px 30px;
+    font-size: small;
+    @include applyFadeEffect();
+}
+
+@mixin getChildren {
+    & .startButton {
+        grid-area: startButton;
+        cursor: pointer;
+        @include applyFadeEffect();
+    }
+    & .prev {
+        grid-area: prev;
+        cursor: pointer;
+        @include applyFadeEffect();
+    }
+    & .next {
+        grid-area: next;
+        cursor: pointer;
+        @include applyFadeEffect();
+    }
+    & .startover {
+        grid-area: startover;
+        cursor: pointer;
+        @include applyFadeEffect();
+    }
+    & .roundsLabel {
+        grid-area: roundsLabel;
+        padding: 5px;
+        font-size: small;
+        @include applyFadeEffect();
+    }
+}
+
+.buttonGroup {
+    grid-area: buttonGroup;
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: -ms-grid;
+    grid-template-areas: "prev roundsLabel next";
+    background-color: var(--colorBeige);
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    height: 70px;
+    min-width: 0;
+    padding: 10px;
+    @include getChildren();
+    @include applyFadeEffect();
+}
+.buttonGroup.stepOne {
+    grid-area: buttonGroup;
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: -ms-grid;
+    justify-content: center;
+    grid-template-areas:
+        "startButton"
+        "roundsLabel";
+    min-width: 0;
+    @include getChildren();
+    @include applyFadeEffect();
+}
+.buttonGroup.stepSix {
+    grid-area: buttonGroup;
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: -ms-grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 120px 1fr;
+    grid-template-areas:
+        "prev startover ."
+        ". roundsLabel .";
+    min-width: 0;
+    @include getChildren();
+
+    & .prev {
+        justify-self: end;
+        margin-right: 15px;
+    }
+
+    @include applyFadeEffect();
+}
