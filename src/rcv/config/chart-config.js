@@ -169,7 +169,7 @@ export function formatRounds(ballotRounds, stepValue) {
         series.forEach((seriesDatum) => {
           sum += seriesDatum.data[param.dataIndex].value;
         });
-        return `{styleRed|${sum} votes}`;
+        return `${sum} votes`;
       };
     };
     if (isSmallScreen) {
@@ -187,14 +187,6 @@ export function formatRounds(ballotRounds, stepValue) {
         formatter: getSum(ballotRounds),
         position: labelPosition,
         distance: labelDistance,
-        rich: {
-          styleRed: {
-            "styleRed:before": {
-              content: "Joe's Task: ",
-            },
-            color: "red"
-          },
-        },
       },
 
       labelLayout: {
