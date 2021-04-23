@@ -26,13 +26,11 @@ function App() {
       let updatedAppData;
       if (
         step.value >= 1 &&
-        step.value < 8 &&
-        (step.direction === "intial" ||
-          step.direction === "prev" ||
-          step.direction === "next")
+        step.value < 8 
       ) {
-        console.log("UE", step);
-        updatedAppData = [...appData].map((round) => {
+        // console.log("UE", step);
+
+        updatedAppData = appData.map((round) => {
           return {
             ...round,
             data: round.data.map((dataObj, index) => {
@@ -125,7 +123,7 @@ function App() {
                 }),
               };
             });
-            setBallotRounds(updatedAppData.slice(0, step.value));
+            setBallotRounds(updatedAppData);
           }, 1700);
         }
 
@@ -147,7 +145,39 @@ function App() {
           });
         }
 
-        setBallotRounds(updatedAppData.slice(0, step.value));
+        updatedAppData = appData.map((round, roundIndex) => {
+          // if (roundIndex === 0 && step.direction === "prev") {
+          //   return {
+          //     ...round,
+          //     data: round.data.map((dataObj) => {
+          //       return {
+          //         ...dataObj,
+          //       };
+          //     }),
+          //   };
+          // }
+          if (roundIndex > step.value - 1) {
+            return {
+              ...round,
+              data: round.data.map((dataObj) => {
+                return {
+                  ...dataObj,
+                  value: 0,
+                  label:
+                    step.value === 1
+                      ? {
+                          show: false,
+                        }
+                      : {
+                          show: true,
+                        },
+                };
+              }),
+            };
+          }
+          return round;
+        });
+        setBallotRounds(updatedAppData);
       }
 
       return () => {

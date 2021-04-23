@@ -64,8 +64,11 @@ export const genericProps = {
   animationEasingUpdate: "circularOut",
   animationDuration: 750,
   animationDelay: function (idx) {
-    return idx * 100;
+    return idx * 75;
   },
+  animationDelayUpdate: function (idx) {
+    return idx * 50;
+  }
 };
 export const emptyDataObj = {
   value: null,

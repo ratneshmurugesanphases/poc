@@ -94,6 +94,7 @@ export function getAppConfig() {
       name: "r1",
       ...genericProps,
       animationDelay: null,
+      animationDelayUpdate: null,
       data: [
         emptyDataObj,
         {
