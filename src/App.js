@@ -24,75 +24,75 @@ function App() {
     (_) => {
       let ballotWinnerTimer;
       let updatedAppData;
-      if (
-        step.value >= 1 &&
-        step.value < 8 
-      ) {
-        // console.log("UE", step);
-
+      if (step.value >= 1 && step.value < 8) {
+        console.log("UE", step);
         updatedAppData = appData.map((round) => {
           return {
             ...round,
-            data: round.data.map((dataObj, index) => {
-              // console.log({ [index]: dataObj });
-              if (index === 4) {
-                if (step.value === 3) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 0.1,
-                  };
-                }
-                if (step.value === 2) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 1,
-                  };
-                }
+            data: round.data.map((dataObj) => {
+              // Second round effects
+              if (dataObj.id === "r1-d4" && step.value === 3) {
+                dataObj.label.show = false;
+                dataObj.value = -1;
+              }
+              if (dataObj.id === "r1-d4" && step.value === 2) {
+                dataObj.label.show = true;
+                dataObj.value = 4;
               }
 
-              if (index === 3) {
-                if (step.value === 4) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 0.1,
-                  };
-                }
-                if (step.value === 3) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 1,
-                  };
-                }
+              // Third round effects
+              if (dataObj.id === "r1-d3" && step.value === 4) {
+                dataObj.label.show = false;
+                dataObj.value = -1;
+              }
+              if (dataObj.id === "r1-d3" && step.value === 3) {
+                dataObj.label.show = false;
+                dataObj.value = 9;
               }
 
-              if (index === 6) {
-                if (step.value === 5) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 0.1,
-                  };
-                }
-                if (step.value === 4) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 1,
-                  };
-                }
+              // Fourth round effects
+              if (dataObj.id === "r1-d6" && step.value === 5) {
+                dataObj.label.show = false;
+                dataObj.value = -1;
+              }
+              if (dataObj.id === "r1-d6" && step.value === 4) {
+                dataObj.label.show = false;
+                dataObj.value = 14;
+              }
+              if (dataObj.id === "r3-d6" && step.value === 4) {
+                dataObj.label.show = false;
+                dataObj.value = 1;
+              }
+              if (dataObj.id === "r3-d6" && step.value === 5) {
+                dataObj.label.show = false;
+                dataObj.value = 0;
               }
 
-              if (index === 2) {
-                if (step.value === 6) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 0.1,
-                  };
-                }
-                if (step.value === 5) {
-                  dataObj.itemStyle = {
-                    ...dataObj.itemStyle,
-                    opacity: 1,
-                  };
-                }
+              // Fifth round effects
+              if (dataObj.id === "r1-d2" && step.value === 6) {
+                dataObj.label.show = false;
+                dataObj.value = -1;
+              }
+              if (dataObj.id === "r1-d2" && step.value === 5) {
+                dataObj.label.show = false;
+                dataObj.value = 14;
+              }
+              if (dataObj.id === "r2-d2" && step.value === 6) {
+                dataObj.label.show = false;
+                dataObj.value = 0;
+              }
+              if (dataObj.id === "r2-d2" && step.value === 5) {
+                dataObj.label.show = false;
+                dataObj.value = 1;
+              }
+
+              if (dataObj.id === "r3-d2" && step.value === 6) {
+                dataObj.label.show = false;
+                dataObj.value = 0;
+              }
+              if (dataObj.id === "r3-d2" && step.value === 5) {
+                dataObj.label.show = false;
+                dataObj.value = 1;
               }
 
               return dataObj;
@@ -146,16 +146,6 @@ function App() {
         }
 
         updatedAppData = appData.map((round, roundIndex) => {
-          // if (roundIndex === 0 && step.direction === "prev") {
-          //   return {
-          //     ...round,
-          //     data: round.data.map((dataObj) => {
-          //       return {
-          //         ...dataObj,
-          //       };
-          //     }),
-          //   };
-          // }
           if (roundIndex > step.value - 1) {
             return {
               ...round,

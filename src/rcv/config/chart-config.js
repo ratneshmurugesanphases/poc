@@ -71,6 +71,7 @@ export const genericProps = {
   }
 };
 export const emptyDataObj = {
+  id: "empty",
   value: null,
   itemStyle: {
     color: colorTransparent,
