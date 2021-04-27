@@ -30,10 +30,11 @@ $white: #fff;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-template-rows: auto 1fr;
     width: 100%;
+    font-family: "Whyte";
     grid-template-areas:
-        "title ."
-        "barChart instructions"
-        "barChart buttonGroup";
+        "title . ."
+        "barChart barChart instructions"
+        "barChart barChart buttonGroup";
 
     @media all and (max-width: 426px) {
         grid-template-areas:
@@ -54,7 +55,7 @@ $white: #fff;
     grid-area: title;
     min-width: 0;
     margin-top: 20px;
-    font-size: small;
+    font-size: 18px;
     @include applyFadeEffect();
 }
 
@@ -69,7 +70,8 @@ $white: #fff;
     background-color: var(--colorBeige);
     min-width: 0;
     padding: 10px 30px;
-    font-size: small;
+    font-size: 18px;
+    margin-top: 5px;
     @include applyFadeEffect();
 }
 
@@ -96,8 +98,8 @@ $white: #fff;
     }
     & .roundsLabel {
         grid-area: roundsLabel;
-        padding: 5px;
-        font-size: small;
+        padding: 5px 10px;
+        font-size: 14px;
         @include applyFadeEffect();
     }
 }

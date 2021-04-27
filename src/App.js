@@ -14,6 +14,9 @@ import {
 import "./rcv/styles.scss";
 
 let appData = getAppConfig();
+const eliminatedOpacity = 0.2;
+const afterEliminationOpacity = 0.05;
+
 
 function App() {
   const [step, setStep] = useState({ value: 1, direction: "initial" });
@@ -24,10 +27,7 @@ function App() {
     (_) => {
       let ballotWinnerTimer;
       let updatedAppData;
-      if (
-        step.value >= 1 &&
-        step.value < 8 
-      ) {
+      if (step.value >= 1 && step.value < 8) {
         // console.log("UE", step);
 
         updatedAppData = appData.map((round) => {
@@ -39,7 +39,7 @@ function App() {
                 if (step.value === 3) {
                   dataObj.itemStyle = {
                     ...dataObj.itemStyle,
-                    opacity: 0.1,
+                    opacity: eliminatedOpacity,
                   };
                 }
                 if (step.value === 2) {
@@ -54,7 +54,7 @@ function App() {
                 if (step.value === 4) {
                   dataObj.itemStyle = {
                     ...dataObj.itemStyle,
-                    opacity: 0.1,
+                    opacity: eliminatedOpacity,
                   };
                 }
                 if (step.value === 3) {
@@ -69,7 +69,7 @@ function App() {
                 if (step.value === 5) {
                   dataObj.itemStyle = {
                     ...dataObj.itemStyle,
-                    opacity: 0.1,
+                    opacity: eliminatedOpacity,
                   };
                 }
                 if (step.value === 4) {
@@ -84,7 +84,7 @@ function App() {
                 if (step.value === 6) {
                   dataObj.itemStyle = {
                     ...dataObj.itemStyle,
-                    opacity: 0.1,
+                    opacity: eliminatedOpacity,
                   };
                 }
                 if (step.value === 5) {
@@ -111,12 +111,40 @@ function App() {
                     dataObj.itemStyle = {
                       ...dataObj.itemStyle,
                       color: customColors[1],
+                      borderColor: customColors[1],
+                      borderWidth: 0,
+                    };
+                  }
+                  if (index === 2) {
+                    dataObj.itemStyle = {
+                      ...dataObj.itemStyle,
+                      opacity: afterEliminationOpacity,
+                    };
+                  }
+                  if (index === 3) {
+                    dataObj.itemStyle = {
+                      ...dataObj.itemStyle,
+                      opacity: afterEliminationOpacity,
+                    };
+                  }
+                  if (index === 4) {
+                    dataObj.itemStyle = {
+                      ...dataObj.itemStyle,
+                      opacity: afterEliminationOpacity,
                     };
                   }
                   if (index === 5) {
                     dataObj.itemStyle = {
                       ...dataObj.itemStyle,
                       color: customColors[5],
+                      borderColor: customColors[5],
+                      borderWidth: 0,
+                    };
+                  }
+                  if (index === 6) {
+                    dataObj.itemStyle = {
+                      ...dataObj.itemStyle,
+                      opacity: afterEliminationOpacity,
                     };
                   }
                   return dataObj;
@@ -157,6 +185,7 @@ function App() {
           //   };
           // }
           if (roundIndex > step.value - 1) {
+            console.log({roundIndex, sv: step.value});
             return {
               ...round,
               data: round.data.map((dataObj) => {

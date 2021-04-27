@@ -3,9 +3,14 @@
 const type = "bar";
 const stack = true;
 const colorTransparent = "rgba(255, 255, 255, 0)";
+const splitLineColor = "rgba(34, 20, 74, 0.15)";
+const fiftyPercentLineColor = "#333";
+const axisLabelColor = "#000";
+
 export const isSmallScreen = window.innerWidth < 426;
 export const isMediumScreen =
   window.innerWidth >= 426 && window.innerWidth < 769;
+export const isLargeScreen = window.innerWidth >= 769;
 const barWidth = isSmallScreen ? 25 : 30;
 
 export const customColors = [
@@ -18,25 +23,25 @@ export const customColors = [
   "#ED7ACA", // Pink
 ];
 export const stepFivePurpleColors = [
-  "#221649",
-  "#221649",
-  "#FADE4B",
-  "#367D54",
-  "#ED7ACA",
-  "#4BA3B7",
+  customColors[1],
+  customColors[1],
+  customColors[4],
+  customColors[3],
+  customColors[6],
+  customColors[2],
 ];
 export const stepFiveOrangeColors = [
-  "#EB5534",
-  "#EB5534",
-  "#FADE4B",
-  "#367D54",
-  "#ED7ACA",
-  "#4BA3B7",
+  customColors[5],
+  customColors[5],
+  customColors[4],
+  customColors[3],
+  customColors[6],
+  customColors[2],
 ];
 export const fiftyPercentLine = {
   silent: true,
   lineStyle: {
-    color: "#333",
+    color: fiftyPercentLineColor,
     type: "dashed",
     width: 2,
     opacity: 0.15,
@@ -68,7 +73,7 @@ export const genericProps = {
   },
   animationDelayUpdate: function (idx) {
     return idx * 50;
-  }
+  },
 };
 export const emptyDataObj = {
   value: null,
@@ -124,11 +129,12 @@ const iconTextSpaces = {
   sm: ["", " ", "    ", "  ", " ", "", "    ", ""],
   md: ["", " ", "    ", "  ", " ", "", "     ", ""],
 };
-function getIconStyles() {
+function getIconStyles(hasVotingEnded) {
   let iconStyleProps = {};
   let iconFadeStyleProps = {};
   const textFade = {
-    opacity: 0.2,
+    opacity: hasVotingEnded ? 0.05 : 0.2,
+    fontWeight: 700,
   };
 
   iconPaths.forEach((iconPath, i) => {
@@ -172,7 +178,7 @@ export function formatRounds(ballotRounds, stepValue) {
         series.forEach((seriesDatum) => {
           sum += seriesDatum.data[param.dataIndex].value;
         });
-        return `${sum} votes`;
+        return param.dataIndex === 0 ? "" : `${sum} votes`;
       };
     };
     if (isSmallScreen) {
@@ -184,8 +190,6 @@ export function formatRounds(ballotRounds, stepValue) {
 
     return Object.assign(round, {
       label: {
-        // show: round.name === 'r1' ? true  : false,
-        // show: true,
         show: isLabelShown,
         formatter: getSum(ballotRounds),
         position: labelPosition,
@@ -200,11 +204,6 @@ export function formatRounds(ballotRounds, stepValue) {
 }
 
 export function getChartConfig({ stepValue, hasVotingEnded }) {
-  // console.log("GCC", {
-  //   stepValue,
-  //   hasVotingEnded,
-  //   iconStyles: getIconStyles(),
-  // });
   const chartConfig = {
     title: {
       show: hasVotingEnded ? true : false,
@@ -216,15 +215,16 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
         color: customColors[1],
         fontWeight: 900,
         fontSize: 24,
+        fontFamily: "Whyte",
       },
     },
     grid: {
-      left: isSmallScreen ? -20 : 20,
+      left: isSmallScreen ? -22 : 12,
       right: "5%",
       bottom: "5%",
       top: "-14%",
       height: 470,
-      width: isSmallScreen ? "100%" : "90%",
+      width: isSmallScreen ? "100%" : "100%",
       containLabel: true,
     },
     xAxis: {
@@ -240,19 +240,29 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       },
       axisLabel: {
         padding: [0, 0, 0, 10],
-        formatter: (value) => {
+        formatter: (value, index) => {
+          if (isSmallScreen && index === 3) {
+            return "";
+          }
+          if (isMediumScreen && index === 6) {
+            return "";
+          }
           return `${value}%`;
         },
       },
       interval: isSmallScreen ? 25 : 10,
       min: 0,
-      max: 60,
+      max: isSmallScreen ? 65 : 70,
     },
     yAxis: {
       type: "category",
       offset: 5,
       splitLine: {
         show: true,
+        lineStyle: {
+          width: 2,
+          color: splitLineColor,
+        },
       },
       inverse: true,
       data: ["null", "Purple", "Blue", "Green", "Yellow", "Orange", "Pink"],
@@ -263,7 +273,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
         show: false,
       },
       axisLabel: {
-        color: "#000",
+        color: axisLabelColor,
         fontWeight: "bolder",
         formatter: (axisLabel, axisIndex) => {
           if (isSmallScreen) {
@@ -357,7 +367,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
         },
         verticalAlign: "middle",
         rich: {
-          ...getIconStyles(),
+          ...getIconStyles(hasVotingEnded),
         },
       },
     },
