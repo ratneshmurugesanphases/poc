@@ -112,7 +112,7 @@ function App() {
                       ...dataObj.itemStyle,
                       color: customColors[1],
                       borderColor: customColors[1],
-                      borderWidth: 0,
+                      borderWidth: 1, //TO push
                     };
                   }
                   if (index === 2) {
@@ -138,7 +138,7 @@ function App() {
                       ...dataObj.itemStyle,
                       color: customColors[5],
                       borderColor: customColors[5],
-                      borderWidth: 0,
+                      borderWidth: 1, //TO push
                     };
                   }
                   if (index === 6) {
@@ -174,32 +174,14 @@ function App() {
         }
 
         updatedAppData = appData.map((round, roundIndex) => {
-          // if (roundIndex === 0 && step.direction === "prev") {
-          //   return {
-          //     ...round,
-          //     data: round.data.map((dataObj) => {
-          //       return {
-          //         ...dataObj,
-          //       };
-          //     }),
-          //   };
-          // }
           if (roundIndex > step.value - 1) {
-            console.log({roundIndex, sv: step.value});
+            // console.log({roundIndex, sv: step.value});
             return {
               ...round,
               data: round.data.map((dataObj) => {
                 return {
                   ...dataObj,
                   value: 0,
-                  label:
-                    step.value === 1
-                      ? {
-                          show: false,
-                        }
-                      : {
-                          show: true,
-                        },
                 };
               }),
             };

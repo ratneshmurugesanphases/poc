@@ -1,7 +1,11 @@
 import React, { memo } from "react";
 import ReactEcharts from "echarts-for-react";
 
-import { getChartConfig, formatRounds } from "../config/chart-config";
+import {
+  getChartConfig,
+  formatRounds,
+  isSmallScreen,
+} from "../config/chart-config";
 
 function BarChart({ ballotRounds, step }) {
   const stepValue = step.value;
@@ -13,12 +17,18 @@ function BarChart({ ballotRounds, step }) {
     series: updatedBallotRounds,
   };
   // console.log("BarChart br", updatedBallotRounds);
+  const styleProps = isSmallScreen
+    ? {
+        height: "443px",
+        width: "97%",
+      }
+    : { height: "576px", width: "97%" };
   return (
     <div className="barChart">
       <ReactEcharts
         lazyUpdate={true}
         notMerge={true}
-        style={{ height: "410px", width: "98%" }}
+        style={styleProps}
         option={chartOptions}
       />
     </div>

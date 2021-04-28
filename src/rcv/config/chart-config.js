@@ -11,7 +11,13 @@ export const isSmallScreen = window.innerWidth < 426;
 export const isMediumScreen =
   window.innerWidth >= 426 && window.innerWidth < 769;
 export const isLargeScreen = window.innerWidth >= 769;
-const barWidth = isSmallScreen ? 25 : 30;
+const barWidth = isSmallScreen ? 24 : 40;
+
+export const barLabelProps = {
+  label: {
+    fontSize: isSmallScreen || isMediumScreen ? 13 : 18,
+  },
+};
 
 export const customColors = [
   "rgba(255, 255, 255, 0)",
@@ -115,19 +121,19 @@ const iconFadeStyleNames = [
 const iconSpaces = {
   sm: [
     "",
-    "       ",
-    "       ",
-    "       ",
-    "       ",
-    "       ",
-    "       ",
-    "   ",
+    "        ",
+    "        ",
+    "        ",
+    "        ",
+    "        ",
+    "        ",
+    "    ",
   ],
   md: ["", "  ", "   ", "  ", "  ", "  ", "  ", ""],
 };
 const iconTextSpaces = {
-  sm: ["", " ", "    ", "  ", " ", "", "    ", ""],
-  md: ["", " ", "    ", "  ", " ", "", "     ", ""],
+  sm: ["", " ", "     ", "  ", " ", "", "     ", ""],
+  md: ["", "  ", "     ", "   ", "  ", " ", "      ", " "],
 };
 function getIconStyles(hasVotingEnded) {
   let iconStyleProps = {};
@@ -135,14 +141,30 @@ function getIconStyles(hasVotingEnded) {
   const textFade = {
     opacity: hasVotingEnded ? 0.05 : 0.2,
     fontWeight: 700,
+    fontSize: isSmallScreen || isMediumScreen ? 14 : 21,
   };
 
   iconPaths.forEach((iconPath, i) => {
+    const burstIconHeightLarge = 50;
+    const burstIconHeightSmall = 42;
+    const iconHeightLarge = 22;
+    const iconHeightSmall = 17;
+    let iconHeight;
+    let iconBurstHeight;
+
+    if (isSmallScreen || isMediumScreen) {
+      iconHeight = iconHeightSmall;
+      iconBurstHeight = burstIconHeightSmall;
+    } else {
+      iconHeight = iconHeightLarge;
+      iconBurstHeight = burstIconHeightLarge;
+    }
+
     const updatedIconStyleProps = {
       backgroundColor: {
         image: iconPath,
       },
-      height: i === 7 ? 40 : 17,
+      height: i === 7 ? iconBurstHeight : iconHeight,
       align: "right",
     };
     iconStyleProps = {
@@ -168,8 +190,13 @@ function getIconStyles(hasVotingEnded) {
 
 export function formatRounds(ballotRounds, stepValue) {
   let labelPosition = "right";
-  let labelDistance = 7;
+  let labelDistance = 15;
   let isLabelShown = false;
+  let labelLayout = {
+    hideOverlap: true,
+    x: 70,
+    dy: -5,
+  };
   const brLen = ballotRounds.length - 1;
   return ballotRounds.map((round, roundIndex) => {
     const getSum = (series) => {
@@ -184,6 +211,11 @@ export function formatRounds(ballotRounds, stepValue) {
     if (isSmallScreen) {
       labelPosition = "bottom";
     }
+    if (isMediumScreen || isLargeScreen) {
+      labelLayout = {
+        hideOverlap: true,
+      };
+    }
     if (stepValue === 2 || roundIndex === brLen) {
       isLabelShown = true;
     }
@@ -191,14 +223,11 @@ export function formatRounds(ballotRounds, stepValue) {
     return Object.assign(round, {
       label: {
         show: isLabelShown,
-        formatter: getSum(ballotRounds),
+        formatter: stepValue === 1 ? "" : getSum(ballotRounds),
         position: labelPosition,
         distance: labelDistance,
       },
-
-      labelLayout: {
-        hideOverlap: true,
-      },
+      labelLayout: labelLayout,
     });
   });
 }
@@ -209,22 +238,22 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       show: hasVotingEnded ? true : false,
       text: ` Purple wins!\n 52% to 48%`,
       left: isSmallScreen ? "25%" : "35%",
-      top: "40%",
+      top: isSmallScreen || isMediumScreen ? "38%" : "40%",
       textStyle: {
-        lineHeight: 30,
+        lineHeight: 40,
         color: customColors[1],
         fontWeight: 900,
-        fontSize: 24,
+        fontSize: isSmallScreen || isMediumScreen ? 28 : 36,
         fontFamily: "Whyte",
       },
     },
     grid: {
-      left: isSmallScreen ? -22 : 12,
+      left: isSmallScreen ? -35 : 15,
       right: "5%",
       bottom: "5%",
       top: "-14%",
-      height: 470,
-      width: isSmallScreen ? "100%" : "100%",
+      height: isSmallScreen ? 505 : 645,
+      width: isSmallScreen ? "106%" : "100%",
       containLabel: true,
     },
     xAxis: {
@@ -239,7 +268,8 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
         show: false,
       },
       axisLabel: {
-        padding: [0, 0, 0, 10],
+        fontSize: isSmallScreen || isMediumScreen ? 14 : 18,
+        padding: isSmallScreen || isMediumScreen ? [10, 0, 0, 10] : [15, 0, 0, 10],
         formatter: (value, index) => {
           if (isSmallScreen && index === 3) {
             return "";
@@ -252,7 +282,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       },
       interval: isSmallScreen ? 25 : 10,
       min: 0,
-      max: isSmallScreen ? 65 : 70,
+      max: isSmallScreen ? 60 : 67,
     },
     yAxis: {
       type: "category",
@@ -274,6 +304,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       },
       axisLabel: {
         color: axisLabelColor,
+        fontSize: isSmallScreen || isMediumScreen ? 14 : 21,
         fontWeight: "bolder",
         formatter: (axisLabel, axisIndex) => {
           if (isSmallScreen) {
@@ -316,7 +347,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
             if (hasVotingEnded && axisIndex === 1) {
               return [
                 `{${iconStyleNames[7]}|}${iconSpaces.sm[7]}
-              ${axisLabel}${iconTextSpaces.sm[7]}`,
+        ${axisLabel}${iconTextSpaces.sm[7]}`,
               ];
             }
 

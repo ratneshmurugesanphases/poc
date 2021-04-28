@@ -1,16 +1,12 @@
-$beige: #e5e3d9;
+$beige: rgba(229, 227, 217, 1);
 $white: #fff;
 
-:root {
-    --colorBeige: #{$beige};
-}
-
 @mixin applyFadeEffect {
-    -webkit-animation: fadein 750ms;
-    -moz-animation: fadein 750ms;
-    -ms-animation: fadein 750ms;
-    -o-animation: fadein 750ms;
-    animation: fadein 750ms;
+    -webkit-animation: fadein 300ms;
+    -moz-animation: fadein 300ms;
+    -ms-animation: fadein 300ms;
+    -o-animation: fadein 300ms;
+    animation: fadein 300ms;
 }
 
 @keyframes fadein {
@@ -25,7 +21,6 @@ $white: #fff;
 .rcv {
     display: grid;
     display: -ms-grid;
-    -ms-grid-columns: -ms-grid;
     max-width: 1440px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-template-rows: auto 1fr;
@@ -36,23 +31,56 @@ $white: #fff;
         "barChart barChart instructions"
         "barChart barChart buttonGroup";
 
-    @media all and (max-width: 426px) {
+    /* IE browser support below */
+    -ms-grid-columns: (minmax(200px, 1fr)) [3];
+    /* IE browser support above */
+
+    @media all and (max-width: 768px) {
         grid-template-areas:
             "buttonGroup"
             "title"
             "barChart"
             "instructions";
         .barChart {
-            margin: 10px 0px 30px 0px;
+            margin: 10px 0px 20px 0px;
         }
         .buttonGroup {
             background-color: unset;
         }
+        /* IE browser support below */
+        -ms-grid-columns: 1fr;
+        .title {
+            -ms-grid-row: 2;
+        }
+        .barChart {
+            -ms-grid-row: 3;
+        }
+        .instructions {
+            -ms-grid-row: 4;
+        }
+
+        .buttonGroup {
+            -ms-grid-row: 1;
+            align-items: center;
+        }
+        .buttonGroup.stepOne {
+            -ms-grid-row: 1;
+        }
+        .buttonGroup.stepSix {
+            -ms-grid-row: 1;
+        }
+        /* IE browser support above */
     }
 }
 
 .title {
     grid-area: title;
+    /* IE browser support below */
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    /* IE browser support above */
     min-width: 0;
     margin-top: 20px;
     font-size: 18px;
@@ -61,21 +89,36 @@ $white: #fff;
 
 .barChart {
     grid-area: barChart;
+    /* IE browser support below */
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    /* IE browser support above */
     min-width: 0;
+    font-family: "Whyte";
+
     @include applyFadeEffect();
 }
 
 .instructions {
     grid-area: instructions;
-    background-color: var(--colorBeige);
+    /* IE browser support below */
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+    /* IE browser support above */
+    background-color: $beige;
     min-width: 0;
     padding: 10px 30px;
     font-size: 18px;
     margin-top: 5px;
+
     @include applyFadeEffect();
 }
 
-@mixin getChildren {
+@mixin getChildren($step) {
     & .startButton {
         grid-area: startButton;
         cursor: pointer;
@@ -84,11 +127,23 @@ $white: #fff;
     & .prev {
         grid-area: prev;
         cursor: pointer;
+        @if $step == otherStepsIE {
+            order: 1;
+        }
+        @if $step == stepSixIE{
+            
+        }
         @include applyFadeEffect();
     }
     & .next {
         grid-area: next;
         cursor: pointer;
+        @if $step == otherStepsIE {
+            order: 3;
+        }
+        @if $step == stepSixIE{
+            
+        }
         @include applyFadeEffect();
     }
     & .startover {
@@ -98,8 +153,14 @@ $white: #fff;
     }
     & .roundsLabel {
         grid-area: roundsLabel;
-        padding: 5px 10px;
+        padding: 0px 10px;
         font-size: 14px;
+        @if $step == otherStepsIE {
+            order: 2;
+        }
+        @if $step == stepSixIE{
+
+        }
         @include applyFadeEffect();
     }
 }
@@ -107,37 +168,32 @@ $white: #fff;
 .buttonGroup {
     grid-area: buttonGroup;
     display: grid;
-    display: -ms-grid;
-    -ms-grid-columns: -ms-grid;
     grid-template-areas: "prev roundsLabel next";
-    background-color: var(--colorBeige);
+    background-color: $beige;
     justify-content: center;
     justify-items: center;
     align-items: center;
-    height: 70px;
+    height: 90px;
     min-width: 0;
     padding: 10px;
-    @include getChildren();
+    @include getChildren(otherSteps);
     @include applyFadeEffect();
 }
 .buttonGroup.stepOne {
     grid-area: buttonGroup;
     display: grid;
-    display: -ms-grid;
-    -ms-grid-columns: -ms-grid;
     justify-content: center;
     grid-template-areas:
         "startButton"
         "roundsLabel";
     min-width: 0;
-    @include getChildren();
+    height: 90px;
+    @include getChildren(stepOne);
     @include applyFadeEffect();
 }
 .buttonGroup.stepSix {
     grid-area: buttonGroup;
     display: grid;
-    display: -ms-grid;
-    -ms-grid-columns: -ms-grid;
     justify-content: center;
     align-items: center;
     grid-template-columns: 1fr 120px 1fr;
@@ -145,12 +201,32 @@ $white: #fff;
         "prev startover ."
         ". roundsLabel .";
     min-width: 0;
-    @include getChildren();
+    height: 90px;
+    @include getChildren(stepSix);
 
     & .prev {
         justify-self: end;
-        margin-right: 15px;
+        margin-right: 30px;
     }
 
     @include applyFadeEffect();
+}
+
+// IE support
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .buttonGroup.stepOne {
+        display: flex;
+        flex-direction: column;
+        @include getChildren(stepOneIE);
+    }
+    .buttonGroup {
+        display: flex;
+        align-items: center;
+        padding: 0px 70px;
+        @include getChildren(otherStepsIE);
+    }
+    .buttonGroup.stepSix {
+        display: flex;
+        @include getChildren(stepSixIE);
+    }
 }

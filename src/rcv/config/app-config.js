@@ -3,6 +3,7 @@ import {
   customColors,
   fiftyPercentLine,
   emptyDataObj,
+  barLabelProps,
 } from "../config/chart-config";
 
 export function getInitialRoundObj() {
@@ -102,36 +103,42 @@ export function getAppConfig() {
           itemStyle: {
             color: customColors[1],
           },
+          ...barLabelProps,
         },
         {
           value: 14, //15
           itemStyle: {
             color: customColors[2],
           },
+          ...barLabelProps,
         },
         {
           value: 9, //10
           itemStyle: {
             color: customColors[3],
           },
+          ...barLabelProps,
         },
         {
           value: 4, //5
           itemStyle: {
             color: customColors[4],
           },
+          ...barLabelProps,
         },
         {
           value: 29, //30
           itemStyle: {
             color: customColors[5],
           },
+          ...barLabelProps,
         },
         {
           value: 14, //15
           itemStyle: {
             color: customColors[6],
           },
+          ...barLabelProps,
         },
       ],
     },
@@ -145,27 +152,33 @@ export function getAppConfig() {
           itemStyle: {
             color: customColors[4],
           },
+          ...barLabelProps,
         },
         {
           value: 1,
           itemStyle: {
             color: customColors[4],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: 2,
           itemStyle: {
             color: customColors[4],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
       ],
     },
@@ -179,30 +192,36 @@ export function getAppConfig() {
           itemStyle: {
             color: customColors[3],
           },
+          ...barLabelProps,
         },
         {
           value: 1,
           itemStyle: {
             color: customColors[3],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: 3,
           itemStyle: {
             color: customColors[3],
           },
+          ...barLabelProps,
         },
         {
           value: 1,
           itemStyle: {
             color: customColors[3],
           },
+          ...barLabelProps,
         },
       ],
     },
@@ -216,24 +235,30 @@ export function getAppConfig() {
           itemStyle: {
             color: customColors[6],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: 2,
           itemStyle: {
             color: customColors[6],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
       ],
     },
@@ -247,24 +272,30 @@ export function getAppConfig() {
           itemStyle: {
             color: customColors[2],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
         {
           value: 11,
           itemStyle: {
             color: customColors[2],
           },
+          ...barLabelProps,
         },
         {
           value: null,
+          ...barLabelProps,
         },
       ],
     },

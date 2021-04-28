@@ -23,7 +23,7 @@ function ButtonGroup({
           className="startButton"
           src="/rcv/button-start.svg"
           alt="start ballot"
-          width="120px"
+          width="150px"
           onClick={handleStartClick}
         />
       )}
@@ -50,11 +50,11 @@ function ButtonGroup({
           className="startover"
           src="/rcv/button-startover.svg"
           alt="startover ballot"
-          width="120px"
+          width="150px"
           onClick={handleStartOverClick}
         />
       )}
-      <span className="roundsLabel">{step.value} of 6</span>
+      <div className="roundsLabel">{step.value} of 6</div>
     </div>
   );
 }
