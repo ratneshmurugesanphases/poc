@@ -1,0 +1,180 @@
+// fonts
+@font-face {
+    font-family: 'Whyte';
+    src: local('Whyte Regular'), local('Whyte-Regular'),
+        url('./fonts/ABCWhyte-Regular.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Regular.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Regular.woff') format('woff'),
+        url('./fonts/ABCWhyte-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte Book';
+    src: url('./fonts/ABCWhyte-Book.eot');
+    src: local('Whyte Book'), local('Whyte-Book'),
+        url('./fonts/ABCWhyte-Book.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Book.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Book.woff') format('woff'),
+        url('./fonts/ABCWhyte-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte Book';
+    src: url('./fonts/ABCWhyte-BookItalic.eot');
+    src: local('Whyte Book Italic'), local('Whyte-BookItalic'),
+        url('./fonts/ABCWhyte-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-BookItalic.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-BookItalic.woff') format('woff'),
+        url('./fonts/ABCWhyte-BookItalic.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-Medium.eot');
+    src: local('Whyte Medium'), local('Whyte-Medium'),
+        url('./fonts/ABCWhyte-Medium.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Medium.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Medium.woff') format('woff'),
+        url('./fonts/ABCWhyte-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-MediumItalic.eot');
+    src: local('Whyte Medium Italic'), local('Whyte-MediumItalic'),
+        url('./fonts/ABCWhyte-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-MediumItalic.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-MediumItalic.woff') format('woff'),
+        url('./fonts/ABCWhyte-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-Bold.eot');
+    src: local('Whyte Bold'), local('Whyte-Bold'),
+        url('./fonts/ABCWhyte-Bold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Bold.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Bold.woff') format('woff'),
+        url('./fonts/ABCWhyte-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-BoldItalic.eot');
+    src: local('Whyte Bold Italic'), local('Whyte-BoldItalic'),
+        url('./fonts/ABCWhyte-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-BoldItalic.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-BoldItalic.woff') format('woff'),
+        url('./fonts/ABCWhyte-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-Heavy.eot');
+    src: local('Whyte Heavy'), local('Whyte-Heavy'),
+        url('./fonts/ABCWhyte-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Heavy.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Heavy.woff') format('woff'),
+        url('./fonts/ABCWhyte-Heavy.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-HeavyItalic.eot');
+    src: local('Whyte Heavy Italic'), local('Whyte-HeavyItalic'),
+        url('./fonts/ABCWhyte-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-HeavyItalic.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-HeavyItalic.woff') format('woff'),
+        url('./fonts/ABCWhyte-HeavyItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-Black.eot');
+    src: local('Whyte Black'), local('Whyte-Black'),
+        url('./fonts/ABCWhyte-Black.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Black.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Black.woff') format('woff'),
+        url('./fonts/ABCWhyte-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte';
+    src: url('./fonts/ABCWhyte-BlackItalic.eot');
+    src: local('Whyte Black Italic'), local('Whyte-BlackItalic'),
+        url('./fonts/ABCWhyte-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-BlackItalic.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-BlackItalic.woff') format('woff'),
+        url('./fonts/ABCWhyte-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte Super';
+    src: url('./fonts/ABCWhyte-Super.eot');
+    src: local('Whyte Super'), local('Whyte-Super'),
+        url('./fonts/ABCWhyte-Super.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-Super.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-Super.woff') format('woff'),
+        url('./fonts/ABCWhyte-Super.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whyte Super';
+    src: url('./fonts/ABCWhyte-SuperItalic.eot');
+    src: local('Whyte Super Italic'), local('Whyte-SuperItalic'),
+        url('./fonts/ABCWhyte-SuperItalic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ABCWhyte-SuperItalic.woff2') format('woff2'),
+        url('./fonts/ABCWhyte-SuperItalic.woff') format('woff'),
+        url('./fonts/ABCWhyte-SuperItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+// // Font initialization
+// $headings-font-family:'Whyte',
+// sans-serif;
+$font-family-base:'Whyte',
+sans-serif;
+
+h1 {
+    font-family: 'Whyte Super', sans-serif !important;
+}

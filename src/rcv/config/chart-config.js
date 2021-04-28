@@ -6,6 +6,7 @@ const colorTransparent = "rgba(255, 255, 255, 0)";
 const splitLineColor = "rgba(34, 20, 74, 0.15)";
 const fiftyPercentLineColor = "#333";
 const axisLabelColor = "#000";
+const fontFamily = "Whyte";
 
 export const isSmallScreen = window.innerWidth < 426;
 export const isMediumScreen =
@@ -18,7 +19,6 @@ export const barLabelProps = {
     fontSize: isSmallScreen || isMediumScreen ? 13 : 18,
   },
 };
-
 export const customColors = [
   "rgba(255, 255, 255, 0)",
   "#221649", // Purple
@@ -142,6 +142,7 @@ function getIconStyles(hasVotingEnded) {
     opacity: hasVotingEnded ? 0.05 : 0.2,
     fontWeight: 700,
     fontSize: isSmallScreen || isMediumScreen ? 14 : 21,
+    fontFamily,
   };
 
   iconPaths.forEach((iconPath, i) => {
@@ -222,6 +223,7 @@ export function formatRounds(ballotRounds, stepValue) {
 
     return Object.assign(round, {
       label: {
+        fontFamily,
         show: isLabelShown,
         formatter: stepValue === 1 ? "" : getSum(ballotRounds),
         position: labelPosition,
@@ -240,11 +242,11 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       left: isSmallScreen ? "25%" : "35%",
       top: isSmallScreen || isMediumScreen ? "38%" : "40%",
       textStyle: {
+        fontFamily,
         lineHeight: 40,
         color: customColors[1],
         fontWeight: 900,
         fontSize: isSmallScreen || isMediumScreen ? 28 : 36,
-        fontFamily: "Whyte",
       },
     },
     grid: {
@@ -268,6 +270,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
         show: false,
       },
       axisLabel: {
+        fontFamily,
         fontSize: isSmallScreen || isMediumScreen ? 14 : 18,
         padding: isSmallScreen || isMediumScreen ? [10, 0, 0, 10] : [15, 0, 0, 10],
         formatter: (value, index) => {
@@ -306,6 +309,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
         color: axisLabelColor,
         fontSize: isSmallScreen || isMediumScreen ? 14 : 21,
         fontWeight: "bolder",
+        fontFamily,
         formatter: (axisLabel, axisIndex) => {
           if (isSmallScreen) {
             if (axisIndex === 2) {
