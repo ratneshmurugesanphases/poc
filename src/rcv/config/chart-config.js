@@ -49,7 +49,7 @@ export const fiftyPercentLine = {
   lineStyle: {
     color: fiftyPercentLineColor,
     type: "dashed",
-    width: 2,
+    width: 3,
     opacity: 0.15,
   },
   label: {
@@ -195,7 +195,7 @@ export function formatRounds(ballotRounds, stepValue) {
   let isLabelShown = false;
   let labelLayout = {
     hideOverlap: true,
-    x: 70,
+    x: 65,
     dy: -5,
   };
   const brLen = ballotRounds.length - 1;
@@ -250,7 +250,7 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       },
     },
     grid: {
-      left: isSmallScreen ? -35 : 15,
+      left: isSmallScreen ? -30 : 15,
       right: "5%",
       bottom: "5%",
       top: "-14%",
@@ -272,12 +272,13 @@ export function getChartConfig({ stepValue, hasVotingEnded }) {
       axisLabel: {
         fontFamily,
         fontSize: isSmallScreen || isMediumScreen ? 14 : 18,
-        padding: isSmallScreen || isMediumScreen ? [10, 0, 0, 10] : [15, 0, 0, 10],
+        padding:
+          isSmallScreen || isMediumScreen ? [10, 0, 0, 10] : [15, 0, 0, 10],
         formatter: (value, index) => {
           if (isSmallScreen && index === 3) {
             return "";
           }
-          if (isMediumScreen && index === 6) {
+          if ((isMediumScreen || isLargeScreen) && index === 6) {
             return "";
           }
           return `${value}%`;
