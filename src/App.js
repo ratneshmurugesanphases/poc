@@ -1,73 +1,29 @@
-import React, { Component } from "react";
-import Scheduler from "./components/Scheduler";
-import Toolbar from "./components/Toolbar";
-import MessageArea from "./components/MessageArea";
+import React from "react";
 
-import "./App.css";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 
-const data = [
-  {
-    start_date: "2020-06-10 6:00",
-    end_date: "2020-06-10 8:00",
-    text: "Event 1",
-    id: 1,
-  },
-  {
-    start_date: "2020-06-13 10:00",
-    end_date: "2020-06-13 18:00",
-    text: "Event 2",
-    id: 2,
-  },
-];
+import DhtmlxDefaultView from "./components/DhtmlxDefaultView";
+import SlateApp from "./components/MasterSlave/SlateApp";
 
-class App extends Component {
-  state = {
-    currentTimeFormatState: true,
-    messages: [],
-  };
-  addMessage(message) {
-    const maxLogLength = 5;
-    const newMessage = { message };
-    const messages = [newMessage, ...this.state.messages];
+import Home from "./components/ModalRouting/Home";
+import Contacts from "./components/ModalRouting/Contacts";
+import Modal from "./components/ModalRouting/Modal";
 
-    if (messages.length > maxLogLength) {
-      messages.length = maxLogLength;
-    }
-    this.setState({ messages });
-  }
+// import "./App.css";
 
-  logDataUpdate = (action, ev, id) => {
-    const text = ev && ev.text ? ` (${ev.text})` : "";
-    const message = `event ${action}: ${id} ${text}`;
-    this.addMessage(message);
-  };
-
-  handleTimeFormatStateChange = (state) => {
-    this.setState({
-      currentTimeFormatState: state,
-    });
-  };
-
-  render() {
-    const { currentTimeFormatState, messages } = this.state;
-    return (
-      <div>
-        <div className="tool-bar">
-          <Toolbar
-            timeFormatState={currentTimeFormatState}
-            onTimeFormatStateChange={this.handleTimeFormatStateChange}
-          />
-        </div>
-        <div className="scheduler-container">
-          <Scheduler
-            events={data}
-            timeFormatState={currentTimeFormatState}
-            onDataUpdated={this.logDataUpdate}
-          />
-        </div>
-        <MessageArea messages={messages} />
-      </div>
-    );
-  }
+function App() {
+  // const location = useLocation() || "";
+  // const background = location.state && location.state.background;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/contacts" exact component={Contacts} />
+        <Route path="/dhtmlxdefaultview" exact component={DhtmlxDefaultView} />
+        <Route path="/master-slave" exact component={SlateApp} />
+      </Switch>
+      {<Route path="/contact/:name" children={<Modal />} />}
+    </BrowserRouter>
+  );
 }
 export default App;
