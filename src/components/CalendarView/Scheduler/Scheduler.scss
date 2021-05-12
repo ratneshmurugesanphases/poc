@@ -1,0 +1,24 @@
+$fadeDuration: 500ms;
+
+@mixin applyFadeEffect {
+    -webkit-animation: fadein $fadeDuration;
+    -moz-animation: fadein $fadeDuration;
+    -ms-animation: fadein $fadeDuration;
+    -o-animation: fadein $fadeDuration;
+    animation: fadein $fadeDuration;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.scheduler-container {
+    // height: calc(100vh - 50px - 200px);
+    height: 90vh;
+    // width: 100vw;
+    @include applyFadeEffect();
+}
