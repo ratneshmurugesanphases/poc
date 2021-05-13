@@ -19,6 +19,11 @@ const Home = () => {
           master-slave
         </button>
       </Link>
+      <Link to="/monday-view">
+        <button className="rounded-lg bg-indigo-400 px-4 py-2 mt-4 text-white font-bold hover:bg-indigo-500">
+          Monday view
+        </button>
+      </Link>
     </div>
   );
 };

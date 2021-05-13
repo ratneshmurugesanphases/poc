@@ -22,3 +22,7 @@ $fadeDuration: 500ms;
     // width: 100vw;
     @include applyFadeEffect();
 }
+
+.dhx_cal_date{
+    cursor: pointer;
+}

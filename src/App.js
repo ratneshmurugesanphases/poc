@@ -2,12 +2,13 @@ import React from "react";
 
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
-import CalendarView from "./components/CalendarView";
-import SlateApp from "./components/MasterSlave/SlateApp";
+import CalendarView from "pages/CalendarView";
+import SlateApp from "pages/MasterSlave/SlateApp";
+import MondayView from "pages/MondayView";
 
-import Home from "./components/Routing/Home";
-import Contacts from "./components/Routing/Contacts";
-import Modal from "./components/Routing/Modal";
+import Home from "pages/Routing/Home";
+import Contacts from "pages/Routing/Contacts";
+import Modal from "pages/Routing/Modal";
 
 // import "./App.css";
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/contacts" exact component={Contacts} />
         <Route path="/calendar-view" exact component={CalendarView} />
         <Route path="/master-slave" exact component={SlateApp} />
+        <Route path="/monday-view" exact component={MondayView} />
       </Switch>
       {<Route path="/contact/:name" children={<Modal />} />}
     </BrowserRouter>
