@@ -24,6 +24,11 @@ const Home = () => {
           Monday view
         </button>
       </Link>
+      <Link to="/modal-form">
+        <button className="rounded-lg bg-indigo-400 px-4 py-2 mt-4 text-white font-bold hover:bg-indigo-500">
+          Modal with form
+        </button>
+      </Link>
     </div>
   );
 };

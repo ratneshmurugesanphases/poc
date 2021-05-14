@@ -31,6 +31,10 @@ const useScheduleController = () => {
             ),
         },
         "spacer",
+        {
+          html: "RESERVE",
+          click: () => alert("Book events")
+        },
         "spacer",
         "prev",
         "today",

@@ -9,6 +9,8 @@ import MondayView from "pages/MondayView";
 import Home from "pages/Routing/Home";
 import Contacts from "pages/Routing/Contacts";
 import Modal from "pages/Routing/Modal";
+import ModalForm from "pages/ModalForm";
+
 
 // import "./App.css";
 
@@ -23,6 +25,8 @@ function App() {
         <Route path="/calendar-view" exact component={CalendarView} />
         <Route path="/master-slave" exact component={SlateApp} />
         <Route path="/monday-view" exact component={MondayView} />
+        <Route path="/modal-form" exact component={ModalForm} />
+
       </Switch>
       {<Route path="/contact/:name" children={<Modal />} />}
     </BrowserRouter>
