@@ -1,4 +1,4 @@
-function sortData({ datatoBeSorted, sortByProperty, sortType = "ascending" }) {
+function sortData({ datatoBeSorted, sortByProperty, sortType = true }) {
   return sortType
     ? datatoBeSorted.sort((prop1, prop2) => {
         if (prop1[sortByProperty] < prop2[sortByProperty]) {

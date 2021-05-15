@@ -3,12 +3,12 @@ import { useState } from "react";
 import generateData from "pages/MondayView/helpers/generateData";
 import sortData from "pages/MondayView/helpers/sortData";
 
-const { columns, data } = generateData(5);
+const { columns, data } = generateData(10);
 
 const useTableController = () => {
   const [cols, setCols] = useState(columns);
   const [rows] = useState(data);
-  const [sortOrder, setSortOrder] = useState(false);
+  const [sortType, setSortType] = useState(false);
 
   const [dragOverCol, setDragOverCol] = useState("");
 
@@ -37,26 +37,26 @@ const useTableController = () => {
     setDragOverCol("");
   };
 
-  const handleSortClick = () => setSortOrder((sortOrder) => !sortOrder);
+  const handleSortClick = () => setSortType((sortOrder) => !sortOrder);
 
   console.log({ rows, cols });
 
   const sortedRows = sortData({
     datatoBeSorted: rows,
-    sortByProperty: "email",
-    sortType: !!(sortOrder && "ascending"),
+    sortByProperty: "Email",
+    sortType,
   });
 
-  return [
+  return {
     cols,
-    sortedRows,
+    rows: sortedRows,
     dragOverCol,
     handleDragStart,
     handleDragOver,
     handleDragEnter,
     handleOnDrop,
     handleSortClick,
-  ];
+  };
 };
 
 export default useTableController;

@@ -1,15 +1,21 @@
-import { name, internet, date } from "faker";
-import { initialTableColumnOrder as columnNames } from "../config/base";
+import {date } from "faker";
 
 const generateData = (totalRows = 5) => {
   let rows = [];
   for (let i = 0; i < totalRows; i++) {
     rows.push({
-      [columnNames[0]]: name.lastName(),
-      [columnNames[1]]: `${name.firstName()} ${name.lastName()}`,
-      [columnNames[2]]: internet.email(),
-      [columnNames[3]]: date.past().toLocaleDateString("en-US"),
-      id: "ID"
+      "Subarea": `Subarea ${i}`,
+      "Comments": `Comments ${i}`,
+      "Status": `Status ${i}`,
+      "Email": `email@email.com ${i}`,
+      "Link": `www.abc${i}.com`,
+      "Timeline": date.past().toLocaleDateString("en-US"),
+      "Oppe": `Oppe ${i}`,
+      "Tags": `Tags ${i}`,
+      "Initiative contact person": `ICP ${i}`,
+      "Aktor": `Aktor name ${i}`,
+      "Scenes": `Scene ${i}`,
+      "Id": i
     });
   }
 

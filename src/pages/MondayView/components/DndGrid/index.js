@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useRef, forwardRef } from "react";
 
-import { Table, StyledTh, StyledRow, StyledCell } from "./styles";
+import {
+  StyledGrid,
+  StyledGridHeaderRow,
+  StyledGridHeader,
+  StyledGridBodyRow,
+  StyledGridCell,
+  StyledGridHeaderMenuButton,
+} from "./styles";
 import MenuButton from "monday-ui-react-core/dist/MenuButton";
 import Menu from "monday-ui-react-core/dist/Menu";
 import MenuItem from "monday-ui-react-core/dist/MenuItem";
+import EditableInput from "monday-ui-react-core/dist/EditableInput";
 import Tooltip from "monday-ui-react-core/dist/Tooltip";
+// import SvgIcon from "@material-ui/core/SvgIcon";
+import DropdownChevronDown from "monday-ui-react-core/dist/icons/DropdownChevronDown";
+import Info from "monday-ui-react-core/dist/icons/Info";
 
-import SvgIcon from "@material-ui/core/SvgIcon";
 import useTableController from "../../hooks/useTableController";
+import GroupCollapser from "atoms/GroupCollapser";
+
+const GridHeaderMenuButton = forwardRef((props, menuButtonRef) => {
+  // console.log("SGHMBW", menuButtonRef);
+  return (
+    <StyledGridHeaderMenuButton>
+      <MenuButton
+        dialogPosition={MenuButton.dialogPositions.BOTTOM_END}
+        ref={menuButtonRef}
+        component={DropdownChevronDown}
+      >
+        <Menu id="menu" size={Menu.sizes.MEDIUM}>
+          <MenuItem title="The sun" />
+          <MenuItem title="The moon" />
+          <MenuItem title="And the stars" />
+        </Menu>
+      </MenuButton>
+    </StyledGridHeaderMenuButton>
+  );
+});
 
 const DndGrid = () => {
-  const [
+  const {
     cols,
     rows,
     dragOverCol,
@@ -19,68 +49,72 @@ const DndGrid = () => {
     handleDragEnter,
     handleOnDrop,
     handleSortClick,
-  ] = useTableController();
+  } = useTableController();
 
   return (
-    <>
-      <Table>
-        <thead>
-          <tr>
-            {cols.map((colName, colIndex) => {
-              return (
-                <StyledTh
-                  id={colName}
-                  key={colIndex}
-                  draggable
-                  onDragStart={handleDragStart}
-                  onDragOver={handleDragOver}
-                  onDrop={handleOnDrop}
-                  onDragEnter={handleDragEnter}
-                  dragOver={colName === dragOverCol}
-                >
-                  {colName}
-                  <Tooltip
-                    // showDelay={600}
-                    content={`I'm a tooltip`}
-                    immediateShowDelay={5000}
-                  >
-                    <MenuButton
-                      dialogPosition={MenuButton.dialogPositions.BOTTOM_END}
-                      ariaLabel={"Bottom Start"}
+    <GroupCollapser>
+      {() => (
+        <>
+          <StyledGrid>
+            <div>
+              <StyledGridHeaderRow colLength={cols.length}>
+                {cols.map((colName, colIndex) => {
+                  return (
+                    <>
+                      <StyledGridHeader
+                        id={colName}
+                        key={colIndex}
+                        draggable
+                        onDragStart={handleDragStart}
+                        onDragOver={handleDragOver}
+                        onDrop={handleOnDrop}
+                        onDragEnter={handleDragEnter}
+                        dragOver={colName === dragOverCol}
+                        // onMouseOver={handleMouseOver}
+                      >
+                        {/* <button onClick={handleSortClick}>SORT</button> */}
+                        <div style={{ width: "40px" }}></div>
+                        <EditableInput
+                          inputType="input"
+                          ariaLabel="Header title edit"
+                          aria-label="Header title edit"
+                          value={colName}
+                        />
+                        <Tooltip
+                          showDelay={0}
+                          content={colName}
+                          immediateShowDelay={0}
+                        >
+                          <Info />
+                        </Tooltip>
+                        <GridHeaderMenuButton />
+                      </StyledGridHeader>
+                    </>
+                  );
+                })}
+              </StyledGridHeaderRow>
+            </div>
+            <div>
+              {rows.map((row, rowIndex) => (
+                <StyledGridBodyRow key={rowIndex} colLength={cols.length}>
+                  {Object.entries(row).map(([_, value], idx) => (
+                    <StyledGridCell
+                      className="cell"
+                      key={value}
+                      dragOver={cols[idx] === dragOverCol}
+                      colLength={cols.length}
                     >
-                      <Menu id="menu" size={Menu.sizes.MEDIUM}>
-                        <MenuItem title="The sun" />
-                        <MenuItem title="The moon" />
-                        <MenuItem title="And the stars" />
-                      </Menu>
-                    </MenuButton>
-                    <SvgIcon>
-                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                    </SvgIcon>
-                  </Tooltip>
-                </StyledTh>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, rowIndex) => (
-            <StyledRow key={rowIndex}>
-              {Object.entries(row).map(([_, v], idx) => (
-                <StyledCell
-                  className="cell"
-                  key={v}
-                  dragOver={cols[idx] === dragOverCol}
-                >
-                  {row[cols[idx]]}
-                </StyledCell>
+                      {row[cols[idx]]}
+                    </StyledGridCell>
+                  ))}
+                </StyledGridBodyRow>
               ))}
-            </StyledRow>
-          ))}
-        </tbody>
-      </Table>
-      <button onClick={handleSortClick}>SORT</button>
-    </>
+            </div>
+          </StyledGrid>
+          <button onClick={handleSortClick}>SORT</button>
+        </>
+      )}
+    </GroupCollapser>
   );
 };
 

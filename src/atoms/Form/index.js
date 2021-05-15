@@ -6,9 +6,8 @@ import Dialog from "@material-ui/core/Dialog";
 import Dropdown from "monday-ui-react-core/dist/Dropdown";
 import TextField from "monday-ui-react-core/dist/TextField";
 import TextFieldMui from "@material-ui/core/TextField";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Collapse from "@material-ui/core/Collapse";
+
+import GroupCollapser from "../GroupCollapser";
 import RichTextEditor from "react-rte";
 
 import {
@@ -157,11 +156,7 @@ function PaperComponent(props) {
 export default function Form() {
   const { handleSubmit, reset, control, register } = useForm({ defaultValues });
   const [open, setOpen] = React.useState(true);
-  const [collapse, setCollapse] = React.useState(true);
 
-  const handleClick = () => {
-    setCollapse(!collapse);
-  };
   const onSubmit = (data) => console.log("onSubmit", data);
 
   const handleClose = () => {
@@ -186,66 +181,65 @@ export default function Form() {
         aria-describedby="scroll-dialog-description"
       >
         <div id="draggable-dialog-title"> DRAG IT</div>
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>New Booking</ListItemIcon>
-          {collapse ? "LESS" : "MORE"}
-        </ListItem>
-        <Collapse in={collapse} timeout="auto" unmountOnExit>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div id="scroll-dialog-title">New Booking</div>
-            <div>
-              <CustomMondayDropDown
-                id="mainArea"
-                name="mainArea"
-                customLabel="Main Area"
-                className="mainArea"
-                type=""
-                tabIndex={0}
-                labelIconName=""
-                placeholder="mainArea"
-                options={mockOptionData}
-                isVirtualized={true}
-                validation={{ text: "Assist text" }}
-                // rhf
-                control={control}
-                register={register}
-                // methods
-                // onChange={handleDropdownOptionChange}
-              />
-              <CustomMondayTextInput
-                id="initiativePost"
-                name="initiativePost"
-                customLabel="Initiative Name"
-                className="initiativePost"
-                type=""
-                labelIconName="fa-envelope"
-                placeholder="Placeholder text"
-                size={TextField.sizes.SMALL}
-                validation={{ text: "Assist text" }}
-                // rhf
-                control={control}
-                register={register}
-              />
-              <CustomMuiDateTime
-                id="datetime-local"
-                name="dateTime"
-                className="datetime-local"
-                control={control}
-                type="datetime-local"
-                placeholder="datetime-local"
-              />
-              <RichTextEditor
-                // value={this.state.value}
-                value={RichTextEditor.createEmptyValue()}
-                // onChange={this.onChange}
-              />
-              <button type="button" onClick={() => reset({ defaultValues })}>
-                Reset
-              </button>
-              <input type="submit" />
-            </div>
-          </form>
-        </Collapse>
+
+        <GroupCollapser>
+          {() => (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div id="scroll-dialog-title">New Booking</div>
+              <div>
+                <CustomMondayDropDown
+                  id="mainArea"
+                  name="mainArea"
+                  customLabel="Main Area"
+                  className="mainArea"
+                  type=""
+                  tabIndex={0}
+                  labelIconName=""
+                  placeholder="mainArea"
+                  options={mockOptionData}
+                  isVirtualized={true}
+                  validation={{ text: "Assist text" }}
+                  // rhf
+                  control={control}
+                  register={register}
+                  // methods
+                  // onChange={handleDropdownOptionChange}
+                />
+                <CustomMondayTextInput
+                  id="initiativePost"
+                  name="initiativePost"
+                  customLabel="Initiative Name"
+                  className="initiativePost"
+                  type=""
+                  labelIconName="fa-envelope"
+                  placeholder="Placeholder text"
+                  size={TextField.sizes.SMALL}
+                  validation={{ text: "Assist text" }}
+                  // rhf
+                  control={control}
+                  register={register}
+                />
+                <CustomMuiDateTime
+                  id="datetime-local"
+                  name="dateTime"
+                  className="datetime-local"
+                  control={control}
+                  type="datetime-local"
+                  placeholder="datetime-local"
+                />
+                <RichTextEditor
+                  // value={this.state.value}
+                  value={RichTextEditor.createEmptyValue()}
+                  // onChange={this.onChange}
+                />
+                <button type="button" onClick={() => reset({ defaultValues })}>
+                  Reset
+                </button>
+                <input type="submit" />
+              </div>
+            </form>
+          )}
+        </GroupCollapser>
       </Dialog>
     </div>
   );
