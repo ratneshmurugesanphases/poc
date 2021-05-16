@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { SlateContext } from "./context";
+import { SlateContext } from "../SlateContext";
 
 function SideSlate() {
   const { sideSlateRef } = useContext(SlateContext);

@@ -11,11 +11,11 @@ const generateData = (totalRows = 5) => {
       "Link": `www.abc${i}.com`,
       "Timeline": date.past().toLocaleDateString("en-US"),
       "Oppe": `Oppe ${i}`,
-      "Tags": `Tags ${i}`,
-      "Initiative contact person": `ICP ${i}`,
-      "Aktor": `Aktor name ${i}`,
-      "Scenes": `Scene ${i}`,
-      "Id": i
+      // "Tags": `Tags ${i}`,
+      // "Initiative contact person": `ICP ${i}`,
+      // "Aktor": `Aktor name ${i}`,
+      // "Scenes": `Scene ${i}`,
+      // "Id": i
     });
   }
 

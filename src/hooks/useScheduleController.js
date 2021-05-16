@@ -2,8 +2,8 @@ import { useEffect, useRef, useContext, useState } from "react";
 
 // import { getDate, getMonth, getYear } from "date-fns";
 
-import { CalendarViewContext } from "contexts/CalendarViewContextProvider";
-import getSchedulerData from "../utils";
+import { CalendarViewContext } from "contexts/CalendarViewContext";
+import getSchedulerData from "helpers/getSchedulerData";
 
 
 const scheduler = window.scheduler;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SlateContextProvider } from "./context";
+import { SlateContextProvider } from "../SlateContext";
 
 import MainSlate from "./MainSlate";
 import SideSlate from "./SideSlate";

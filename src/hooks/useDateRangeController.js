@@ -2,8 +2,8 @@ import { useState, useContext } from "react";
 import { isBefore } from "date-fns";
 import {
   START_DATE,
-} from "pages/CalendarView/config/dateConfig";
-import { CalendarViewContext } from "contexts/CalendarViewContextProvider";
+} from "configs/dateConfig";
+import { CalendarViewContext } from "contexts/CalendarViewContext";
 
 const useDateRangePicker = () => {
   const { customDateRangePickerRef } = useContext(CalendarViewContext);

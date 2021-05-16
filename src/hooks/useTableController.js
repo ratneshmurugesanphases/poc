@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import generateData from "pages/MondayView/helpers/generateData";
-import sortData from "pages/MondayView/helpers/sortData";
+import generateData from "helpers/generateData";
+import sortData from "helpers/sortData";
 
 const { columns, data } = generateData(10);
 

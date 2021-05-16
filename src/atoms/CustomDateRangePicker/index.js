@@ -8,7 +8,7 @@ import {
 
 import "./styles.scss"
 
-import useDateRangePicker from "atoms/CustomDateRangePicker/hooks/useDateRangePicker";
+import useDateRangePicker from "hooks/useDateRangeController";
 
 const CustomDateRangePicker = () => {
   const [
@@ -23,7 +23,7 @@ const CustomDateRangePicker = () => {
 
 
   return (
-    <>
+    <div tabIndex={0}>
       <Modal
         open={showDatePicker}
         onClose={(_) => setShowDatePicker(!showDatePicker)}
@@ -43,7 +43,7 @@ const CustomDateRangePicker = () => {
           direction="horizontal"
         />
       </Modal>
-    </>
+    </div>
   );
 };
 

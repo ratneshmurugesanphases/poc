@@ -17,7 +17,7 @@ import Tooltip from "monday-ui-react-core/dist/Tooltip";
 import DropdownChevronDown from "monday-ui-react-core/dist/icons/DropdownChevronDown";
 import Info from "monday-ui-react-core/dist/icons/Info";
 
-import useTableController from "../../hooks/useTableController";
+import useTableController from "../../../../hooks/useTableController";
 import GroupCollapser from "atoms/GroupCollapser";
 
 const GridHeaderMenuButton = forwardRef((props, menuButtonRef) => {
