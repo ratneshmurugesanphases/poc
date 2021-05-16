@@ -2,11 +2,9 @@ import React from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { Modal } from "@material-ui/core";
-import {
-  DateRangePicker,
-} from "react-date-range";
+import { DateRangePicker } from "react-date-range";
 
-import "./styles.scss"
+import "./styles.scss";
 
 import useDateRangePicker from "hooks/useDateRangeController";
 
@@ -16,11 +14,10 @@ const CustomDateRangePicker = () => {
     dateRange,
     showDatePicker,
     setShowDatePicker,
-    handleDateChange
+    handleDateChange,
   ] = useDateRangePicker();
 
   // console.log(showDatePicker);
-
 
   return (
     <div tabIndex={0}>

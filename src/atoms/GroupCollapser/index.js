@@ -3,7 +3,7 @@ import Collapse from "@material-ui/core/Collapse";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
-export default function GroupCollapser({ children }) {
+export default function GroupCollapser({ children, groupName, totalItems = 99 }) {
   const [collapse, setCollapse] = React.useState(true);
   // console.log(children);
 
@@ -11,8 +11,9 @@ export default function GroupCollapser({ children }) {
   return (
     <>
       <ListItem button onClick={handleCollapseClick}>
-        <ListItemIcon>New Booking</ListItemIcon>
+        <ListItemIcon>{groupName}</ListItemIcon>
         {collapse ? "LESS" : "MORE"}
+        {`${totalItems} items`}
       </ListItem>
       <Collapse timeout="auto" unmountOnExit in={collapse} key={1}>
         {children()}

@@ -12,6 +12,8 @@ ReactDOM.render(
       domain="ratnesh-phases.eu.auth0.com"
       clientId="UyZ7PUPXNGBLBsByZ837VfNGeQYjBKSL"
       redirectUri="http://localhost:3000/overview"
+      audience="https://ratnesh-phases.eu.auth0.com/api/v2/"
+      scope="read:current_user update:current_user_metadata"
     >
       <App />
     </Auth0Provider>

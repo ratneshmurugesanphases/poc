@@ -1,6 +1,6 @@
 import React from "react";
 import Scheduler from "atoms/Scheduler";
-import CustomDateRangePicker from "atoms/CustomDateRangePicker";
+import CustomDateRangePicker from "atoms/DateRangePicker";
 import { CalendarViewContextProvider } from "contexts/CalendarViewContext";
 
 function DhtmlxDefaultView() {

@@ -11,6 +11,7 @@ import {
 
 // import Modal from "pocs/Routing/Modal";
 import routes from "configs/routeConfig";
+import "monday-ui-react-core/dist/main.css";
 import "./App.scss";
 
 const Overview = lazy(() => import("pages/Overview"));
@@ -70,7 +71,7 @@ function App() {
             return <Route key={routeId} path="/:viewId" component={PageView} />;
           })}
         </Switch>
-        <Redirect to="/log-in" from="*" />
+        {/* <Redirect to="/log-in" from="" /> */}
         {/* {<Route path="/contact/:name" children={<Modal />} />} */}
       </BrowserRouter>
     </Suspense>
