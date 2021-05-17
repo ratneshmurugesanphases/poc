@@ -18,14 +18,15 @@ const StyledGridCell = styled.span`
 `;
 
 export default function GridCell({ value, dragOverCol, cols, row, idx }) {
+  // console.log({ row, cols, idx });
   return (
     <StyledGridCell
       className="cell"
-      key={value}
+      key={value.text}
       dragOver={cols[idx] === dragOverCol}
       colLength={cols.length}
     >
-      {row[cols[idx]]}
+      {row[cols[idx]].component}
     </StyledGridCell>
   );
 }

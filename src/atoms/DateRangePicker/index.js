@@ -6,7 +6,7 @@ import { DateRangePicker } from "react-date-range";
 
 import "./styles.scss";
 
-import useDateRangePicker from "hooks/useDateRangeController";
+import useDateRangeController from "hooks/useDateRangeController";
 
 const CustomDateRangePicker = () => {
   const [
@@ -15,7 +15,7 @@ const CustomDateRangePicker = () => {
     showDatePicker,
     setShowDatePicker,
     handleDateChange,
-  ] = useDateRangePicker();
+  ] = useDateRangeController();
 
   // console.log(showDatePicker);
 

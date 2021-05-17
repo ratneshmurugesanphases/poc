@@ -1,18 +1,35 @@
-function sortData({ datatoBeSorted, sortByProperty, sortType = true }) {
+function sortData({
+  datatoBeSorted,
+  sortByProperty,
+  subProperty,
+  sortType = true,
+}) {
   return sortType
     ? datatoBeSorted.sort((prop1, prop2) => {
-        if (prop1[sortByProperty] < prop2[sortByProperty]) {
+        if (
+          prop1[sortByProperty][subProperty] <
+          prop2[sortByProperty][subProperty]
+        ) {
           return -1;
-        } else if (prop1[sortByProperty] > prop2[sortByProperty]) {
+        } else if (
+          prop1[sortByProperty][subProperty] >
+          prop2[sortByProperty][subProperty]
+        ) {
           return 1;
         } else {
           return 0;
         }
       })
     : datatoBeSorted.sort((prop1, prop2) => {
-        if (prop1[sortByProperty] < prop2[sortByProperty]) {
+        if (
+          prop1[sortByProperty][subProperty] <
+          prop2[sortByProperty][subProperty]
+        ) {
           return 1;
-        } else if (prop1[sortByProperty] > prop2[sortByProperty]) {
+        } else if (
+          prop1[sortByProperty][subProperty] >
+          prop2[sortByProperty][subProperty]
+        ) {
           return -1;
         } else {
           return 0;

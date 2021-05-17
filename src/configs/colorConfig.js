@@ -1,2 +1,2 @@
-const statusColors = {};
-export default statusColors;
+export const statusColors = {};
+export const groupColorList = ["palegoldenrod", "palevioletred", "peachpuff"];

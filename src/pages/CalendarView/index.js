@@ -1,11 +1,11 @@
 import React from "react";
 import Scheduler from "atoms/Scheduler";
 import CustomDateRangePicker from "atoms/DateRangePicker";
-import { CalendarViewContextProvider } from "contexts/CalendarViewContext";
+import { DateRangePickerContextProvider } from "contexts/DateRangePickerContext";
 
 function DhtmlxDefaultView() {
   return (
-    <CalendarViewContextProvider>
+    <DateRangePickerContextProvider>
       <div className="scheduler-container">
         <Scheduler />
         <CustomDateRangePicker
@@ -23,7 +23,7 @@ function DhtmlxDefaultView() {
         Switch
       </Link> */}
       </div>
-    </CalendarViewContextProvider>
+    </DateRangePickerContextProvider>
   );
 }
 export default DhtmlxDefaultView;

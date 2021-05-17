@@ -1,0 +1,14 @@
+.rdrDateRangePickerWrapper{
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+  outline: none;
+}
+
+.rdrDefinedRangesWrapper{
+  display: none;
+}
+
+div[data-test] {
+  display: none;
+}

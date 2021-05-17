@@ -1,20 +1,25 @@
 import { useEffect, useRef, useContext, useState } from "react";
-
 // import { getDate, getMonth, getYear } from "date-fns";
+import { useLocation } from "react-router-dom";
 
-import { CalendarViewContext } from "contexts/CalendarViewContext";
+import { DateRangePickerContext } from "contexts/DateRangePickerContext";
 import getSchedulerData from "helpers/getSchedulerData";
-
 
 const scheduler = window.scheduler;
 const useScheduleController = () => {
-  const schedulerContainer = useRef(null);
-  const { customDateRangePickerRef } = useContext(CalendarViewContext);
+  const schedulerContainerRef = useRef(null);
+  const { customDateRangePickerRef } = useContext(DateRangePickerContext);
   const [currentDateRange, setCurrentDateRange] = useState("");
+  const [currLoc, setCurrLoc] = useState(useLocation());
 
+  // const [currentLocation, setCurrentLocation] = useState(useLocation());
+
+  //TODO - use baseConfig for default values
   useEffect(
     (_) => {
       const schedulerData = getSchedulerData();
+      const currentRef = customDateRangePickerRef;
+
       scheduler.skin = "material";
       scheduler.config.header = [
         "day",
@@ -24,16 +29,16 @@ const useScheduleController = () => {
         {
           view: "date",
           click: () =>
-            customDateRangePickerRef &&
-            customDateRangePickerRef.current &&
-            customDateRangePickerRef.current.setShowDatePicker(
+            currentRef &&
+            currentRef.current &&
+            currentRef.current.setShowDatePicker(
               (showDatePicker) => !showDatePicker
             ),
         },
         "spacer",
         {
           html: "RESERVE",
-          click: () => alert("Book events")
+          click: () => alert("Book events"),
         },
         "spacer",
         "prev",
@@ -69,11 +74,10 @@ const useScheduleController = () => {
         const minDate = scheduler.getState().min_date;
         const maxDate = scheduler.getState().max_date;
 
-
         // scheduler.updateView(new Date(2012,5,3), "day");
         // setCurrentDateRange(new_date);
         // console.log("date", {date, month, year});
-        console.log("date", {minDate, date, maxDate});
+        console.log("date", { minDate, date, maxDate });
 
         customDateRangePickerRef.current.setDateRange([
           {
@@ -87,7 +91,7 @@ const useScheduleController = () => {
       scheduler._$initialized = true;
       console.log("initSchedulerEvents");
 
-      scheduler.init(schedulerContainer.current, new Date(), "week");
+      scheduler.init(schedulerContainerRef.current, new Date(), "week");
       scheduler.parse(schedulerData);
       // scheduler.config.hour_date = state ? "%H:%i" : "%g:%i %A";
       scheduler.config.hour_date = "%g:%i %A";
@@ -97,14 +101,30 @@ const useScheduleController = () => {
 
       return () => {
         scheduler.clearAll();
+        // setCurrentLocation("");
+        setCurrLoc("");
+        console.log("Scheduler cleaned-up", currLoc);
       };
     },
-    [customDateRangePickerRef]
+    [customDateRangePickerRef, currLoc]
   );
+
+  console.log("outside", currLoc);
+
+  // const [path, setPath] = useState("");
+  // const { pathname } = useLocation();
+  // console.log("pathname", pathname);
+
+  // useEffect(() => {
+  //   console.log("Schedule useEffect");
+  //   setPath(pathname);
+  //   return () => {
+  //   };
+  // }, [path, pathname]);
 
   console.log("useScheduleController", currentDateRange);
 
-  return [schedulerContainer, setCurrentDateRange];
+  return [schedulerContainerRef, setCurrentDateRange];
 };
 
 export default useScheduleController;

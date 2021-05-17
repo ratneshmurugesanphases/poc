@@ -3,7 +3,7 @@ import { useState } from "react";
 import generateData from "helpers/generateData";
 import sortData from "helpers/sortData";
 
-const { columns, data } = generateData(10);
+const { columns, data } = generateData(3);
 
 const useTableController = () => {
   const [cols, setCols] = useState(columns);
@@ -43,7 +43,8 @@ const useTableController = () => {
 
   const sortedRows = sortData({
     datatoBeSorted: rows,
-    sortByProperty: "Email",
+    sortByProperty: "email",
+    subProperty: "text",
     sortType,
   });
 

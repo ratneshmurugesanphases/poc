@@ -3,10 +3,10 @@ import { isBefore } from "date-fns";
 import {
   START_DATE,
 } from "configs/dateConfig";
-import { CalendarViewContext } from "contexts/CalendarViewContext";
+import { DateRangePickerContext } from "contexts/DateRangePickerContext";
 
-const useDateRangePicker = () => {
-  const { customDateRangePickerRef } = useContext(CalendarViewContext);
+const useDateRangeController = () => {
+  const { customDateRangePickerRef } = useContext(DateRangePickerContext);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateRange, setDateRange] = useState([
     {
@@ -15,7 +15,7 @@ const useDateRangePicker = () => {
       key: "selection",
     },
   ]);
-  customDateRangePickerRef.current = { setShowDatePicker, setDateRange };
+  if(customDateRangePickerRef) customDateRangePickerRef.current = { setShowDatePicker, setDateRange };
 
   const handleDateChange = (item) => {
     console.log("handleDateChange");
@@ -49,4 +49,4 @@ const useDateRangePicker = () => {
   ];
 };
 
-export default useDateRangePicker;
+export default useDateRangeController;
