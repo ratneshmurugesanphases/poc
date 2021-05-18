@@ -1,23 +1,15 @@
 import { useState } from "react";
-
-import generateData from "helpers/generateData";
-import sortData from "helpers/sortData";
-
-const { columns, data } = generateData(3);
+import { useMondayViewDeps } from "contexts/MondayViewContext";
 
 const useTableController = () => {
-  const [cols, setCols] = useState(columns);
-  const [rows] = useState(data);
+  const { state, dispatch } = useMondayViewDeps();
+  const { cols, rows } = state;
   const [sortType, setSortType] = useState(false);
-  const [sortByProperty, setSortByProperty] = useState("email");
-
-
   const [dragOverCol, setDragOverCol] = useState("");
 
   const handleDragStart = (e) => {
     const { id } = e.target;
     const idx = cols.indexOf(id);
-    console.log("handleDragStart", { id, idx });
     e.dataTransfer.setData("colIdx", idx);
   };
 
@@ -32,30 +24,23 @@ const useTableController = () => {
     const droppedColIdx = cols.indexOf(id);
     const draggedColIdx = e.dataTransfer.getData("colIdx");
     const tempCols = [...cols];
-
     tempCols[draggedColIdx] = cols[droppedColIdx];
     tempCols[droppedColIdx] = cols[draggedColIdx];
-    setCols(tempCols);
+    dispatch({ type: "SWAP_COLUMN", payload: { swappedCol: tempCols } });
     setDragOverCol("");
   };
 
   const handleSortClick = (colName) => {
-    setSortType((sortOrder) => !sortOrder);
-    setSortByProperty(colName);
+    setSortType(!sortType);
+    dispatch({
+      type: "SORT_BY_PROPERTY",
+      payload: { sortByProperty: colName, subProperty: "text", sortType },
+    });
   };
-
-  console.log({ rows, cols });
-
-  const sortedRows = sortData({
-    datatoBeSorted: rows,
-    sortByProperty: sortByProperty,
-    subProperty: "text",
-    sortType,
-  });
 
   return {
     cols,
-    rows: sortedRows,
+    rows,
     dragOverCol,
     handleDragStart,
     handleDragOver,

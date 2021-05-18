@@ -2,13 +2,13 @@ import { useEffect, useRef, useContext, useState } from "react";
 // import { getDate, getMonth, getYear } from "date-fns";
 import { useLocation } from "react-router-dom";
 
-import { DateRangePickerContext } from "contexts/DateRangePickerContext";
+import { useDateRangePickerDeps } from "contexts/DateRangePickerContext";
 import getSchedulerData from "helpers/getSchedulerData";
 
 const scheduler = window.scheduler;
 const useScheduleController = () => {
   const schedulerContainerRef = useRef(null);
-  const { customDateRangePickerRef } = useContext(DateRangePickerContext);
+  const { customDateRangePickerRef } = useDateRangePickerDeps();
   const [currentDateRange, setCurrentDateRange] = useState("");
   const [currLoc, setCurrLoc] = useState(useLocation());
 

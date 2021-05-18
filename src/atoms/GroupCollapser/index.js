@@ -28,7 +28,7 @@ export default function GroupCollapser({
       id={`groupCollapser${groupCollapserKey}`}
       key={`groupCollapser${groupCollapserKey}`}
     >
-      <ListItem button onClick={handleCollapseClick}>
+      <ListItem button onClick={handleCollapseClick} style={{ height: "50px" }}>
         {collapse ? "LESS" : "MORE"}
         &nbsp; &nbsp; &nbsp;
         <ListItemIcon>{subarea}</ListItemIcon>

@@ -37,7 +37,7 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) => {
-        console.log("PrivateRoute", location);
+        // console.log("PrivateRoute", location);
         return fakeAuth.isAuthenticated === true ? (
           children
         ) : (
@@ -64,11 +64,11 @@ function PageView() {
   const matchedRoute = getMatchedRoute(viewId);
   let matchedPath = "/";
   let pageKey = "login";
-  console.log(matchedRoute);
+  // console.log(matchedRoute);
   if (matchedRoute && matchedRoute.pageKey) {
     matchedPath = `/${viewId}`;
     pageKey = matchedRoute.pageKey;
-    console.log({ matchedPath, matchedRoute, viewId });
+    // console.log({ matchedPath, matchedRoute, viewId });
     return (
       <PrivateRoute>
         <Route path={matchedPath}>{componentRouteMap[pageKey]}</Route>

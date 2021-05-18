@@ -13,7 +13,7 @@ const LogoutButton = () => {
   // );
 
   return fakeAuth.isAuthenticated === true ? (
-    <p>
+    <p style={{ float: "right"}}>
       <button
         onClick={() => {
           fakeAuth.signout(() => history.push("/"));
