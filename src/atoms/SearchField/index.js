@@ -4,10 +4,10 @@ import SearchIcon from "monday-ui-react-core/dist/icons/Search";
 import CloseSmall from "monday-ui-react-core/dist/icons/CloseSmall";
 
 export default function SearchField({
-  searchValue,
+  searchTerm,
   placeholder = "Search for categories",
   handleSearchChange,
-  handleClearOnIconClick,
+  // handleClearOnIconClick,
 }) {
   return (
     <Search
@@ -16,7 +16,7 @@ export default function SearchField({
       placeholder={placeholder}
       debounceRate={0}
       onChange={handleSearchChange}
-      value={searchValue}
+      value={searchTerm}
       iconName={SearchIcon}
       secondaryIconName={CloseSmall}
       validation={{
@@ -25,7 +25,7 @@ export default function SearchField({
         Success: { status: "success" },
       }}
       id="SearchKnobs"
-      clearOnIconClick={handleClearOnIconClick}
+      // clearOnIconClick={handleClearOnIconClick}
       disabled={false}
       size={Search.sizes.MEDIUM}
     />

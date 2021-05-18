@@ -1,6 +1,6 @@
 import React from "react";
-
 import styled from "styled-components";
+
 import LogoutButton from "atoms/LogoutButton";
 import DndGrid from "molecules/DndGrid";
 import GridList from "molecules/GridList";

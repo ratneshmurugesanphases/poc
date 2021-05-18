@@ -2,26 +2,21 @@ import sortData from "helpers/sortData";
 
 export const actionTypes = {
   swapColumn: "SWAP_COLUMN",
-  sortByProperty: "SORT_BY_PROPERTY",
+  updateSort: "UPDATE_SORT",
   dragOverColumn: "DRAG_OVER_COLUMN",
+  searchByAny: "SEARCH_BY_ANY",
 };
 
 function mondayViewReducer(state, action) {
-  const { rows } = state;
-  console.log("action", { state, action });
-  console.log("mondayViewReducer");
+  // console.log("action", { state, action });
+  // console.log("mondayViewReducer");
   switch (action.type) {
-    case actionTypes.sortByProperty: {
+    case actionTypes.updateSort: {
       return {
         ...state,
-        rows: sortData({
-          datatoBeSorted: rows,
-          sortByProperty: action.payload.sortByProperty,
-          subProperty: action.payload.subProperty,
-          sortType: !state.sortType,
-        }),
-        sortType: !state.sortType,
-        sortByProperty: action.payload.colName,
+        subProperty: action.payload.subProperty,
+        sortType: action.payload.sortType,
+        sortByProperty: action.payload.sortByProperty,
       };
     }
     case actionTypes.swapColumn: {
@@ -29,6 +24,9 @@ function mondayViewReducer(state, action) {
     }
     case actionTypes.dragOverColumn: {
       return { ...state, dragOverColumn: action.payload.id };
+    }
+    case actionTypes.searchByAny: {
+      return { ...state, searchTerm: action.payload.searchTerm };
     }
     default: {
       return state;

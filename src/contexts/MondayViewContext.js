@@ -7,18 +7,17 @@ const { columns: cols, data: rows } = generateData(3);
 const initialState = {
   cols,
   rows,
-  sortByProperty: "email",
-  sortType: true,
   dragOverColumn: "",
+  searchTerm: "",
+  sortByProperty: "email",
+  subProperty: "text",
+  sortType: true,
 };
 
 export const MondayViewContext = createContext({});
 
 export function MondayViewContextProvider({ children }) {
   const [state, dispatch] = useReducer(mondayViewReducer, initialState);
-
-  console.log("MondayViewContextProvider", state);
-
   return (
     <MondayViewContext.Provider value={{ state, dispatch }}>
       {children}

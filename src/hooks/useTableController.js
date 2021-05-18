@@ -1,8 +1,18 @@
 import { useMondayViewDeps } from "contexts/MondayViewContext";
+import filterData from "helpers/filterData";
+import sortData from "helpers/sortData";
 
 const useTableController = () => {
   const { state, dispatch } = useMondayViewDeps();
-  const { cols, rows, dragOverColumn } = state;
+  const {
+    cols,
+    rows,
+    dragOverColumn,
+    searchTerm,
+    sortByProperty,
+    subProperty,
+    sortType,
+  } = state;
 
   const handleDragStart = (e) => {
     const { id } = e.target;
@@ -29,14 +39,22 @@ const useTableController = () => {
 
   const handleSortClick = (colName) => {
     dispatch({
-      type: "SORT_BY_PROPERTY",
-      payload: { sortByProperty: colName, subProperty: "text" },
+      type: "UPDATE_SORT",
+      payload: {
+        sortByProperty: colName,
+        subProperty: "text",
+        sortType: !sortType,
+      },
     });
   };
 
+  // console.log(rows);
+  const sortedRows = sortData(rows, sortByProperty, subProperty, sortType);
+  const sortedFilteredRows = filterData(sortedRows, searchTerm);
+
   return {
     cols,
-    rows,
+    rows: sortedFilteredRows,
     dragOverColumn,
     handleDragStart,
     handleDragOver,

@@ -31,7 +31,7 @@ const DndGrid = () => {
     handleSortClick,
   } = useTableController();
 
-  console.log("DndGrid");
+  // console.log("DndGrid", rows.length);
 
   const mondayViewData = getMondayViewData();
 

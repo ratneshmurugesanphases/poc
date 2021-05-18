@@ -1,9 +1,9 @@
-function sortData({
+function sortData(
   datatoBeSorted,
   sortByProperty,
   subProperty,
-  sortType = true,
-}) {
+  sortType = true
+) {
   return sortType
     ? datatoBeSorted.sort((prop1, prop2) => {
         if (

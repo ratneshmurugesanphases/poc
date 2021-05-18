@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchField from "atoms/SearchField";
 import { useMondayViewDeps } from "contexts/MondayViewContext";
 
 export default function GridList() {
-  const { } = useMondayViewDeps();
-  const [searchValue, setSearchValue] = useState("");
+  const { state, dispatch } = useMondayViewDeps();
+
   const handleSearchChange = (value) => {
-    console.log(value);
-    setSearchValue(value);
+    dispatch({ type: "SEARCH_BY_ANY", payload: { searchTerm: value } });
   };
-  const handleClearOnIconClick = () => {
-    setSearchValue("");
-  };
+
   return (
     <div style={{ width: "100%", margin: " 0px 20px" }}>
       <SearchField
-        searchValue={searchValue}
+        searchTerm={state.searchTerm}
         handleSearchChange={handleSearchChange}
-        handleClearOnIconClick={handleClearOnIconClick}
+        // handleClearOnIconClick={handleClearOnIconClick}
       />
     </div>
   );
