@@ -1,9 +1,10 @@
-import React from 'react'
-
+import React from "react";
+import LogoutButton from "atoms/LogoutButton";
 export default function PrintView() {
-    return (
-        <div>
-            Print View
-        </div>
-    )
+  return (
+    <div>
+      <LogoutButton />
+      Print View
+    </div>
+  );
 }

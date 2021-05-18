@@ -5,10 +5,11 @@ import {
   BrowserRouter,
   NavLink,
   useParams,
-  useRouteMatch,
+  // useRouteMatch,
   Redirect,
 } from "react-router-dom";
 
+import fakeAuth from "helpers/provideFakeAuth";
 // import Modal from "pocs/Routing/Modal";
 import routes from "configs/routeConfig";
 import "monday-ui-react-core/dist/main.css";
@@ -31,24 +32,50 @@ const componentRouteMap = {
   printview: <PrintView />,
 };
 
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        console.log("PrivateRoute", location);
+        return fakeAuth.isAuthenticated === true ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: { from: location },
+            }}
+          />
+        );
+      }}
+    />
+  );
+}
+
+function getMatchedRoute(slug) {
+  return routes.find(({ routeId, isShown }) => {
+    return slug === routeId && isShown;
+  });
+}
+
 function PageView() {
   const { viewId } = useParams();
-  const { url, path, isExact } = useRouteMatch();
-  const pageView = routes.find(({ routeId, isShown }) => {
-    return viewId === routeId && isShown;
-  });
-  const { displayName, pageKey } = pageView || { isShown: false };
-  console.log({ isExact, path, url, pageView });
-  return pageView ? (
-    isExact && (
-      <>
-        <h1>{displayName}</h1>
-        <Route path={`/${viewId}`}>{componentRouteMap[pageKey]}</Route>
-      </>
-    )
-  ) : (
-    <Redirect to="/log-in" render={() => componentRouteMap["login"]} />
-  );
+  const matchedRoute = getMatchedRoute(viewId);
+  let matchedPath = "/";
+  let pageKey = "login";
+  console.log(matchedRoute);
+  if (matchedRoute && matchedRoute.pageKey) {
+    matchedPath = `/${viewId}`;
+    pageKey = matchedRoute.pageKey;
+    console.log({ matchedPath, matchedRoute, viewId });
+    return (
+      <PrivateRoute>
+        <Route path={matchedPath}>{componentRouteMap[pageKey]}</Route>
+      </PrivateRoute>
+    );
+  }
+  return <Redirect from="*" to="/" />;
 }
 
 function App() {
@@ -59,7 +86,12 @@ function App() {
           return (
             isShown && (
               <div key={pageKey}>
-                <NavLink to={routeId} activeClassName="activeNavLink">
+                <NavLink
+                  to={routeId}
+                  activeClassName="activeNavLink"
+                  exact
+                  strict
+                >
                   {componentName}
                 </NavLink>
               </div>
@@ -68,10 +100,20 @@ function App() {
         })}
         <Switch>
           {routes.map(({ routeId }) => {
-            return <Route key={routeId} path="/:viewId" component={PageView} />;
+            return (
+              <Route
+                key={routeId}
+                path="/:viewId"
+                component={PageView}
+                exact
+                strict
+              />
+            );
           })}
+          <Route path={"/"} exact strict>
+            {componentRouteMap["login"]}
+          </Route>
         </Switch>
-        {/* <Redirect to="/log-in" from="" /> */}
         {/* {<Route path="/contact/:name" children={<Modal />} />} */}
       </BrowserRouter>
     </Suspense>

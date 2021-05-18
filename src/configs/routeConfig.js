@@ -1,7 +1,7 @@
 const routeIds = [
   {
     pageKey: "login",
-    routeId: "log-in",
+    routeId: "/",
     displayName: "Log in here!",
     componentName: "LogIn",
     isShown: true,

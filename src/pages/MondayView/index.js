@@ -1,9 +1,12 @@
 import React from "react";
-
-import DndGrid from "./components/DndGrid";
+import LogoutButton from "atoms/LogoutButton";
+import DndGrid from "molecules/DndGrid";
 
 export default function MondayView() {
   return (
+    <>
+      <LogoutButton />
       <DndGrid />
+    </>
   );
 }

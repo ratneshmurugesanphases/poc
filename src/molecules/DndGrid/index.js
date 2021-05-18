@@ -35,11 +35,11 @@ const DndGrid = () => {
 
   const mondayViewData = getMondayViewData();
 
-  return mondayViewData.map((postObj) => {
+  return mondayViewData.map((postObj, postIndex) => {
     return (
       <div key={postObj.postKey}>
         <GroupCollapser {...postObj}>
-          {({ postKey, subarea, groupColor }) => {
+          {({ postKey, groupColor }) => {
             return (
               <div
                 id={postKey}
@@ -47,10 +47,10 @@ const DndGrid = () => {
                 style={{ backgroundColor: groupColor }}
               >
                 <StyledGrid>
-                  <StyledGridHeaderRow colLength={cols.length}>
-                    {cols.map((colName, colIndex) => {
-                      return (
-                        <>
+                  {postIndex === 0 ? (
+                    <StyledGridHeaderRow colLength={cols.length}>
+                      {cols.map((colName, colIndex) => {
+                        return (
                           <StyledGridHeader
                             id={colName}
                             key={colIndex}
@@ -69,7 +69,7 @@ const DndGrid = () => {
                                 console.log({
                                   id: e.target.id,
                                 });
-                                handleSortClick();
+                                handleSortClick(e.target.id);
                               }}
                             >
                               SORT
@@ -82,10 +82,10 @@ const DndGrid = () => {
                               <GridHeaderMenuButton />
                             </StyledGridHeaderContainer>
                           </StyledGridHeader>
-                        </>
-                      );
-                    })}
-                  </StyledGridHeaderRow>
+                        );
+                      })}
+                    </StyledGridHeaderRow>
+                  ) : null}
                   {rows.map((row, rowIndex) => {
                     return (
                       <StyledGridBodyRow key={rowIndex} colLength={cols.length}>

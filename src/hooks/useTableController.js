@@ -9,6 +9,8 @@ const useTableController = () => {
   const [cols, setCols] = useState(columns);
   const [rows] = useState(data);
   const [sortType, setSortType] = useState(false);
+  const [sortByProperty, setSortByProperty] = useState("email");
+
 
   const [dragOverCol, setDragOverCol] = useState("");
 
@@ -37,13 +39,16 @@ const useTableController = () => {
     setDragOverCol("");
   };
 
-  const handleSortClick = () => setSortType((sortOrder) => !sortOrder);
+  const handleSortClick = (colName) => {
+    setSortType((sortOrder) => !sortOrder);
+    setSortByProperty(colName);
+  };
 
   console.log({ rows, cols });
 
   const sortedRows = sortData({
     datatoBeSorted: rows,
-    sortByProperty: "email",
+    sortByProperty: sortByProperty,
     subProperty: "text",
     sortType,
   });
