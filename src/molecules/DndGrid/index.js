@@ -23,7 +23,7 @@ const DndGrid = () => {
   const {
     cols,
     rows,
-    dragOverCol,
+    dragOverColumn,
     handleDragStart,
     handleDragOver,
     handleDragEnter,
@@ -60,18 +60,13 @@ const DndGrid = () => {
                               onDragOver={handleDragOver}
                               onDrop={handleOnDrop}
                               onDragEnter={handleDragEnter}
-                              dragOver={colName === dragOverCol}
+                              dragOver={colName === dragOverColumn}
                             >
                               <button
                                 id={colName}
                                 key={colIndex}
                                 className="sort-button"
-                                onClick={(e) => {
-                                  console.log({
-                                    id: e.target.id,
-                                  });
-                                  handleSortClick(e.target.id);
-                                }}
+                                onClick={(e) => handleSortClick(e.target.id)}
                               >
                                 SORT
                               </button>
@@ -98,7 +93,7 @@ const DndGrid = () => {
                               return (
                                 <GridCell
                                   value={value}
-                                  dragOverCol={dragOverCol}
+                                  dragOverColumn={dragOverColumn}
                                   cols={cols}
                                   row={row}
                                   idx={idx}

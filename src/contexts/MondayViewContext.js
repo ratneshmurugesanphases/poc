@@ -1,36 +1,21 @@
 import React, { useReducer, createContext, useContext } from "react";
 import mondayViewReducer from "reducers/mondayViewReducer";
-// import toggleReducer from "reducers/toggleReducer";
-
 import generateData from "helpers/generateData";
-// const [sortByProperty, setSortByProperty] = useState("email");
 
 const { columns: cols, data: rows } = generateData(3);
 
-// const initialState = {
-//   toggleState: {},
-//   mondayViewState: { cols, rows, sortByProperty: "email", sortType: false },
-// };
-
-// const mainReducer = ({ toggleState, mondayViewState }, action) => ({
-//   toggleReducer: toggleReducer(toggleState, action),
-//   mondayViewReducer: mondayViewReducer(mondayViewState, action),
-// });
+const initialState = {
+  cols,
+  rows,
+  sortByProperty: "email",
+  sortType: true,
+  dragOverColumn: "",
+};
 
 export const MondayViewContext = createContext({});
 
-
-
 export function MondayViewContextProvider({ children }) {
-  // const [state, dispatch] = useReducer(mainReducer, initialState);
-
-
-  const [state, dispatch] = useReducer(mondayViewReducer, {
-    cols,
-    rows,
-    sortByProperty: "email",
-    sortType: false,
-  });
+  const [state, dispatch] = useReducer(mondayViewReducer, initialState);
 
   console.log("MondayViewContextProvider", state);
 
@@ -42,6 +27,5 @@ export function MondayViewContextProvider({ children }) {
 }
 
 export function useMondayViewDeps() {
-  // console.log("useMondayViewDeps");
   return useContext(MondayViewContext);
 }

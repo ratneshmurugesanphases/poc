@@ -17,13 +17,13 @@ const StyledGridCell = styled.span`
   }
 `;
 
-export default function GridCell({ value, dragOverCol, cols, row, idx }) {
+export default function GridCell({ value, dragOverColumn, cols, row, idx }) {
   // console.log({ row, cols, idx });
   return (
     <StyledGridCell
       className="cell"
       key={value.text}
-      dragOver={cols[idx] === dragOverCol}
+      dragOver={cols[idx] === dragOverColumn}
       colLength={cols.length}
     >
       {row[cols[idx]].component}

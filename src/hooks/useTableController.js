@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { useMondayViewDeps } from "contexts/MondayViewContext";
 
 const useTableController = () => {
   const { state, dispatch } = useMondayViewDeps();
-  const { cols, rows } = state;
-  const [sortType, setSortType] = useState(false);
-  const [dragOverCol, setDragOverCol] = useState("");
+  const { cols, rows, dragOverColumn } = state;
 
   const handleDragStart = (e) => {
     const { id } = e.target;
@@ -16,7 +13,7 @@ const useTableController = () => {
   const handleDragOver = (e) => e.preventDefault();
   const handleDragEnter = (e) => {
     const { id } = e.target;
-    setDragOverCol(id);
+    dispatch({ type: "DRAG_OVER_COLUMN", payload: { id } });
   };
 
   const handleOnDrop = (e) => {
@@ -27,21 +24,20 @@ const useTableController = () => {
     tempCols[draggedColIdx] = cols[droppedColIdx];
     tempCols[droppedColIdx] = cols[draggedColIdx];
     dispatch({ type: "SWAP_COLUMN", payload: { swappedCol: tempCols } });
-    setDragOverCol("");
+    dispatch({ type: "DRAG_OVER_COLUMN", payload: { id: "" } });
   };
 
   const handleSortClick = (colName) => {
-    setSortType(!sortType);
     dispatch({
       type: "SORT_BY_PROPERTY",
-      payload: { sortByProperty: colName, subProperty: "text", sortType },
+      payload: { sortByProperty: colName, subProperty: "text" },
     });
   };
 
   return {
     cols,
     rows,
-    dragOverCol,
+    dragOverColumn,
     handleDragStart,
     handleDragOver,
     handleDragEnter,
