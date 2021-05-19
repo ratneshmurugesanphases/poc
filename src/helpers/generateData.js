@@ -15,31 +15,31 @@ const generateData = (totalRows = 5) => {
 
     const rowSubareaObj = {
       text: subarea,
-      component: <EditableTextField EditableInputValue={subarea} />,
+      component: <EditableTextField editableInputValue={subarea} />,
     };
     const rowCommentObj = {
       text: comment,
-      component: <EditableTextField EditableInputValue={comment} />,
+      component: <EditableTextField editableInputValue={comment} />,
     };
     const rowStatusObj = {
       text: status,
-      component: <EditableTextField EditableInputValue={status} />,
+      component: <EditableTextField editableInputValue={status} />,
     };
     const rowEmailObj = {
       text: email,
-      component: <EditableTextField EditableInputValue={email} />,
+      component: <EditableTextField editableInputValue={email} />,
     };
     const rowLinkObj = {
       text: link,
-      component: <EditableTextField EditableInputValue={link} />,
+      component: <EditableTextField editableInputValue={link} />,
     };
     const rowTimelineDateTimeObj = {
       text: timelineDateTime,
-      component: <TimelineButton EditableInputValue={timelineDateTime} />,
+      component: <TimelineButton editableInputValue={timelineDateTime} />,
     };
     const rowOppeObj = {
       text: oppe,
-      component: <EditableTextField EditableInputValue={oppe} />,
+      component: <EditableTextField editableInputValue={oppe} />,
     };
 
     rows.push({

@@ -51,7 +51,15 @@ const DndGrid = () => {
                     <StyledGrid>
                       <StyledGridHeaderRow colLength={cols.length}>
                         {cols.map((colName, colIndex) => {
-                          return (
+                          return colIndex === 0 ? (
+                            <StyledGridHeader id={colName} key={colIndex}>
+                              {/* <EditableTextField
+                                EditableInputValue={postObj.subarea}
+                                autoSize={true}
+                              /> */}
+                              <StyledGridHeaderContainer></StyledGridHeaderContainer>
+                            </StyledGridHeader>
+                          ) : (
                             <StyledGridHeader
                               id={colName}
                               key={colIndex}
@@ -72,9 +80,8 @@ const DndGrid = () => {
                               </button>
                               <StyledGridHeaderContainer>
                                 <div style={{ width: "40px" }}></div>
-
                                 <EditableTextField
-                                  EditableInputValue={colName}
+                                  editableInputValue={colName}
                                 />
                                 <GridHeaderTooltip colName={colName} />
                                 <GridHeaderMenuButton />
