@@ -7,6 +7,7 @@ const fade = keyframes`
 
 export const StyledGrid = styled.div`
   animation: ${fade} 500ms;
+  animation-fill-mode: forwards;
 `;
 
 export const StyledGridHeaderRow = styled.span`

@@ -5,13 +5,12 @@ import CloseSmall from "monday-ui-react-core/dist/icons/CloseSmall";
 
 export default function SearchField({
   searchTerm,
-  placeholder = "Search for categories",
+  placeholder = "Search...",
   handleSearchChange,
-  // handleClearOnIconClick,
 }) {
   return (
     <Search
-      inputAriaLabel={"Search for content"}
+      inputAriaLabel={placeholder}
       autoFocus={true}
       placeholder={placeholder}
       debounceRate={0}
@@ -25,7 +24,6 @@ export default function SearchField({
         Success: { status: "success" },
       }}
       id="SearchKnobs"
-      // clearOnIconClick={handleClearOnIconClick}
       disabled={false}
       size={Search.sizes.MEDIUM}
     />

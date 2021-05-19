@@ -1,10 +1,10 @@
-import sortData from "helpers/sortData";
-
 export const actionTypes = {
   swapColumn: "SWAP_COLUMN",
   updateSort: "UPDATE_SORT",
   dragOverColumn: "DRAG_OVER_COLUMN",
-  searchByAny: "SEARCH_BY_ANY",
+  searchByContent: "SEARCH_BY_CONTENT",
+  searchByCategory: "SEARCH_BY_CATEGORY",
+  updateCategory: "UPDATE_CATEGORY",
 };
 
 function mondayViewReducer(state, action) {
@@ -19,14 +19,26 @@ function mondayViewReducer(state, action) {
         sortByProperty: action.payload.sortByProperty,
       };
     }
+    case actionTypes.updateCategory: {
+      return {
+        ...state,
+        selectedCategory: action.payload.selectedCategory,
+      };
+    }
     case actionTypes.swapColumn: {
       return { ...state, cols: action.payload.swappedCol };
     }
     case actionTypes.dragOverColumn: {
       return { ...state, dragOverColumn: action.payload.id };
     }
-    case actionTypes.searchByAny: {
+    case actionTypes.searchByContent: {
       return { ...state, searchTerm: action.payload.searchTerm };
+    }
+    case actionTypes.searchByCategory: {
+      return {
+        ...state,
+        searchCategoryTerm: action.payload.searchCategoryTerm,
+      };
     }
     default: {
       return state;

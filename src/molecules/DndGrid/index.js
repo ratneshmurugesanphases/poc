@@ -15,20 +15,22 @@ import GroupCollapser from "atoms/GroupCollapser";
 import GridCell from "atoms/GridCell";
 
 import getMondayViewData from "helpers/getMondayViewData";
-
 // import SvgIcon from "@material-ui/core/SvgIcon";
 import useTableController from "hooks/useTableController";
+import SearchField from "atoms/SearchField";
 
 const DndGrid = () => {
   const {
     cols,
     rows,
     dragOverColumn,
+    searchTerm,
     handleDragStart,
     handleDragOver,
     handleDragEnter,
     handleOnDrop,
     handleSortClick,
+    handleSearchChange,
   } = useTableController();
 
   // console.log("DndGrid", rows.length);
@@ -37,6 +39,11 @@ const DndGrid = () => {
 
   return (
     <div>
+      <SearchField
+        searchTerm={searchTerm}
+        placeholder = "Search by content..."
+        handleSearchChange={handleSearchChange}
+      />
       {mondayViewData.map((postObj) => {
         return (
           <div key={postObj.postKey}>

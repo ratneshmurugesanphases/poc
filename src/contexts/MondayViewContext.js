@@ -12,12 +12,14 @@ const initialState = {
   sortByProperty: "email",
   subProperty: "text",
   sortType: true,
+  searchCategoryTerm: "",
 };
 
 export const MondayViewContext = createContext({});
 
 export function MondayViewContextProvider({ children }) {
   const [state, dispatch] = useReducer(mondayViewReducer, initialState);
+  console.log(state);
   return (
     <MondayViewContext.Provider value={{ state, dispatch }}>
       {children}

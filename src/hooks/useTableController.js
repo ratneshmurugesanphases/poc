@@ -48,7 +48,10 @@ const useTableController = () => {
     });
   };
 
-  // console.log(rows);
+  const handleSearchChange = (value) => {
+    dispatch({ type: "SEARCH_BY_CONTENT", payload: { searchTerm: value } });
+  };
+
   const sortedRows = sortData(rows, sortByProperty, subProperty, sortType);
   const sortedFilteredRows = filterData(sortedRows, searchTerm);
 
@@ -56,11 +59,13 @@ const useTableController = () => {
     cols,
     rows: sortedFilteredRows,
     dragOverColumn,
+    searchTerm,
     handleDragStart,
     handleDragOver,
     handleDragEnter,
     handleOnDrop,
     handleSortClick,
+    handleSearchChange
   };
 };
 

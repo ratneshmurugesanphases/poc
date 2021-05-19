@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import LogoutButton from "atoms/LogoutButton";
 import DndGrid from "molecules/DndGrid";
-import GridList from "molecules/GridList";
+import SideMenuList from "molecules/SideMenuList";
 
 import { MondayViewContextProvider } from "contexts/MondayViewContext";
 
@@ -18,7 +18,7 @@ export default function MondayView() {
       <div style={{ margin: "20px 0px" }}>
         <LogoutButton />
         <StyledMondayView>
-          <GridList />
+          <SideMenuList />
           <div style={{ padding: "0px 50px" }}>
             {/* <Toolbar /> */}
             <DndGrid />
