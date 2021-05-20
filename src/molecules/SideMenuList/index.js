@@ -7,16 +7,16 @@ import { useMondayViewDeps } from "contexts/MondayViewContext";
 
 export default function SideMenuList() {
   const { state, dispatch } = useMondayViewDeps();
-  const { searchCategoryTerm } = state;
+  const { categoryTerm } = state;
 
   const handleSearchChange = (value) => {
-    dispatch({ type: "SEARCH_BY_CATEGORY", payload: { searchCategoryTerm: value } });
+    dispatch({ type: "UPDATE_SEARCH", payload: { categoryTerm: value } });
   };
 
   return (
     <div style={{ width: "100%", margin: " 0px 20px" }}>
       <SearchField
-        searchTerm={searchCategoryTerm}
+        searchTerm={categoryTerm}
         handleSearchChange={handleSearchChange}
         placeholder="Search by category..."
         autoFocus={true}

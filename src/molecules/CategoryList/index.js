@@ -2,18 +2,18 @@ import React from "react";
 import getMondayViewData from "helpers/getMondayViewData";
 import { useMondayViewDeps } from "contexts/MondayViewContext";
 
-// import { filterDataByProperty } from "helpers/filters";
+import { filterDataByCategory } from "helpers/filters";
 
 export default function CategoryList() {
-  const { dispatch } = useMondayViewDeps();
-  // const { categoryTerm, selectedCategory } = state;
+  const { state, dispatch } = useMondayViewDeps();
+  const { categoryTerm } = state;
   const mondayViewData = getMondayViewData();
 
-  // const filteredCategoryItems = filterDataByProperty(
-  //   mondayViewData,
-  //   categoryTerm,
-  //   selectedCategory
-  // );
+  const filteredCategoryItems = filterDataByCategory(
+    mondayViewData,
+    categoryTerm,
+    "mainarea"
+  );
 
   const handleCategoryClick = (e) => {
     console.log(e.target.id);
@@ -28,7 +28,7 @@ export default function CategoryList() {
     <>
       <h3>CategoryList</h3>
       <ul>
-        {mondayViewData.map((dataObj, i) => {
+        {filteredCategoryItems.map((dataObj, i) => {
           return (
             <button id={dataObj.mainarea} key={i} onClick={handleCategoryClick}>
               {dataObj.mainarea}

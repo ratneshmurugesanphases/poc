@@ -21,7 +21,7 @@ export function filterDataByCategory(
   const lowercasedSearchTerm = categoryTerm ? categoryTerm.toLowerCase() : "";
   const filterCallback = (dataObj) => {
     return (
-      dataObj[selectedCategory].text.toLowerCase().indexOf(lowercasedSearchTerm) !==
+      dataObj[selectedCategory].toLowerCase().indexOf(lowercasedSearchTerm) !==
       -1
     );
   };

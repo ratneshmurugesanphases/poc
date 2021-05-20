@@ -5,6 +5,7 @@ import EditableTextField from "atoms/EditableTextField";
 const generateData = (totalRows = 5) => {
   let rows = [];
   for (let i = 0; i < totalRows; i++) {
+    const initiative = `Initiative ${i}`;
     const mainarea = `Mainarea ${i}`;
     const subarea = `Subarea ${i}`;
     const comment = `Comment ${i}`;
@@ -14,6 +15,11 @@ const generateData = (totalRows = 5) => {
     const timelineDateTime = `Date ${i}`;
     const oppe = `Oppe ${i}`;
 
+    const rowInitiativeObj = {
+      text: initiative,
+      component: <EditableTextField editableInputValue={initiative} />,
+      isVisible: false,
+    };
     const rowMainareaObj = {
       text: mainarea,
       component: <EditableTextField editableInputValue={mainarea} />,
@@ -56,6 +62,7 @@ const generateData = (totalRows = 5) => {
     };
 
     rows.push({
+      initiative: rowInitiativeObj,
       mainarea: rowMainareaObj,
       subarea: rowSubareaObj,
       comment: rowCommentObj,

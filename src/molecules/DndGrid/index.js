@@ -84,21 +84,22 @@ const DndGrid = () => {
                               onDragEnter={handleDragEnter}
                               dragOver={colName === dragOverColumn}
                             >
-                              <button
+                              {/* <button
                                 id={colName}
                                 key={colIndex}
                                 className="sort-button"
                                 onClick={(e) => handleSortClick(e.target.id)}
                               >
                                 SORT
-                              </button>
+                              </button> */}
                               <StyledGridHeaderContainer>
                                 <div style={{ width: "40px" }}></div>
-                                <EditableTextField
+                                {/* <EditableTextField
                                   editableInputValue={colName}
-                                />
+                                /> */}
+                                <code>{colName}</code>
                                 <GridHeaderTooltip colName={colName} />
-                                <GridHeaderMenuButton />
+                                {/* <GridHeaderMenuButton /> */}
                               </StyledGridHeaderContainer>
                             </StyledGridHeader>
                           );

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledGridCell = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   padding: 5px;
   min-width: 150px;
   display: flex;
@@ -26,7 +26,7 @@ export default function GridCell({ value, dragOverColumn, cols, row, idx }) {
       dragOver={cols[idx] === dragOverColumn}
       colLength={cols.length}
     >
-      {row[cols[idx]].component}
+      {row[cols[idx]].text}
     </StyledGridCell>
   );
 }

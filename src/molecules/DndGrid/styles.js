@@ -18,7 +18,7 @@ export const StyledGridHeaderRow = styled.span`
 `;
 
 export const StyledGridHeader = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   padding: 5px;
   display: grid;
   align-items: center;
@@ -54,7 +54,7 @@ export const StyledGridHeaderContainer = styled.div`
 `;
 
 export const StyledGridBodyRow = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   padding: 5px;
   display: grid;
   grid-template-columns: ${({ colLength }) => `repeat(${colLength}, 1fr)`};
