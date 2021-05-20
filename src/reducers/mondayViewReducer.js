@@ -1,10 +1,8 @@
 export const actionTypes = {
   swapColumn: "SWAP_COLUMN",
-  updateSort: "UPDATE_SORT",
   dragOverColumn: "DRAG_OVER_COLUMN",
-  searchByContent: "SEARCH_BY_CONTENT",
-  searchByCategory: "SEARCH_BY_CATEGORY",
-  updateCategory: "UPDATE_CATEGORY",
+  updateSort: "UPDATE_SORT",
+  updateSearch: "UPDATE_SEARCH",
 };
 
 function mondayViewReducer(state, action) {
@@ -19,25 +17,18 @@ function mondayViewReducer(state, action) {
         sortByProperty: action.payload.sortByProperty,
       };
     }
-    case actionTypes.updateCategory: {
-      return {
-        ...state,
-        selectedCategory: action.payload.selectedCategory,
-      };
-    }
     case actionTypes.swapColumn: {
       return { ...state, cols: action.payload.swappedCol };
     }
     case actionTypes.dragOverColumn: {
       return { ...state, dragOverColumn: action.payload.id };
     }
-    case actionTypes.searchByContent: {
-      return { ...state, searchTerm: action.payload.searchTerm };
-    }
-    case actionTypes.searchByCategory: {
+    case actionTypes.updateSearch: {
       return {
         ...state,
-        searchCategoryTerm: action.payload.searchCategoryTerm,
+        searchTerm: action.payload.searchTerm,
+        categoryTerm: action.payload.categoryTerm,
+        selectedCategory: action.payload.selectedCategory,
       };
     }
     default: {

@@ -5,7 +5,7 @@ import LogoutButton from "atoms/LogoutButton";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function MapView() {
-  const [coords, setCoords] = useState({
+  const [coords] = useState({
     center: {
       lat: 59.95,
       lng: 30.33,

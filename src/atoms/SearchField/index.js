@@ -7,11 +7,12 @@ export default function SearchField({
   searchTerm,
   placeholder = "Search...",
   handleSearchChange,
+  autoFocus = false,
 }) {
   return (
     <Search
       inputAriaLabel={placeholder}
-      autoFocus={true}
+      autoFocus={autoFocus}
       placeholder={placeholder}
       debounceRate={0}
       onChange={handleSearchChange}

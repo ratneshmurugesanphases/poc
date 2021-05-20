@@ -1,5 +1,7 @@
 import { useMondayViewDeps } from "contexts/MondayViewContext";
-import filterData from "helpers/filterData";
+import { filterGridDataByText, 
+  // filterDataByCategory 
+} from "helpers/filters";
 import sortData from "helpers/sortData";
 
 const useTableController = () => {
@@ -12,6 +14,8 @@ const useTableController = () => {
     sortByProperty,
     subProperty,
     sortType,
+    // categoryTerm,
+    // selectedCategory,
   } = state;
 
   const handleDragStart = (e) => {
@@ -49,15 +53,28 @@ const useTableController = () => {
   };
 
   const handleSearchChange = (value) => {
-    dispatch({ type: "SEARCH_BY_CONTENT", payload: { searchTerm: value } });
+    dispatch({
+      type: "UPDATE_SEARCH",
+      payload: { searchTerm: value, categoryTerm: "", selectedCategory: "" },
+    });
   };
 
-  const sortedRows = sortData(rows, sortByProperty, subProperty, sortType);
-  const sortedFilteredRows = filterData(sortedRows, searchTerm);
+  let updatedRows = rows;
+  updatedRows = sortData(rows, sortByProperty, subProperty, sortType);
+  updatedRows = filterGridDataByText(updatedRows, searchTerm);
+  // console.log(sortedFilteredRows)
+  // let filteredDataByCategory = sortedFilteredRows;
+  // if (selectedCategory) {
+  //   filteredDataByCategory = filterDataByCategory(
+  //     sortedFilteredRows,
+  //     categoryTerm,
+  //     selectedCategory
+  //   );
+  // }
 
   return {
     cols,
-    rows: sortedFilteredRows,
+    rows: updatedRows,
     dragOverColumn,
     searchTerm,
     handleDragStart,
@@ -65,7 +82,7 @@ const useTableController = () => {
     handleDragEnter,
     handleOnDrop,
     handleSortClick,
-    handleSearchChange
+    handleSearchChange,
   };
 };
 

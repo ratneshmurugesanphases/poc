@@ -4,7 +4,8 @@ import CustomDateRangePicker from "atoms/DateRangePicker";
 import { DateRangePickerContextProvider } from "contexts/DateRangePickerContext";
 import LogoutButton from "atoms/LogoutButton";
 
-function DhtmlxDefaultView() {
+function CalendarView() {
+
   return (
     <DateRangePickerContextProvider>
       <LogoutButton />
@@ -28,4 +29,4 @@ function DhtmlxDefaultView() {
     </DateRangePickerContextProvider>
   );
 }
-export default DhtmlxDefaultView;
+export default CalendarView;

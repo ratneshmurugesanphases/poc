@@ -19,6 +19,7 @@ export default function SideMenuList() {
         searchTerm={searchCategoryTerm}
         handleSearchChange={handleSearchChange}
         placeholder="Search by category..."
+        autoFocus={true}
       />
       <CategoryList />
     </div>

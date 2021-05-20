@@ -18,6 +18,7 @@ import getMondayViewData from "helpers/getMondayViewData";
 // import SvgIcon from "@material-ui/core/SvgIcon";
 import useTableController from "hooks/useTableController";
 import SearchField from "atoms/SearchField";
+import { filterDataByProperty } from "helpers/filters";
 
 const DndGrid = () => {
   const {
@@ -25,6 +26,7 @@ const DndGrid = () => {
     rows,
     dragOverColumn,
     searchTerm,
+    selectedCategory,
     handleDragStart,
     handleDragOver,
     handleDragEnter,
@@ -36,15 +38,20 @@ const DndGrid = () => {
   // console.log("DndGrid", rows.length);
 
   const mondayViewData = getMondayViewData();
+  const filteredViewData = filterDataByProperty(
+    mondayViewData,
+    selectedCategory,
+    "mainarea"
+  );
 
   return (
     <div>
       <SearchField
         searchTerm={searchTerm}
-        placeholder = "Search by content..."
+        placeholder="Search by content..."
         handleSearchChange={handleSearchChange}
       />
-      {mondayViewData.map((postObj) => {
+      {filteredViewData.map((postObj) => {
         return (
           <div key={postObj.postKey}>
             <GroupCollapser {...postObj}>

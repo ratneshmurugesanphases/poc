@@ -12,7 +12,8 @@ const initialState = {
   sortByProperty: "email",
   subProperty: "text",
   sortType: true,
-  searchCategoryTerm: "",
+  categoryTerm: "",
+  selectedCategory: "mainarea",
 };
 
 export const MondayViewContext = createContext({});
