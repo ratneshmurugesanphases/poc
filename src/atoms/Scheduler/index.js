@@ -1,7 +1,10 @@
 import "dhtmlx-scheduler";
 import "dhtmlx-scheduler/codebase/dhtmlxscheduler_material.css";
+
 import useScheduleController from "../../hooks/useScheduleController";
-import { withRouter } from "react-router-dom";
+import NewBookingForm from "molecules/NewBookingForm";
+import EditBookingForm from "molecules/EditBookingForm";
+
 
 import "./Scheduler.scss";
 
@@ -10,13 +13,17 @@ const Scheduler = () => {
 
   console.log("Scheduler");
   return (
-    <div
-      id="scheduler_here"
-      ref={schedulerContainerRef}
-      className="dhx_cal_container"
-      style={{ width: "100%", height: "100%" }}
-    ></div>
+    <>
+      <div
+        id="scheduler_here"
+        ref={schedulerContainerRef}
+        className="dhx_cal_container"
+        style={{ width: "100%", height: "100%" }}
+      ></div>
+      <NewBookingForm />
+      <EditBookingForm />
+    </>
   );
 };
 
-export default withRouter(Scheduler);
+export default Scheduler;

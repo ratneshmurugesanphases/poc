@@ -1,17 +1,19 @@
 import React from "react";
 import TextField from "monday-ui-react-core/dist/TextField";
 
+import { StyledTextInput } from "./styles";
+
 export default function CustomTextInput({
   name,
   control,
   customLabel,
   placeholder,
-  validation,
+  validation = "error",
   size,
   useFormFieldController,
 }) {
   const {
-    field: { ref, ...inputProps },
+    field,
     // fieldState: { invalid, isTouched, isDirty },
     formState: {
       // touchedFields,
@@ -22,24 +24,25 @@ export default function CustomTextInput({
     name,
     control,
     rules: { required: true },
-    defaultValue: "",
   });
 
+  // console.log("errors", errors);
+
   return (
-    <>
+    <StyledTextInput>
       <label htmlFor={name}>{customLabel}</label>
       <TextField
-        {...inputProps}
+        {...field}
         id={name}
-        inputRef={ref}
         aria-invalid={errors.name ? "true" : "false"}
         placeholder={placeholder}
         validation={validation}
         size={size}
+        autoFocus={false}
       />
-      {errors.name && errors.name.type === "required" && (
+      {errors[name] && errors[name].type === "required" && (
         <span role="alert">This is required</span>
       )}
-    </>
+    </StyledTextInput>
   );
 }

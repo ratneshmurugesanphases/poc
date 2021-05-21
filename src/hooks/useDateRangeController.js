@@ -1,12 +1,10 @@
 import { useState, useContext } from "react";
 import { isBefore } from "date-fns";
-import {
-  START_DATE,
-} from "configs/dateConfig";
-import { DateRangePickerContext } from "contexts/DateRangePickerContext";
+import { START_DATE } from "configs/dateConfig";
+import { useCalendarViewContextDeps } from "contexts/CalendarViewContext";
 
 const useDateRangeController = () => {
-  const { customDateRangePickerRef } = useContext(DateRangePickerContext);
+  const { customDateRangePickerRef } = useCalendarViewContextDeps();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateRange, setDateRange] = useState([
     {
@@ -15,7 +13,8 @@ const useDateRangeController = () => {
       key: "selection",
     },
   ]);
-  if(customDateRangePickerRef) customDateRangePickerRef.current = { setShowDatePicker, setDateRange };
+  if (customDateRangePickerRef)
+    customDateRangePickerRef.current = { setShowDatePicker, setDateRange };
 
   const handleDateChange = (item) => {
     console.log("handleDateChange");
@@ -45,7 +44,7 @@ const useDateRangeController = () => {
     dateRange,
     showDatePicker,
     setShowDatePicker,
-    handleDateChange
+    handleDateChange,
   ];
 };
 

@@ -6,10 +6,8 @@ import { DateRangePicker } from "react-date-range";
 import { format } from "date-fns";
 import { Modal } from "@material-ui/core";
 
-// import { DateRangePickerContext } from "contexts/DateRangePickerContext";
 import useDateRangeController from "hooks/useDateRangeController";
-
-import { DateRangePickerContextProvider } from "contexts/DateRangePickerContext";
+import { CalendarViewContextProvider } from "contexts/CalendarViewContext";
 
 import "./styles.scss";
 
@@ -77,8 +75,8 @@ function Timeline() {
 
 export default function TimelineButton() {
   return (
-    <DateRangePickerContextProvider>
+    <CalendarViewContextProvider>
       <Timeline />
-    </DateRangePickerContextProvider>
+    </CalendarViewContextProvider>
   );
 }

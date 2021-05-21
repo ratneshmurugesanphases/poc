@@ -1,14 +1,14 @@
 import { useRef, useEffect } from "react";
 // import { getDate, getMonth, getYear } from "date-fns";
-import { useDateRangePickerDeps } from "contexts/DateRangePickerContext";
+import { useCalendarViewContextDeps } from "contexts/CalendarViewContext";
 import getSchedulerData from "helpers/getSchedulerData";
 
 const scheduler = window.scheduler;
 const useScheduleController = () => {
   const schedulerContainerRef = useRef(null);
-  const { customDateRangePickerRef } = useDateRangePickerDeps();
-  const currentRef = customDateRangePickerRef;
-  // const [currentRef] = useState(customDateRangePickerRef);
+  const { customDateRangePickerRef, newBookingFormRef } =
+    useCalendarViewContextDeps();
+  // const [customDateRangePickerRef] = useState(customDateRangePickerRef);
 
   //TODO - use baseConfig for default values
   useEffect((_) => {
@@ -22,16 +22,19 @@ const useScheduleController = () => {
       {
         view: "date",
         click: () =>
-          currentRef &&
-          currentRef.current &&
-          currentRef.current.setShowDatePicker(
+          customDateRangePickerRef &&
+          customDateRangePickerRef.current &&
+          customDateRangePickerRef.current.setShowDatePicker(
             (showDatePicker) => !showDatePicker
           ),
       },
       "spacer",
       {
         html: "RESERVE",
-        click: () => alert("Book events"),
+        click: () =>
+          newBookingFormRef &&
+          newBookingFormRef.current &&
+          newBookingFormRef.current.setOpen((open) => !open),
       },
       "spacer",
       "prev",
@@ -48,6 +51,9 @@ const useScheduleController = () => {
     }
     scheduler.attachEvent("onEventAdded", (id, ev) => {
       console.log("onEventAdded", ev.text);
+      newBookingFormRef &&
+        newBookingFormRef.current &&
+        newBookingFormRef.current.setOpen((open) => !open);
     });
 
     scheduler.attachEvent("onEventChanged", (id, ev) => {
@@ -59,7 +65,7 @@ const useScheduleController = () => {
     });
 
     scheduler.attachEvent("onViewChange", function (new_mode, new_date) {
-      console.log("onViewChange", { new_mode, new_date });
+      // console.log("onViewChange", { new_mode, new_date });
       // const date = getDate(new_date);
       // const month = getMonth(new_date);
       // const year = getYear(new_date);
@@ -72,17 +78,9 @@ const useScheduleController = () => {
       // console.log("date", {date, month, year});
       console.log("date", { minDate, date, maxDate });
 
-      currentRef.current.setDateRange([
-        {
-          startDate: minDate,
-          endDate: maxDate,
-          key: "selection",
-        },
-      ]);
-
-      currentRef &&
-        currentRef.current &&
-        currentRef.current.setDateRange([
+      customDateRangePickerRef &&
+        customDateRangePickerRef.current &&
+        customDateRangePickerRef.current.setDateRange([
           {
             startDate: minDate,
             endDate: maxDate,
@@ -100,6 +98,7 @@ const useScheduleController = () => {
     scheduler.templates.hour_scale = scheduler.date.date_to_str(
       scheduler.config.hour_date
     );
+    scheduler.setCurrentView();
     scheduler._$initialized = false; // to be false to re-render
 
     return () => {
@@ -107,7 +106,7 @@ const useScheduleController = () => {
     };
   });
 
-  console.log("useScheduleController", currentRef);
+  console.log("useScheduleController", newBookingFormRef);
 
   return [schedulerContainerRef];
 };

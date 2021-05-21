@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-const Modal = ({ children }) => {
+const RouteModalWrapper = ({ children }) => {
   const history = useHistory();
 
   const closeModal = (e) => {
@@ -26,4 +26,4 @@ const Modal = ({ children }) => {
   );
 };
 
-export default Modal;
+export default RouteModalWrapper;

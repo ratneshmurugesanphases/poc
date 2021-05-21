@@ -1,23 +1,34 @@
 import React from "react";
 
-import { useForm } from "hooks/useForm";
-import { useFormFieldController } from "hooks/useFormFieldController";
+import useForm from "hooks/useForm";
+import useFormFieldController from "hooks/useFormFieldController";
 
-import "./styles.scss";
+import { StyledHookForm, StyledFormField } from "./styles.js";
 
-export default function HookForm({ children, formName, defaultValues = {} }) {
+export default function HookForm({ children, formName }) {
   // const { formApiServicesFactory } = useDeps();
-  const { handleSubmit, reset, control, register } = useForm();
-  const onSubmit = (data) => console.log("onSubmit", data);
+  const { handleSubmit, reset, control, setValue } = useForm();
+  const onSubmit = (data, event) => {
+    console.log({ data, event });
+  };
+
+  console.log("HookForm");
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>{formName}</div>
-      {children(control, register, useFormFieldController)}
-      <button type="button" onClick={() => reset({ defaultValues })}>
-        Reset
-      </button>
-      <input type="submit" />
-    </form>
+    <StyledHookForm>
+      <form>
+        <strong>{formName}</strong>
+        <StyledFormField>
+          {children({
+            control,
+            reset,
+            useFormFieldController,
+            handleSubmit,
+            onSubmit,
+            setValue,
+          })}
+        </StyledFormField>
+      </form>
+    </StyledHookForm>
   );
 }

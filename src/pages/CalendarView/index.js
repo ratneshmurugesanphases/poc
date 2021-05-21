@@ -1,13 +1,13 @@
 import React from "react";
 import Scheduler from "atoms/Scheduler";
 import CustomDateRangePicker from "atoms/DateRangePicker";
-import { DateRangePickerContextProvider } from "contexts/DateRangePickerContext";
+import { CalendarViewContextProvider } from "contexts/CalendarViewContext";
 import LogoutButton from "atoms/LogoutButton";
 
 function CalendarView() {
 
   return (
-    <DateRangePickerContextProvider>
+    <CalendarViewContextProvider>
       <LogoutButton />
       <div className="scheduler-container">
         <Scheduler />
@@ -26,7 +26,7 @@ function CalendarView() {
         Switch
       </Link> */}
       </div>
-    </DateRangePickerContextProvider>
+    </CalendarViewContextProvider>
   );
 }
 export default CalendarView;

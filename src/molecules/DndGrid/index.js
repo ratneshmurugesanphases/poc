@@ -8,16 +8,12 @@ import {
   StyledGridHeaderContainer,
 } from "./styles";
 
-import GridHeaderMenuButton from "atoms/GridHeaderMenuButton";
 import GridHeaderTooltip from "atoms/GridHeaderTooltip";
-import EditableTextField from "atoms/EditableTextField";
 import GroupCollapser from "atoms/GroupCollapser";
 import GridCell from "atoms/GridCell";
-
-import getMondayViewData from "helpers/getMondayViewData";
-// import SvgIcon from "@material-ui/core/SvgIcon";
-import useTableController from "hooks/useTableController";
 import SearchField from "atoms/SearchField";
+import useTableController from "hooks/useTableController";
+import getMondayViewData from "helpers/getMondayViewData";
 import { filterDataByProperty } from "helpers/filters";
 
 const DndGrid = () => {
@@ -31,7 +27,7 @@ const DndGrid = () => {
     handleDragOver,
     handleDragEnter,
     handleOnDrop,
-    handleSortClick,
+    // handleSortClick,
     handleSearchChange,
   } = useTableController();
 

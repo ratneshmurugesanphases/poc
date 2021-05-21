@@ -1,11 +1,64 @@
 import React from "react";
 import RichTextEditor from "react-rte";
 
-export default function CustomRichTextEditor() {
+import { StyledRichText } from "./styles.js";
+
+const toolbarConfig = {
+  // Optionally specify the groups to display (displayed in the order listed).
+  display: [
+    'INLINE_STYLE_BUTTONS', 
+    // 'BLOCK_TYPE_BUTTONS', 
+    // 'LINK_BUTTONS', 
+    // 'BLOCK_TYPE_DROPDOWN', 
+    // 'HISTORY_BUTTONS'
+  ],
+  INLINE_STYLE_BUTTONS: [
+    {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
+    {label: 'Italic', style: 'ITALIC'},
+    {label: 'Underline', style: 'UNDERLINE'}
+  ],
+  BLOCK_TYPE_DROPDOWN: [
+    {label: 'Normal', style: 'unstyled'},
+    {label: 'Heading Large', style: 'header-one'},
+    {label: 'Heading Medium', style: 'header-two'},
+    {label: 'Heading Small', style: 'header-three'}
+  ],
+  BLOCK_TYPE_BUTTONS: [
+    {label: 'UL', style: 'unordered-list-item'},
+    {label: 'OL', style: 'ordered-list-item'}
+  ]
+};
+
+export default function CustomRichTextEditor({
+  id,
+  name,
+  customLabel,
+  className,
+  control,
+  placeholder,
+  options,
+  useFormFieldController,
+}) {
+  const {
+    field: { ref },
+    // fieldState: { invalid, isTouched, isDirty },
+    // formState: { touchedFields, dirtyFields },
+  } = useFormFieldController({
+    name,
+    control,
+    // rules: { required: true },
+    defaultValue: "",
+  });
   return (
-    <RichTextEditor
-      // value={this.state.value}
-      value={RichTextEditor.createEmptyValue()}
-    />
+    <StyledRichText>
+      <label htmlFor={name}>{customLabel}</label>
+      <RichTextEditor
+      toolbarConfig={toolbarConfig}
+        inputRef={ref}
+        placeholder={placeholder}
+        // value={this.state.value}
+        value={RichTextEditor.createEmptyValue()}
+      />
+    </StyledRichText>
   );
 }
