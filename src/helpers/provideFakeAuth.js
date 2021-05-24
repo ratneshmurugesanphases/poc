@@ -1,11 +1,12 @@
-import { isFakeAuthEnabled } from "configs/baseConfig";
 const fakeAuth = {
-  isAuthenticated: isFakeAuthEnabled,
+  isAuthenticated: true,
   authenticate(cb) {
+    console.log("fakeAuth true");
     this.isAuthenticated = true;
     setTimeout(cb, 200); // fake async
   },
   signout(cb) {
+    console.log("fakeAuth false");
     this.isAuthenticated = false;
     setTimeout(cb, 200); // fake async
   },

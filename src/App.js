@@ -9,27 +9,29 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import { URL_LOGIN, URL_INVALID } from "configs/apiConfig";
 import fakeAuth from "helpers/provideFakeAuth";
 // import Modal from "pocs/Routing/Modal";
 import routes from "configs/routeConfig";
 import "monday-ui-react-core/dist/main.css";
 import "./App.scss";
 
-const Overview = lazy(() => import("pages/Overview"));
 const LogIn = lazy(() => import("pages/LogIn"));
+const Dashboard = lazy(() => import("pages/Dashboard"));
 const CalendarView = lazy(() => import("pages/CalendarView"));
-const MondayView = lazy(() => import("pages/MondayView"));
 const MapView = lazy(() => import("pages/MapView"));
 const PrintView = lazy(() => import("pages/PrintView"));
-// const InvalidPage = lazy(() => import("pages/InvalidPage"));
+const ApiView = lazy(() => import("pages/ApiView"));
+const InvalidPage = lazy(() => import("pages/InvalidPage"));
 
 const componentRouteMap = {
   login: <LogIn />,
-  overview: <Overview />,
+  dashboard: <Dashboard />,
   calendarview: <CalendarView />,
-  mondayview: <MondayView />,
   mapview: <MapView />,
   printview: <PrintView />,
+  apiview: <ApiView />,
+  invalid: <InvalidPage />,
 };
 
 function PrivateRoute({ children, ...rest }) {
@@ -43,7 +45,7 @@ function PrivateRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: URL_LOGIN,
               state: { from: location },
             }}
           />
@@ -55,16 +57,16 @@ function PrivateRoute({ children, ...rest }) {
 
 function getMatchedRoute(slug) {
   return routes.find(({ routeId, isShown }) => {
+    // console.log("find", { slug, routeId });
     return slug === routeId && isShown;
   });
 }
 
 function PageView() {
   const { viewId } = useParams();
-  const matchedRoute = getMatchedRoute(viewId);
-  let matchedPath = "/";
+  const matchedRoute = getMatchedRoute(`/${viewId}`);
+  let matchedPath = URL_LOGIN;
   let pageKey = "login";
-  // console.log(matchedRoute);
   if (matchedRoute && matchedRoute.pageKey) {
     matchedPath = `/${viewId}`;
     pageKey = matchedRoute.pageKey;
@@ -75,7 +77,17 @@ function PageView() {
       </PrivateRoute>
     );
   }
-  return <Redirect from="*" to="/" />;
+  return <Redirect to={URL_INVALID} />;
+}
+
+function AuthView() {
+  const { authType } = useParams();
+  // console.log("AuthView", authType);
+  if (authType === "login") {
+    // console.log("login + logout");
+    return <Route path={URL_LOGIN}>{componentRouteMap["login"]}</Route>;
+  }
+  return <Redirect to={URL_INVALID} />;
 }
 
 function App() {
@@ -99,6 +111,7 @@ function App() {
           );
         })}
         <Switch>
+          <Route path={"/auth/:authType"} exact strict component={AuthView} />
           {routes.map(({ routeId }) => {
             return (
               <Route
@@ -110,8 +123,9 @@ function App() {
               />
             );
           })}
-          <Route path={"/"} exact strict>
-            {componentRouteMap["login"]}
+          <Redirect from="/" to={URL_LOGIN} exact strict />
+          <Route path={"/page/invalid"} exact strict>
+            {componentRouteMap["invalid"]}
           </Route>
         </Switch>
         {/* {<Route path="/contact/:name" children={<Modal />} />} */}

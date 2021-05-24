@@ -1,37 +1,41 @@
+import {
+  URL_LOGIN,
+  URL_DASHBOARD_VIEW,
+  URL_CALENDAR_VIEW,
+  URL_MAP_VIEW,
+  URL_PRINT_VIEW,
+  URL_API_VIEW,
+} from "configs/apiConfig";
+
+export const logInRouteObj = {
+  pageKey: "login",
+  routeId: URL_LOGIN,
+  displayName: "Log in here!",
+  componentName: "LogIn",
+  isShown: true,
+};
+
 const routeIds = [
+  logInRouteObj,
   {
-    pageKey: "login",
-    routeId: "/",
-    displayName: "Log in here!",
-    componentName: "LogIn",
+    pageKey: "dashboard",
+    routeId: URL_DASHBOARD_VIEW,
+    displayName: "Dashboard",
+    componentName: "Dashboard",
     isShown: true,
-  },
-  {
-    pageKey: "overview",
-    routeId: "overview",
-    displayName: "Overview",
-    componentName: "Overview",
-    isShown: true,
+    subPages: [],
   },
   {
     pageKey: "calendarview",
-    routeId: "calendar-view",
+    routeId: URL_CALENDAR_VIEW,
     displayName: "Calendar View",
     componentName: "CalendarView",
     isShown: true,
     subPages: [],
   },
   {
-    pageKey: "mondayview",
-    routeId: "monday-view",
-    displayName: "Monday View",
-    componentName: "MondayView",
-    isShown: true,
-    subPages: [],
-  },
-  {
     pageKey: "mapview",
-    routeId: "map-view",
+    routeId: URL_MAP_VIEW,
     displayName: "Map View",
     componentName: "MapView",
     isShown: true,
@@ -39,9 +43,17 @@ const routeIds = [
   },
   {
     pageKey: "printview",
-    routeId: "print-view",
+    routeId: URL_PRINT_VIEW,
     displayName: "Print View",
     componentName: "PrintView",
+    isShown: true,
+    subPages: [],
+  },
+  {
+    pageKey: "apiview",
+    routeId: URL_API_VIEW,
+    displayName: "Api View",
+    componentName: "ApiView",
     isShown: true,
     subPages: [],
   },

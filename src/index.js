@@ -4,19 +4,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-import { Auth0Provider } from "@auth0/auth0-react";
+// import { Auth0Provider } from "@auth0/auth0-react";
+import { ApiContextProvider } from "contexts/ApiContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider
+    <ApiContextProvider>
+      {/* <Auth0Provider
       domain="ratnesh-phases.eu.auth0.com"
       clientId="UyZ7PUPXNGBLBsByZ837VfNGeQYjBKSL"
       redirectUri="http://localhost:3000/overview"
       audience="https://ratnesh-phases.eu.auth0.com/api/v2/"
       scope="read:current_user update:current_user_metadata"
-    >
+    > */}
       <App />
-    </Auth0Provider>
+      {/* </Auth0Provider> */}
+    </ApiContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

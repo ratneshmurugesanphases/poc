@@ -1,5 +1,6 @@
 import React from "react";
 
 export default function InvalidPage() {
-  return <div>InvalidPage</div>;
+  console.log("InvalidPage")
+  return <div>InvalidPage - AREA XX</div>;
 }
