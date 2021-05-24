@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import axios from "axios";
 
+import { MOCK_HOST } from "configs/apiConfig";
 import { actionTypes } from "reducers/apiReducer";
-
 import { useApiDeps } from "contexts/ApiContext";
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
+axios.defaults.baseURL = MOCK_HOST;
 
 /**
   - no need to JSON.stringify to then immediatly do a JSON.parse
@@ -13,29 +13,44 @@ axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
   - axios already support generic request in one parameter, no need to call specialized ones
 **/
 
-export const useAxios = (apiParams) => {
+const headers = {
+  "Content-type": "application/json; charset=UTF-8",
+};
+
+export const useAxios = (apiMethod, apiUrl, apiBody) => {
   const { state, dispatch } = useApiDeps();
 
   useEffect(() => {
-    console.log("UE")
-    dispatch({ type: actionTypes.makeApiCall });
-    const fetchData = async (apiParams) => {
+    let didComponentMount = true;
+
+    async function fetchData(apiMethod, apiUrl, apiBody) {
       try {
-        const response = await axios.request(apiParams);
-        if (response.status === 200) {
-          dispatch({ type: actionTypes.succesApiCall, response: response.data });
-          return;
+        if (didComponentMount) {
+          dispatch({ type: actionTypes.makeApiCall });
+          const response = await axios.request({
+            headers,
+            url: apiUrl,
+            method: apiMethod,
+            ...(apiMethod === "GET" ? null : { body: apiBody }),
+          });
+          if (response.status === 200) {
+            dispatch({
+              type: actionTypes.succesApiCall,
+              response,
+            });
+            return;
+          }
+          dispatch({ type: actionTypes.errorApiCall, error: response.error });
         }
-        dispatch({ type: actionTypes.errorApiCall, error: response.error });
       } catch (error) {
         console.log(`Catch block api ${error.message} in useAxios hook`);
         throw error;
       }
-    };
-    fetchData(apiParams);
-  }, []);
+    }
+    fetchData(apiMethod, apiUrl, apiBody);
 
-  console.log("useAxios", state);
+    return () => (didComponentMount = false);
+  }, [dispatch, apiMethod, apiUrl, apiBody]);
 
-  return { ...state };
+  return state;
 };

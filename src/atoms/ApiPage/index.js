@@ -1,18 +1,25 @@
 import { useAxios } from "hooks/useAxios";
 
 function ApiPage() {
-  const { response, loading, error } = useAxios({
-    method: "GET",
-    // body: JSON.stringify({
-    //   title: "foo",
-    //   body: "bar",
-    //   userId: 1,
-    // }),
-    url: "/posts?userId=10",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
+  const { loading, response, error } = useAxios("GET", "posts");
+  // const jsonStringifiedBody = JSON.stringify({
+  //   id: 9,
+  //   title: "ratnesh",
+  //   body: "bar",
+  //   userId: 9,
+  // });
+  // const { loading, response, error } = useAxios(
+  //   "POST",
+  //   "posts/9",
+  //   jsonStringifiedBody || null
+  // );
+  // const { loading, response, error } = useAxios(
+  //   "PUT",
+  //   "posts/9",
+  //   jsonStringifiedBody || null
+  // );
+
+  console.log("ApiPage");
 
   return (
     <div className="App">
@@ -27,18 +34,23 @@ function ApiPage() {
               <p>{error}</p>
             </div>
           )}
-          <div>
-            {response && (
+          <>
+            {Object.keys(response).length && response.data.length ? (
               <p>
-                {response.map((dataObj) => (
+                {response.data.map((dataObj) => (
                   <div>
                     <span>{dataObj.id}</span>
                     <span>{dataObj.title}</span>
                   </div>
                 ))}
               </p>
+            ) : (
+              <p>
+                <div>Updated Id</div>
+                {/* <span>{response.data.id}</span> */}
+              </p>
             )}
-          </div>
+          </>
         </div>
       )}
     </div>
