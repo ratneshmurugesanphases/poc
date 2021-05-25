@@ -16,7 +16,9 @@ export const URL_API_VIEW = `/api-view`;
 export const URL_INVALID = `/page/invalid`;
 
 /* APP API URLs */
-export const MOCK_HOST = `https://jsonplaceholder.typicode.com/`;
+// export const MOCK_HOST = `https://jsonplaceholder.typicode.com/`;
+export const MOCK_HOST = `http://localhost:5000/`;
+
 
 export const API_LOCAL_HOST = `${LOCAL_HOST}/api/`;
 export const API_AUTH = `${API_LOCAL_HOST}/api/auth/`;

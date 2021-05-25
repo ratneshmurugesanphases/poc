@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-import { MOCK_HOST } from "configs/apiConfig";
+import { MOCK_HOST, PROD_HOST } from "configs/apiConfig";
 import { actionTypes } from "reducers/apiReducer";
 import { useApiDeps } from "contexts/ApiContext";
 
-axios.defaults.baseURL = MOCK_HOST;
+const axiosInstance = axios.create({
+  baseURL: PROD_HOST || MOCK_HOST,
+  // headers: {'X-Custom-Header': 'foobar'}
+});
 
-/**
-  - no need to JSON.stringify to then immediatly do a JSON.parse
-  - don't use export defaults, because default imports are hard to search for
-  - axios already support generic request in one parameter, no need to call specialized ones
-**/
-
-const headers = {
-  "Content-type": "application/json; charset=UTF-8",
-};
+axiosInstance.defaults.headers.common["Authorization"] = "AUTH_TOKEN";
+// axiosInstance.defaults.headers.post["Content-Type"] =
+//   "application/x-www-form-urlencoded";
+// axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
+// axiosInstance.defaults.headers.post["Accept"] = "*/*";
+// axiosInstance.defaults.headers.post["Accept"] = "application/json";
 
 export const useAxios = (apiMethod, apiUrl, apiBody) => {
   const { state, dispatch } = useApiDeps();
@@ -27,11 +27,11 @@ export const useAxios = (apiMethod, apiUrl, apiBody) => {
       try {
         if (didComponentMount) {
           dispatch({ type: actionTypes.makeApiCall });
-          const response = await axios.request({
-            headers,
+          console.log("parsed json", apiBody);
+          const response = await axiosInstance({
             url: apiUrl,
             method: apiMethod,
-            ...(apiMethod === "GET" ? null : { body: apiBody }),
+            ...(apiMethod === "GET" ? null : { data: JSON.parse(apiBody) }),
           });
           if (response.status === 200) {
             dispatch({
