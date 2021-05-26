@@ -4567,10 +4567,10 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
-dhtmlx-scheduler@^5.3.11:
-  version "5.3.11"
-  resolved "https://registry.yarnpkg.com/dhtmlx-scheduler/-/dhtmlx-scheduler-5.3.11.tgz#913b264bd52d69738dc60d264fd839da3557f1b7"
-  integrity sha512-bYMfLxDOp0+01F1KT04Nm+M7PudulWTRdn5cHWAPQbti1mTPHLzzoUYBGF632T6wbhQL9+9Y+5KuVAZaBgdehA==
+dhx-suite@^7.1.7:
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/dhx-suite/-/dhx-suite-7.1.7.tgz#7f03313d3a117afc5e8195a3fe1b37922a92978e"
+  integrity sha512-fst3vIRXJiWi1qWnxsdQ5s6SXjjYfHvSDlIdsTHEnzwJoN3Cl7MM5je9flebK8H5vnHEN//SYg3kiudIhK1Bng==
 
 diff-sequences@^26.6.2:
   version "26.6.2"

@@ -15,6 +15,7 @@ import fakeAuth from "helpers/provideFakeAuth";
 import routes from "configs/routeConfig";
 import "monday-ui-react-core/dist/main.css";
 import "./App.scss";
+// import CalendarView from "pages/CalendarView";
 
 const LogIn = lazy(() => import("pages/LogIn"));
 const Dashboard = lazy(() => import("pages/Dashboard"));

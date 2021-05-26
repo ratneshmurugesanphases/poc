@@ -1,5 +1,5 @@
 {
-  "name": "project-react-scheduler",
+  "name": "helsingborg-event-booking-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "date-fns": "^2.21.3",
-    "dhtmlx-scheduler": "^5.3.11",
+    "dhx-suite": "^7.1.7",
     "faker": "^5.5.3",
     "google-map-react": "^2.1.9",
     "monday-ui-react-core": "^0.3.26",

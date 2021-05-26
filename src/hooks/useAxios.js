@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   // headers: {'X-Custom-Header': 'foobar'}
 });
 
-axiosInstance.defaults.headers.common["Authorization"] = "AUTH_TOKEN";
+axiosInstance.defaults.headers.common["Authorization"] = "Bearer AUTH_TOKEN";
 // axiosInstance.defaults.headers.post["Content-Type"] =
 //   "application/x-www-form-urlencoded";
 // axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
