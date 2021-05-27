@@ -7,6 +7,7 @@ import { differenceInHours } from "date-fns";
 // import EditBookingForm from "molecules/EditBookingForm";
 
 import "./Scheduler.scss";
+import CustomDateRangePicker from "atoms/CustomDateRangePicker";
 
 const scheduler = window.scheduler;
 const yUnitData = [
@@ -255,15 +256,7 @@ const Scheduler = () => {
   console.log("Scheduler - index.js", state);
   return (
     <>
-      {currentView === "timeline_day_view" && (
-        <span key="datePickerSolo" ref={datePickerSoloRef}></span>
-      )}
-      {currentView === "timeline_week_view" && (
-        <>
-          <span key="datePickerStart" ref={datePickerStartRef}></span>
-          <span key="datePickerEnd" ref={datePickerEndRef}></span>
-        </>
-      )}
+      <CustomDateRangePicker />
       <div
         id="scheduler_here"
         className="dhx_cal_container"

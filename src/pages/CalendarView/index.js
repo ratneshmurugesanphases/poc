@@ -1,6 +1,6 @@
 import React from "react";
 import Scheduler from "atoms/Scheduler";
-import CustomDateRangePicker from "atoms/DateRangePicker";
+import CustomDateRangePicker from "atoms/CustomDateRangePicker";
 import { CalendarViewContextProvider } from "contexts/CalendarViewContext";
 import LogoutButton from "atoms/LogoutButton";
 
