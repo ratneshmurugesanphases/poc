@@ -11,11 +11,11 @@ function ApiPage() {
   });
   // const { loading, response, error } = useAxios("GET", "ping");
   // const { loading, response, error } = useAxios("GET", "login");
-  const { loading, response, error } = useAxios(
-    "POST",
-    "login",
-    jsonStringData
-  );
+  const {
+    // loading,
+    response,
+    // error
+  } = useAxios("POST", "login", jsonStringData);
   const { decodedToken } = useJwt(
     response && response.data && response.data.accessToken
   );

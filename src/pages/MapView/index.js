@@ -18,7 +18,7 @@ function MapView() {
       <LogoutButton />
 
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "ratnesh" }}
+        bootstrapURLKeys={{ key: "AIzaSyCvHLlBpcsqJaHnf_ttgFKpT4TXlahz98w" }}
         defaultCenter={coords.center}
         defaultZoom={coords.zoom}
       >
