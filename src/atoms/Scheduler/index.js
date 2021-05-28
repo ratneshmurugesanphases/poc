@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { differenceInHours } from "date-fns";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import DatePicker from "react-date-picker";
 
@@ -13,15 +13,27 @@ import { getPodioStatusColors } from "configs/colorConfig";
 
 import "./Scheduler.scss";
 
+const fade = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const applyFade = () => css`
+animation: ${fade} 300ms;
+animation-fill-mode: forwards;
+`;
+
 const StyledScheduler = styled.div`
   display: grid;
-  grid-template-rows: 1fr 900px;
+  grid-template-rows: 1fr 80vh;
+  ${applyFade}
 `;
 
 const StyledToolbar = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: baseline;
+  ${applyFade}
 `;
 
 const scheduler = window.scheduler;
@@ -33,7 +45,7 @@ const sceneE = { key: 5, label: "Scene E - Off-program" };
 
 const yUnitData = [sceneA, sceneB, sceneC, sceneD, sceneE];
 
-scheduler.createTimelineView({
+const timelineDayViewConfig = {
   name: "timeline_day_view",
   // Minute type
   x_unit: "minute",
@@ -56,9 +68,8 @@ scheduler.createTimelineView({
     x_unit: "minute", // unit which should be used for second scale
     x_date: "%F %d", // date format which should be used for second scale, "July 01"
   },
-});
-
-scheduler.createTimelineView({
+};
+const timelineWeekViewConfig = {
   name: "timeline_week_view",
   // Hour type
   x_unit: "hour",
@@ -81,12 +92,16 @@ scheduler.createTimelineView({
     x_unit: "hour", // unit which should be used for second scale
     x_date: "%F %d", // date format which should be used for second scale, "July 01"
   },
-});
+};
+
+const scdedulerViews = [timelineDayViewConfig, timelineWeekViewConfig];
 
 scheduler.templates.tooltip_date_format =
   scheduler.date.date_to_str("%Y-%m-%d %H:%i");
 scheduler.config.details_on_create = true;
 scheduler.config.details_on_dblclick = true;
+// scheduler.locale.labels.timeline1_tab = "DayDay";
+// scheduler.locale.labels.timeline2_tab = "WeekWeek";
 // scheduler.config.multi_day = true;
 // scheduler.config.mark_now = true;
 // scheduler.config.now_date = new Date(2021, 4, 27, 11, 42);
@@ -125,6 +140,8 @@ const Scheduler = () => {
     dispatch,
     newBookingFormRef,
   } = useCommonContextDeps();
+
+  scdedulerViews.forEach((view) => scheduler.createTimelineView(view));
 
   const [state, setState] = useState({
     startDate: new Date(),
@@ -190,7 +207,7 @@ const Scheduler = () => {
   });
 
   const { currentView, startDate, endDate, schedulerData } = state;
-
+  const { searchTerm } = commonState;
   const startDateFromDatePicker = startDate;
   const endDateFromDatePicker = endDate;
 
@@ -217,13 +234,50 @@ const Scheduler = () => {
     setState({ ...state, startDate: value[0], endDate: value[1] });
 
   const handleSearchChange = (value) => {
+    // setTimeout(
     dispatch({ type: "UPDATE_SEARCH", payload: { searchTerm: value } });
+    // 2000
+    // );
   };
 
   const handleNewFormClick = () => {
     if (newBookingFormRef && newBookingFormRef.current) {
       newBookingFormRef.current.setOpen((open) => !open);
     }
+  };
+
+  const handleZoomInClick = () => {
+    let currentZoomInterval = scheduler.getView(currentView).x_size;
+    console.log("handleZoomInClick", currentZoomInterval);
+
+    // if (currentZoomInterval === 96) {
+    //   currentZoomInterval = 30;
+    // } else if (currentZoomInterval === 30) {
+    //   currentZoomInterval = 15;
+    // } else if (currentZoomInterval === 15) {
+    //   currentZoomInterval = 10;
+    // } else if (currentZoomInterval === 10) {
+    //   currentZoomInterval = 5;
+    // }
+    // scheduler.getView(currentView).x_size = currentZoomInterval;
+    // scheduler.updateView(startDateFromDatePicker, currentView);
+    scheduler.setCurrentView();
+  };
+
+  const handleZoomOutClick = () => {
+    let currentZoomInterval = scheduler.getView(currentView).x_size;
+    console.log("handleZoomOutClick", currentZoomInterval);
+    // if (currentZoomInterval === 5) {
+    //   currentZoomInterval = 10;
+    // } else if (currentZoomInterval === 10) {
+    //   currentZoomInterval = 15;
+    // } else if (currentZoomInterval === 15) {
+    //   currentZoomInterval = 30;
+    // } else if (currentZoomInterval === 30) {
+    //   currentZoomInterval = 96;
+    // }
+    // scheduler.getView(currentView).x_size = currentZoomInterval;
+    // scheduler.setCurrentView();
   };
 
   useEffect(() => {
@@ -233,7 +287,10 @@ const Scheduler = () => {
       return `${key}${label}${section}`;
     };
     scheduler.init("scheduler_here", new Date(), currentView);
-    scheduler.parse(schedulerData);
+    const filteredPostsBySearch = searchTerm
+      ? schedulerData.filter((dataObj) => dataObj.status === searchTerm)
+      : schedulerData;
+    scheduler.parse(filteredPostsBySearch);
     if (currentView === "timeline_day_view") {
       scheduler.updateView(startDateFromDatePicker, currentView);
     } else {
@@ -248,8 +305,8 @@ const Scheduler = () => {
       scheduler.getView(currentView).x_size = diffInHours;
       scheduler.updateView(startDateFromDatePicker, currentView);
     }
-    // const availableEvents = scheduler.getEvents();
-    // console.log("availableEvents", availableEvents);
+    const availableEvents = scheduler.getEvents();
+    console.log("availableEvents", availableEvents);
     console.log("SCHEDULER - UE");
 
     return () => scheduler.clearAll();
@@ -259,11 +316,12 @@ const Scheduler = () => {
     endDateFromDatePicker,
     currentView,
     schedulerData,
+    searchTerm,
     handleDayViewClick,
     handleWeekViewClick,
   ]);
 
-  console.log("Scheduler - index.js", state);
+  console.log("Scheduler - index.js");
 
   return (
     <>
@@ -273,7 +331,9 @@ const Scheduler = () => {
           <button onClick={handleDayViewClick}>Day View</button>
           <button onClick={handleWeekViewClick}>Week View</button>
           <button onClick={() => null}>Map </button>
-          <button onClick={() => null}> +/- Zoom Interval</button>
+          <button onClick={handleZoomOutClick}> Zoom out Interval</button>
+          <button onClick={handleZoomInClick}> Zoom in Interval</button>
+
           {currentView === "timeline_day_view" && (
             <DatePicker
               onChange={handleDateChange}
@@ -292,7 +352,7 @@ const Scheduler = () => {
           <button onClick={() => null}>Print View</button>
           <div style={{ width: "200px" }}>
             <SearchField
-              searchTerm={commonState.searchTerm}
+              searchTerm={searchTerm}
               handleSearchChange={handleSearchChange}
             />
           </div>

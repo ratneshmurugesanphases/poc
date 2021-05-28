@@ -16,13 +16,13 @@ $fadeDuration: 500ms;
         opacity: 1;
     }
 }
-.scheduler-container {
+// .scheduler-container {
     // height: calc(100vh - 50px - 200px);
-    height: 100vh;
+    // height: 80vh;
     // width: 100vw;
-    @include applyFadeEffect();
-    z-index: 0;
-}
+    // @include applyFadeEffect();
+    // z-index: 0;
+// }
 
 .react-daterange-picker__calendar {
     z-index: 4;

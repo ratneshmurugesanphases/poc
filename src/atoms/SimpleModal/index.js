@@ -14,7 +14,7 @@ export default function SimpleModal({ children, formName }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log("CustomDraggableModal", open);
+  // console.log("SimpleModal", open);
   return (
     <>
       <Dialog
