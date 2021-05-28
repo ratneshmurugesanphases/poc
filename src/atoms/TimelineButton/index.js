@@ -7,7 +7,6 @@ import { format } from "date-fns";
 import { Modal } from "@material-ui/core";
 
 import useDateRangeController from "hooks/useDateRangeController";
-import { CalendarViewContextProvider } from "contexts/CalendarViewContext";
 
 import "./styles.scss";
 
@@ -41,9 +40,7 @@ function Timeline() {
       >
         <span>
           <div>
-            {start_date && (
-              <span>{format(start_date, "MMM-dd-yyyy")}</span>
-            )}
+            {start_date && <span>{format(start_date, "MMM-dd-yyyy")}</span>}
             {end_date && <span>{format(end_date, "MMM-dd-yyyy")}</span>}
           </div>
         </span>
@@ -74,9 +71,5 @@ function Timeline() {
 }
 
 export default function TimelineButton() {
-  return (
-    <CalendarViewContextProvider>
-      <Timeline />
-    </CalendarViewContextProvider>
-  );
+  return <Timeline />;
 }

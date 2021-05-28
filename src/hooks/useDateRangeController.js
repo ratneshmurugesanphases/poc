@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { isBefore } from "date-fns";
 import { START_DATE } from "configs/dateConfig";
-import { useCalendarViewContextDeps } from "contexts/CalendarViewContext";
+import { useCommonContextDeps } from "contexts/CommonContext";
 
 const useDateRangeController = () => {
-  const { customDateRangePickerRef } = useCalendarViewContextDeps();
+  const { customDateRangePickerRef } = useCommonContextDeps();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateRange, setDateRange] = useState([
     {

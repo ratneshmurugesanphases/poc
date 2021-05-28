@@ -4,10 +4,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import { useCalendarViewContextDeps } from "contexts/CalendarViewContext";
+import { useCommonContextDeps } from "contexts/CommonContext";
 
 export default function SimpleModal({ children, formName }) {
-  const { newBookingFormRef } = useCalendarViewContextDeps();
+  const { newBookingFormRef } = useCommonContextDeps();
+
   const [open, setOpen] = React.useState(false);
   if (newBookingFormRef) newBookingFormRef.current = { setOpen };
   const handleClose = () => {

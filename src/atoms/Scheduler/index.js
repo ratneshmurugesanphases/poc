@@ -1,21 +1,37 @@
-import { useEffect, useRef, useState } from "react";
-import { Calendar as CalendarDHX } from "dhx-suite";
-
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { differenceInHours } from "date-fns";
-// import useScheduleController from "../../hooks/useScheduleController";
-// import NewBookingForm from "molecules/NewBookingForm";
+import styled from "styled-components";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import DatePicker from "react-date-picker";
+
+import LogoutButton from "atoms/LogoutButton";
+import SearchField from "atoms/SearchField";
+import { useCommonContextDeps } from "contexts/CommonContext";
+import NewBookingForm from "molecules/NewBookingForm";
 // import EditBookingForm from "molecules/EditBookingForm";
+import { getPodioStatusColors } from "configs/colorConfig";
 
 import "./Scheduler.scss";
-import CustomDateRangePicker from "atoms/CustomDateRangePicker";
+
+const StyledScheduler = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 900px;
+`;
+
+const StyledToolbar = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+`;
 
 const scheduler = window.scheduler;
-const yUnitData = [
-  { key: 1, label: "Label 1" },
-  { key: 2, label: "Label 2" },
-  { key: 3, label: "Label 3" },
-  { key: 4, label: "Label 4" },
-];
+const sceneA = { key: 1, label: "Scene A - SeaU" };
+const sceneB = { key: 2, label: "Scene B - Helsingborg Arena" };
+const sceneC = { key: 3, label: "Scene C - City" };
+const sceneD = { key: 4, label: "Scene D - Oceanhamnen" };
+const sceneE = { key: 5, label: "Scene E - Off-program" };
+
+const yUnitData = [sceneA, sceneB, sceneC, sceneD, sceneE];
 
 scheduler.createTimelineView({
   name: "timeline_day_view",
@@ -80,16 +96,15 @@ scheduler.config.preserve_scale_length = false;
 
 const format = scheduler.date.date_to_str("%H:%i");
 scheduler.templates.event_bar_text = function (start, end, event) {
-  const paidStatus = "PAID-TEST";
   const startDate = start;
   const endDate = end;
+  // console.log("event_bar_text", event);
   return [
     event.text + "<br />",
     event.section_id + "<br />",
+    "Status:" + event.status + "<br/>",
     format(startDate) + " - " + format(endDate) + "<br />",
     startDate + " - " + endDate,
-    "<div class='booking_status booking-option'> BOOKED-TEST </div>",
-    "<div class='booking_paid booking-option'>" + paidStatus + "</div>",
   ].join("");
 };
 // scheduler.templates.tooltip_text = function (start, end, event) {
@@ -101,104 +116,124 @@ scheduler.templates.event_bar_text = function (start, end, event) {
 //   html.push("PAID-TEST, PAID-TEST");
 //   return html.join("<br>");
 // };
+
+const podioStatusColors = getPodioStatusColors();
+
 const Scheduler = () => {
-  const datePickerSoloRef = useRef(null);
-  const datePickerStartRef = useRef(null);
-  const datePickerEndRef = useRef(null);
+  const {
+    state: commonState,
+    dispatch,
+    newBookingFormRef,
+  } = useCommonContextDeps();
+
   const [state, setState] = useState({
     startDate: new Date(),
     endDate: new Date(),
     currentView: "timeline_day_view",
+    // schedulerYUnitData: [sceneA, sceneB, sceneC, sceneD],
+    schedulerData: [
+      {
+        start_date: "2021-05-28 00:00",
+        end_date: "2021-05-28 12:00",
+        text: "Initiative B",
+        color: podioStatusColors.uncertain,
+        status: "uncertain",
+        section_id: 2,
+        textColor: "black",
+      },
+      {
+        start_date: "2021-05-28 00:00",
+        end_date: "2021-05-28 24:30",
+        text: "Initiative A",
+        section_id: 4,
+        color: podioStatusColors.cancelled,
+        status: "cancelled",
+        textColor: "black",
+      },
+      {
+        start_date: "2021-05-28 00:00",
+        end_date: "2021-05-28 11:30",
+        text: "Initiative C",
+        section_id: 1,
+        color: podioStatusColors.notDone,
+        status: "notDone",
+        textColor: "black",
+      },
+      {
+        start_date: "2021-05-28 00:00",
+        end_date: "2021-05-28 11:30",
+        text: "Initiative D",
+        section_id: 3,
+        status: "clear",
+        color: podioStatusColors.clear,
+        textColor: "black",
+      },
+      {
+        start_date: "2021-05-28 00:00",
+        end_date: "2021-05-28 15:30",
+        text: "Initiative E",
+        section_id: 5,
+        status: "followUp",
+        color: podioStatusColors.followUp,
+        textColor: "black",
+      },
+      {
+        start_date: "2021-05-10 00:00",
+        end_date: "2021-05-10 5:30",
+        text: "Initiative F",
+        section_id: 2,
+        status: "followUp",
+        color: podioStatusColors.followUp,
+        textColor: "black",
+      },
+    ],
   });
-  const { currentView, startDate, endDate } = state;
+
+  const { currentView, startDate, endDate, schedulerData } = state;
 
   const startDateFromDatePicker = startDate;
   const endDateFromDatePicker = endDate;
 
+  const dateValues = useMemo(
+    () => [startDateFromDatePicker, endDateFromDatePicker],
+    [startDateFromDatePicker, endDateFromDatePicker]
+  );
+
+  const handleDayViewClick = useCallback(() => {
+    setState((state) => ({ ...state, currentView: "timeline_day_view" }));
+  }, []);
+
+  const handleWeekViewClick = useCallback(() => {
+    setState((state) => ({
+      ...state,
+      currentView: "timeline_week_view",
+    }));
+  }, []);
+
+  const handleDateChange = (value) =>
+    setState({ ...state, startDate: value, endDate: new Date() });
+
+  const handleDateRangeChange = (value) =>
+    setState({ ...state, startDate: value[0], endDate: value[1] });
+
+  const handleSearchChange = (value) => {
+    dispatch({ type: "UPDATE_SEARCH", payload: { searchTerm: value } });
+  };
+
+  const handleNewFormClick = () => {
+    if (newBookingFormRef && newBookingFormRef.current) {
+      newBookingFormRef.current.setOpen((open) => !open);
+    }
+  };
+
   useEffect(() => {
-    //===============
-    //Data loading
-    //===============
-    // scheduler.config.lightbox.sections = [
-    //   {
-    //     name: "description",
-    //     height: 50,
-    //     map_to: "text",
-    //     type: "textarea",
-    //     focus: true,
-    //   },
-    //   {
-    //     name: "custom",
-    //     height: 30,
-    //     type: "timeline",
-    //     options: null,
-    //     map_to: "section_id",
-    //   }, //type should be the same as name of the tab
-    //   { name: "time", height: 72, type: "time", map_to: "auto" },
-    // ];
-    scheduler.config.header = [
-      {
-        html: "DASHBOARD",
-      },
-      {
-        html: "DAY",
-        view: "timeline_day_view",
-        click: () => {
-          setState((state) => ({ ...state, currentView: "timeline_day_view" }));
-          // scheduler.updateView(startDateFromDatePicker, "timeline_day_view");
-        },
-      },
-      {
-        html: "WEEK",
-        view: "timeline_week_view",
-        click: () => {
-          setState((state) => ({
-            ...state,
-            currentView: "timeline_week_view",
-          }));
-          // scheduler.updateView(startDateFromDatePicker, "timeline_week_view");
-        },
-      },
-      {
-        html: "MAP",
-      },
-      "spacer",
-      {
-        view: "date",
-      },
-      "spacer",
-    ];
-
+    scheduler.xy.nav_height = 0;
+    scheduler.config.header = [];
     scheduler.templates.timeline_scale_label = function (key, label, section) {
-      return `${key}${label}`;
+      return `${key}${label}${section}`;
     };
-
     scheduler.init("scheduler_here", new Date(), currentView);
-    scheduler.parse([
-      {
-        start_date: "2021-05-27 09:00",
-        end_date: "2021-05-27 12:00",
-        text: "Initiative B",
-        section_id: 2,
-      },
-      {
-        start_date: "2021-05-27 23:00",
-        end_date: "2021-05-27 24:30",
-        text: "Initiative A",
-        section_id: 4,
-        color: "#FF9633",
-        textColor: "white",
-      },
-      {
-        start_date: "2021-05-10 00:00",
-        end_date: "2021-05-10 11:30",
-        text: "Initiative C",
-        section_id: 1,
-        color: "#9575CD",
-        textColor: "white",
-      },
-    ]);
-    // const availableEvents = scheduler.getEvents();
+    scheduler.parse(schedulerData);
     if (currentView === "timeline_day_view") {
       scheduler.updateView(startDateFromDatePicker, currentView);
     } else {
@@ -211,60 +246,67 @@ const Scheduler = () => {
         ) || 24;
       console.log("diffInHours", diffInHours);
       scheduler.getView(currentView).x_size = diffInHours;
-      // scheduler.setCurrentView(); // redraws scheduler
       scheduler.updateView(startDateFromDatePicker, currentView);
     }
+    // const availableEvents = scheduler.getEvents();
     // console.log("availableEvents", availableEvents);
     console.log("SCHEDULER - UE");
 
     return () => scheduler.clearAll();
-  }, [startDateFromDatePicker, endDateFromDatePicker, currentView]);
-
-  useEffect(() => {
-    datePickerSoloRef.current = new CalendarDHX(datePickerSoloRef.current, {
-      css: "dhx_widget--bordered",
-      value: new Date(startDateFromDatePicker),
-    });
-    datePickerStartRef.current = new CalendarDHX(datePickerStartRef.current, {
-      css: "dhx_widget--bordered",
-      value: new Date(startDateFromDatePicker),
-    });
-    datePickerEndRef.current = new CalendarDHX(datePickerEndRef.current, {
-      css: "dhx_widget--bordered",
-      value: new Date(endDateFromDatePicker),
-    });
-
-    // Events
-    datePickerSoloRef.current.events.on("change", (date, id) => {
-      setState((state) => ({ ...state, startDate: date.toString() }));
-    });
-    datePickerStartRef.current.events.on("change", (date, id) => {
-      setState((state) => ({ ...state, startDate: date.toString() }));
-    });
-    datePickerEndRef.current.events.on("change", (date, id) => {
-      setState((state) => ({ ...state, endDate: date.toString() }));
-    });
-
-    datePickerStartRef.current.link(datePickerEndRef.current);
-
-    console.log("DP - UE");
-    return () => {
-      console.log("DP - Unmounted");
-    };
-  }, [currentView, startDateFromDatePicker, endDateFromDatePicker]);
+  }, [
+    newBookingFormRef,
+    startDateFromDatePicker,
+    endDateFromDatePicker,
+    currentView,
+    schedulerData,
+    handleDayViewClick,
+    handleWeekViewClick,
+  ]);
 
   console.log("Scheduler - index.js", state);
+
   return (
     <>
-      <CustomDateRangePicker />
-      <div
-        id="scheduler_here"
-        className="dhx_cal_container"
-        style={{ width: "100%", height: "100%" }}
-        key="scheduler_here"
-      ></div>
-      {/* <NewBookingForm />
-      <EditBookingForm /> */}
+      <StyledScheduler>
+        <StyledToolbar>
+          <button onClick={() => null}>Dashboard</button>
+          <button onClick={handleDayViewClick}>Day View</button>
+          <button onClick={handleWeekViewClick}>Week View</button>
+          <button onClick={() => null}>Map </button>
+          <button onClick={() => null}> +/- Zoom Interval</button>
+          {currentView === "timeline_day_view" && (
+            <DatePicker
+              onChange={handleDateChange}
+              value={dateValues}
+              locale="sv"
+            />
+          )}
+          {currentView === "timeline_week_view" && (
+            <DateRangePicker
+              onChange={handleDateRangeChange}
+              value={dateValues}
+              locale="sv"
+            />
+          )}
+          <button onClick={handleNewFormClick}>+ Add New</button>
+          <button onClick={() => null}>Print View</button>
+          <div style={{ width: "200px" }}>
+            <SearchField
+              searchTerm={commonState.searchTerm}
+              handleSearchChange={handleSearchChange}
+            />
+          </div>
+          <LogoutButton />
+        </StyledToolbar>
+        <div
+          id="scheduler_here"
+          className="dhx_cal_container"
+          style={{ width: "100%", height: "100%" }}
+          key="scheduler_here"
+        ></div>
+      </StyledScheduler>
+      <NewBookingForm />
+      {/* <EditBookingForm /> */}
     </>
   );
 };
