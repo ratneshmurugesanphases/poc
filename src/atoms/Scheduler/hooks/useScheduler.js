@@ -168,6 +168,7 @@ const useScheduler = () => {
       //     click: () => history.push("/calendar-view"),
       //     css: "header_calendar_button",
       //   },
+
       {
         html: "Dashboard",
         click: () => history.push("/dashboard"),
@@ -178,6 +179,15 @@ const useScheduler = () => {
         click: () => history.push("/map-view"),
         css: "header_map_button",
       },
+      "spacer",
+      {
+        html: "Filter",
+        css: "header_filter_button",
+      },
+      // {
+      //   html: "Settings",
+      //   css: "header_settings_button",
+      // },
       "spacer",
       "timeline2",
       "timeline3",

@@ -1,36 +1,21 @@
 const scheduler = window.scheduler;
-const sceneA = { key: 1, label: "Scene A - SeaU" };
-const sceneB = { key: 2, label: "Scene B - Helsingborg Arena" };
-const sceneC = { key: 3, label: "Scene C - City" };
-const sceneD = { key: 4, label: "Scene D - Oceanhamnen" };
-const sceneE = { key: 5, label: "Scene E - Off-program" };
-const sceneF = { key: 6, label: "Scene F - SeaU" };
-const sceneG = { key: 7, label: "Scene G - Helsingborg Arena" };
-const sceneH = { key: 8, label: "Scene H - City" };
-const sceneI = { key: 9, label: "Scene I - Oceanhamnen" };
-const sceneJ = { key: 10, label: "Scene J - Off-program" };
-const sceneK = { key: 11, label: "Scene K - SeaU" };
-const sceneL = { key: 12, label: "Scene L - Helsingborg Arena" };
-const sceneM = { key: 13, label: "Scene M - City" };
-const sceneN = { key: 14, label: "Scene N - Oceanhamnen" };
-const sceneO = { key: 15, label: "Scene O - Off-program" };
 
 const yUnitData = [
-  sceneA,
-  sceneB,
-  sceneC,
-  sceneD,
-  sceneE,
-  sceneF,
-  sceneG,
-  sceneH,
-  sceneI,
-  sceneJ,
-  sceneK,
-  sceneL,
-  sceneM,
-  sceneN,
-  sceneO,
+  { key: 1, label: "Scene A - SeaU" },
+  { key: 2, label: "Scene B - Helsingborg Arena" },
+  { key: 3, label: "Scene C - City" },
+  { key: 4, label: "Scene D - Oceanhamnen" },
+  { key: 5, label: "Scene E - Off-program" },
+  { key: 6, label: "Scene F - SeaU" },
+  { key: 7, label: "Scene G - Helsingborg Arena" },
+  { key: 8, label: "Scene H - City" },
+  { key: 9, label: "Scene I - Oceanhamnen" },
+  { key: 10, label: "Scene J - Off-program" },
+  { key: 11, label: "Scene K - SeaU" },
+  { key: 12, label: "Scene L - Helsingborg Arena" },
+  { key: 13, label: "Scene M - City" },
+  { key: 14, label: "Scene N - Oceanhamnen" },
+  { key: 15, label: "Scene O - Off-program" },
 ];
 
 const timeline1ViewConfig = {

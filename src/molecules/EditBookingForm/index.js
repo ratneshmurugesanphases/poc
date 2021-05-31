@@ -1,6 +1,6 @@
 import React from "react";
 // import RouteModalWrapper from "atoms/RouteModalWrapper";
-import SimpleModal from "atoms/SimpleModal";
+import SimpleDrawer from "atoms/SimpleDrawer";
 import HookForm from "atoms/HookForm";
 import CustomRichTextEditor from "atoms/CustomRichTextEditor";
 import CustomDropDown from "atoms/CustomDropDown";
@@ -9,8 +9,9 @@ import CustomMuiDateTime from "atoms/CustomMuiDateTime";
 
 import { useCommonContextDeps } from "contexts/CommonContext";
 
-import { formDefaults } from "configs/baseConfig";
+import { getFormDefaults } from "configs/baseConfig";
 
+const formDefaults = getFormDefaults();
 const mockColorOptions = [
   { value: "English", label: "English", isFixed: true },
   { value: "ocean", label: "Ocean", isFixed: true },
@@ -24,7 +25,7 @@ const mockColorOptions = [
 export default function EditBookingForm({ id }) {
   const { editBookingFormRef } = useCommonContextDeps();
   return (
-    <SimpleModal formName="Edit Booking">
+    <SimpleDrawer formName="Edit Booking">
       {(currentEvent, handleClose, setOpen, setCurrentEvent) => {
         editBookingFormRef.current = { setOpen, setCurrentEvent };
         console.log("EditBookingForm", currentEvent);
@@ -43,6 +44,7 @@ export default function EditBookingForm({ id }) {
                     placeholder="mainarea"
                     options={mockColorOptions}
                     {...genericFormProps}
+                    formDefaults={formDefaults}
                   />
                   <CustomDropDown
                     id="subarea-id"
@@ -52,6 +54,7 @@ export default function EditBookingForm({ id }) {
                     placeholder="subarea"
                     options={mockColorOptions}
                     {...genericFormProps}
+                    formDefaults={formDefaults}
                   />
                   <CustomDropDown
                     id="scene-id"
@@ -61,6 +64,7 @@ export default function EditBookingForm({ id }) {
                     placeholder="scene"
                     options={mockColorOptions}
                     {...genericFormProps}
+                    formDefaults={formDefaults}
                   />
                   <CustomTextInput
                     id="initiative-id"
@@ -97,7 +101,8 @@ export default function EditBookingForm({ id }) {
                     placeholder="format at city expo"
                     options={mockColorOptions}
                     {...genericFormProps}
-                  />{" "}
+                    formDefaults={formDefaults}
+                  />
                   <CustomDropDown
                     id="status-id"
                     name="status"
@@ -106,7 +111,8 @@ export default function EditBookingForm({ id }) {
                     placeholder="status"
                     options={mockColorOptions}
                     {...genericFormProps}
-                  />{" "}
+                    formDefaults={formDefaults}
+                  />
                   <CustomDropDown
                     id="target-group-id"
                     name="target-group"
@@ -115,6 +121,7 @@ export default function EditBookingForm({ id }) {
                     placeholder="target-group"
                     options={mockColorOptions}
                     {...genericFormProps}
+                    formDefaults={formDefaults}
                   />
                   <CustomTextInput
                     id="aktor-id"
@@ -184,6 +191,6 @@ export default function EditBookingForm({ id }) {
           </HookForm>
         );
       }}
-    </SimpleModal>
+    </SimpleDrawer>
   );
 }

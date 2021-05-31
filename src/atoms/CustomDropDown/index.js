@@ -3,8 +3,6 @@ import Dropdown from "monday-ui-react-core/dist/Dropdown";
 
 import { StyledDropdown } from "./styles.js";
 
-import { formDefaults } from "configs/baseConfig";
-
 export default function CustomDropDown({
   id,
   name,
@@ -14,6 +12,7 @@ export default function CustomDropDown({
   placeholder,
   options,
   useFormFieldController,
+  formDefaults,
 }) {
   const {
     field,
@@ -27,7 +26,7 @@ export default function CustomDropDown({
     name,
     control,
     rules: { required: true },
-    defaultValue: formDefaults[name],
+    defaultValue: formDefaults && formDefaults[name],
   });
 
   // console.log("field", field);

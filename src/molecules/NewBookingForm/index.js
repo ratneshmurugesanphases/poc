@@ -1,6 +1,6 @@
 import React from "react";
 // import RouteModalWrapper from "atoms/RouteModalWrapper";
-import SimpleModal from "atoms/SimpleModal";
+import SimpleDrawer from "atoms/SimpleDrawer";
 import HookForm from "atoms/HookForm";
 import CustomRichTextEditor from "atoms/CustomRichTextEditor";
 import CustomDropDown from "atoms/CustomDropDown";
@@ -8,8 +8,6 @@ import CustomTextInput from "atoms/CustomTextInput";
 import CustomMuiDateTime from "atoms/CustomMuiDateTime";
 
 import { useCommonContextDeps } from "contexts/CommonContext";
-
-// import { formDefaults } from "configs/baseConfig";
 
 const mockColorOptions = [
   { value: "English", label: "English", isFixed: true },
@@ -24,7 +22,7 @@ const mockColorOptions = [
 export default function NewBookingForm({ id }) {
   const { newBookingFormRef } = useCommonContextDeps();
   return (
-    <SimpleModal formName="New Booking">
+    <SimpleDrawer formName="New Booking">
       {(currentEvent, handleClose, setOpen, setCurrentEvent) => {
         newBookingFormRef.current = { setOpen, setCurrentEvent };
         console.log("NewBookingForm", currentEvent);
@@ -34,7 +32,6 @@ export default function NewBookingForm({ id }) {
               const { reset, handleSubmit, onSubmit } = genericFormProps;
               return (
                 <>
-                  {/* <CustomMuiDateTime /> */}
                   <CustomDropDown
                     id="mainarea-id"
                     name="mainarea"
@@ -184,6 +181,6 @@ export default function NewBookingForm({ id }) {
           </HookForm>
         );
       }}
-    </SimpleModal>
+    </SimpleDrawer>
   );
 }
