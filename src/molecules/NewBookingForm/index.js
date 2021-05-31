@@ -7,25 +7,29 @@ import CustomDropDown from "atoms/CustomDropDown";
 import CustomTextInput from "atoms/CustomTextInput";
 import CustomMuiDateTime from "atoms/CustomMuiDateTime";
 
-import { formDefaults } from "configs/baseConfig";
+import { useCommonContextDeps } from "contexts/CommonContext";
 
-export default function NewBookingForm() {
-  //   console.log("NewBookingForm", newBookingFormRef);
-  const mockColorOptions = [
-    { value: "English", label: "English", isFixed: true },
-    { value: "ocean", label: "Ocean", isFixed: true },
-    { value: "blue", label: "Blue", isDisabled: true },
-    { value: "purple", label: "Purple" },
-    { value: "red", label: "Red", isFixed: true },
-    { value: "orange", label: "Orange" },
-    { value: "yellow", label: "Yellow" },
-  ];
+// import { formDefaults } from "configs/baseConfig";
 
+const mockColorOptions = [
+  { value: "English", label: "English", isFixed: true },
+  { value: "ocean", label: "Ocean", isFixed: true },
+  { value: "blue", label: "Blue", isDisabled: true },
+  { value: "purple", label: "Purple" },
+  { value: "red", label: "Red", isFixed: true },
+  { value: "orange", label: "Orange" },
+  { value: "yellow", label: "Yellow" },
+];
+
+export default function NewBookingForm({ id }) {
+  const { newBookingFormRef } = useCommonContextDeps();
   return (
     <SimpleModal formName="New Booking">
-      {(handleClose) => {
+      {(currentEvent, handleClose, setOpen, setCurrentEvent) => {
+        newBookingFormRef.current = { setOpen, setCurrentEvent };
+        console.log("NewBookingForm", currentEvent);
         return (
-          <HookForm>
+          <HookForm id={id}>
             {(genericFormProps) => {
               const { reset, handleSubmit, onSubmit } = genericFormProps;
               return (
@@ -165,7 +169,7 @@ export default function NewBookingForm() {
                     {...genericFormProps}
                   />
                   <p>Click Here to View Details </p>
-                  <button type="button" onClick={() => reset(formDefaults)}>
+                  <button type="button" onClick={() => reset({})}>
                     RESET
                   </button>
                   <button type="button" onClick={handleSubmit(onSubmit)}>

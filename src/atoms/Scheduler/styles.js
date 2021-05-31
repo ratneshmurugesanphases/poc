@@ -12,7 +12,7 @@ export const applyFade = () => css`
 
 export const StyledScheduler = styled.div`
   display: grid;
-  grid-template-rows: 1fr 80vh;
+  grid-template-rows: 1fr 95vh;
   ${applyFade}
 `;
 

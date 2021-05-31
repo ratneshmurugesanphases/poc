@@ -4,17 +4,21 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import { useCommonContextDeps } from "contexts/CommonContext";
+const scheduler = window.scheduler;
 
 export default function SimpleModal({ children, formName }) {
-  const { newBookingFormRef } = useCommonContextDeps();
-
   const [open, setOpen] = React.useState(false);
-  if (newBookingFormRef) newBookingFormRef.current = { setOpen };
+  const [currentEvent, setCurrentEvent] = React.useState(null);
+  const isThisNewEvent = currentEvent && currentEvent.isThisNewEvent;
+  const newEventId = currentEvent && currentEvent.newEventId;
+
   const handleClose = () => {
+    if (isThisNewEvent) scheduler.deleteEvent(newEventId);
     setOpen(false);
   };
-  // console.log("SimpleModal", open);
+
+  console.log("SimpleModal", { open, currentEvent });
+
   return (
     <>
       <Dialog
@@ -25,7 +29,9 @@ export default function SimpleModal({ children, formName }) {
         // disableEscapeKeyDown
       >
         <DialogTitle>{formName}</DialogTitle>
-        <DialogContent dividers={true}>{children(handleClose)}</DialogContent>
+        <DialogContent dividers={true}>
+          {children(currentEvent, handleClose, setOpen, setCurrentEvent)}
+        </DialogContent>
       </Dialog>
     </>
   );

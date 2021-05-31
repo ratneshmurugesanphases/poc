@@ -30,7 +30,7 @@ export default function CustomDropDown({
     defaultValue: formDefaults[name],
   });
 
-  console.log("field", field);
+  // console.log("field", field);
 
   return (
     <StyledDropdown>

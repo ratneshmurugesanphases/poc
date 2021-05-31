@@ -1,5 +1,5 @@
-import LogoutButton from "atoms/LogoutButton";
-import SearchField from "atoms/SearchField";
+// import LogoutButton from "atoms/LogoutButton";
+// import SearchField from "atoms/SearchField";
 import NewBookingForm from "molecules/NewBookingForm";
 import EditBookingForm from "molecules/EditBookingForm";
 import { StyledScheduler, StyledToolbar } from "./styles";
@@ -8,7 +8,10 @@ import useScheduler from "./hooks/useScheduler";
 import "./styles.scss";
 
 const Scheduler = () => {
-  const { schedulerRef, handleSearchChange } = useScheduler();
+  const {
+    schedulerRef,
+    // handleSearchChange
+  } = useScheduler();
   console.log("Scheduler - index.js");
 
   return (
@@ -31,8 +34,8 @@ const Scheduler = () => {
           ref={schedulerRef}
         ></div>
       </StyledScheduler>
-      <NewBookingForm />
-      <EditBookingForm />
+      <NewBookingForm id="newbookingform" />
+      <EditBookingForm id="editbookingform" />
     </>
   );
 };

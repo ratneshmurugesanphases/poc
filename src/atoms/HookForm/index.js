@@ -5,7 +5,7 @@ import useFormFieldController from "hooks/useFormFieldController";
 
 import { StyledHookForm, StyledFormField } from "./styles.js";
 
-export default function HookForm({ children, formName }) {
+export default function HookForm({ children, formName, id }) {
   // const { formApiServicesFactory } = useDeps();
   const { handleSubmit, reset, control, setValue } = useForm();
   const onSubmit = (data, event) => {
@@ -15,8 +15,7 @@ export default function HookForm({ children, formName }) {
   console.log("HookForm");
 
   return (
-    <StyledHookForm>
-      <form>
+      <StyledHookForm id={id}>
         <strong>{formName}</strong>
         <StyledFormField>
           {children({
@@ -28,7 +27,6 @@ export default function HookForm({ children, formName }) {
             setValue,
           })}
         </StyledFormField>
-      </form>
-    </StyledHookForm>
+      </StyledHookForm>
   );
 }

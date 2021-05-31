@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import { useHistory } from "react-router-dom";
 import { useCommonContextDeps } from "contexts/CommonContext";
 import { getPodioStatusColors } from "configs/colorConfig";
@@ -12,12 +12,14 @@ const useScheduler = () => {
     state: commonState,
     dispatch,
     newBookingFormRef,
+    editBookingFormRef,
   } = useCommonContextDeps();
   const schedulerRef = useRef();
   const history = useHistory();
-  const handlePrint = useReactToPrint({
-    content: () => schedulerRef.current,
-  });
+
+  // const handlePrint = useReactToPrint({
+  //   content: () => schedulerRef.current,
+  // });
   const eventData = [
     {
       start_date: "2021-05-28 00:00",
@@ -137,7 +139,7 @@ const useScheduler = () => {
 
   const handleNewFormClick = () => {
     if (newBookingFormRef && newBookingFormRef.current) {
-      newBookingFormRef.current.setOpen((open) => !open);
+      newBookingFormRef.current.setOpen(true);
     }
   };
 
@@ -199,8 +201,8 @@ const useScheduler = () => {
       },
       {
         html: "Print",
-        click: handlePrint,
-        css: "header_print_button",
+        // click: handlePrint,
+        // css: "header_print_button",
       },
       {
         html: "Search",
@@ -247,41 +249,88 @@ const useScheduler = () => {
     // scheduler.setCurrentView(mouseHoverActionDataDate, currentView);
     scheduler.clearAll();
     scheduler.parse(filteredPostsBySearch);
-    const eventId = scheduler.addEvent({
-      start_date: "2021-05-12 00:00",
-      end_date: "2021-05-12 12:00",
-      text: "Initiative X",
-      color: podioStatusColors.uncertain,
-      status: "uncertain",
-      section_id: 4,
-      textColor: "black",
-      id: 11,
-      aktor: "Aktor X"
-    });
-    const testEvent = scheduler.getEvent(eventId);
-    testEvent.text = "Conference";
-    scheduler.updateEvent(testEvent.id);
-    console.log("addEvent id", eventId);
+    // const eventId = scheduler.addEvent({
+    //   start_date: "2021-05-12 00:00",
+    //   end_date: "2021-05-12 12:00",
+    //   text: "Initiative X",
+    //   color: podioStatusColors.uncertain,
+    //   status: "uncertain",
+    //   section_id: 4,
+    //   textColor: "black",
+    //   id: 11,
+    //   aktor: "Aktor X",
+    // });
+    // const testEvent = scheduler.getEvent(eventId);
+    // testEvent.text = "Conference";
+    // scheduler.updateEvent(testEvent.id);
+    // console.log("addEvent id", eventId);
     schedulerEventRef.addEventListener("wheel", handleMouseWheelTurn);
 
-  //   scheduler.showLightbox = function(id){
-  //     // id - id of event
-  //     scheduler.startLightbox(id, document.getElementById("newbookingform"));
-  //     scheduler.endLightbox(true, document.getElementById("newbookingform"));
-  // }
+    // const html = function(id) { return document.getElementById("newbookingform"); };
+    // console.log("form_fields", html("react-select-5-input").value)
 
-  
+    // console.log("lightbox_id", scheduler.getState().lightbox_id);
+
+    scheduler.showLightbox = function () {
+      scheduler.endLightbox(false);
+    };
+    // scheduler.attachEvent("onDblClick", function (id, e) {
+    //   if (newBookingFormRef && newBookingFormRef.current) {
+    //     newBookingFormRef.current.setOpen((open) => !open);
+    //   }
+    //   return false;
+    // });
+
+    let draggedEventObj;
+    scheduler.attachEvent("onBeforeDrag", function (id, mode, e) {
+      // console.log("onBeforeDrag", { e, id });
+      draggedEventObj = scheduler.getEvent(id);
+      return true;
+    });
+    scheduler.attachEvent("onDragEnd", function (id, mode, e) {
+      const newEventId = id;
+      if (mode === "new-size") {
+        console.log("onDragEnd - MODE", mode);
+
+        if (newBookingFormRef && newBookingFormRef.current) {
+          newBookingFormRef.current.setOpen(true);
+          newBookingFormRef.current.setCurrentEvent({
+            isThisNewEvent: true,
+            newEventId,
+          });
+        }
+      } else if (mode === "resize") {
+        console.log("onDragEnd - MODE", mode);
+
+        if (editBookingFormRef && editBookingFormRef.current) {
+          editBookingFormRef.current.setOpen(true);
+          editBookingFormRef.current.setCurrentEvent({
+            draggedEventObj,
+            isThisNewEvent: false,
+            newEventId,
+          });
+        }
+      }
+      // console.log("onDragEnd", { draggedEventObj, newEventId });
+    });
+
+    // scheduler.attachEvent("onBeforeLightbox", function (id) {
+    //   console.log("onBeforeLightbox", id);
+    //   var ev = scheduler.getEvent(id);
+    //   ev.my_template =
+    //     "<b>Holder:</b>" + ev.holder + "<br><b>Room:</b>" + ev.room;
+    //   return true;
+    // });
+
     return () => {
       console.log("unmount");
       schedulerEventRef.removeEventListener("wheel", handleMouseWheelTurn);
     };
-  }, [newBookingFormRef, schedulerData, searchTerm]);
+  }, [newBookingFormRef, editBookingFormRef, schedulerData, searchTerm]);
   //   const availableEvents = scheduler.getEvents();
   //   console.log("availableEvents", availableEvents);
 
   //   console.log("getEvent", scheduler.getEvents(2));
-
-
 
   console.log("sche", scheduler);
 

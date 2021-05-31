@@ -4,8 +4,34 @@ const sceneB = { key: 2, label: "Scene B - Helsingborg Arena" };
 const sceneC = { key: 3, label: "Scene C - City" };
 const sceneD = { key: 4, label: "Scene D - Oceanhamnen" };
 const sceneE = { key: 5, label: "Scene E - Off-program" };
+const sceneF = { key: 6, label: "Scene F - SeaU" };
+const sceneG = { key: 7, label: "Scene G - Helsingborg Arena" };
+const sceneH = { key: 8, label: "Scene H - City" };
+const sceneI = { key: 9, label: "Scene I - Oceanhamnen" };
+const sceneJ = { key: 10, label: "Scene J - Off-program" };
+const sceneK = { key: 11, label: "Scene K - SeaU" };
+const sceneL = { key: 12, label: "Scene L - Helsingborg Arena" };
+const sceneM = { key: 13, label: "Scene M - City" };
+const sceneN = { key: 14, label: "Scene N - Oceanhamnen" };
+const sceneO = { key: 15, label: "Scene O - Off-program" };
 
-const yUnitData = [sceneA, sceneB, sceneC, sceneD, sceneE];
+const yUnitData = [
+  sceneA,
+  sceneB,
+  sceneC,
+  sceneD,
+  sceneE,
+  sceneF,
+  sceneG,
+  sceneH,
+  sceneI,
+  sceneJ,
+  sceneK,
+  sceneL,
+  sceneM,
+  sceneN,
+  sceneO,
+];
 
 const timeline1ViewConfig = {
   name: "timeline1",
@@ -97,10 +123,11 @@ const format = scheduler.date.date_to_str("%H:%i");
 //     // startDate + " - " + endDate,
 //   ].join("");
 // };
-scheduler.attachEvent("onTemplatesReady", function () {
-  scheduler.templates.event_bar_text = function (startDate, endDate, event) {
-    return [
-      `<div class='event_bar_container'>
+// scheduler.attachEvent("onTemplatesReady", function () {
+//   console.log("onTemplatesReady")
+scheduler.templates.event_bar_text = function (startDate, endDate, event) {
+  return [
+    `<div class='event_bar_container'>
       <div class='event_bar_firstrow'>
       <span class='event_bar_tleft'>${event.text}</span>
       <span class='event_bar_tright'>${event.status}</span>
@@ -109,21 +136,15 @@ scheduler.attachEvent("onTemplatesReady", function () {
       <span class='event_bar_aktor_initials'>AB</span>
       <span class='event_bar_bleft'>${event.aktor}</span>
       <span class='event_bar_bright'>${format(startDate)} - ${format(
-        endDate
-      )}</span>
+      endDate
+    )}</span>
       </div>
       </div>`,
-    ];
-  };
-});
+  ];
+};
+// });
 scheduler.config.separate_short_events = true;
 
-// return `<div class="event_bar_container">
-// <span style="color: red;">${event.text}</span>
-// <span style="color: red;">${event.status}</span>
-// <span style="color: red;">${event.aktor}</span>
-// <span style="color: red;>${format(startDate)} - ${format(endDate)}</span>,
-// </div>`;
 // scheduler.templates.tooltip_text = function (start, end, event) {
 //   const html = [];
 //   html.push("Booking: <b> </b>");
