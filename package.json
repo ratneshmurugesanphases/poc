@@ -34,6 +34,7 @@
     "react-router-modal": "^1.5.2",
     "react-rte": "^0.16.3",
     "react-scripts": "4.0.3",
+    "react-to-print": "^2.12.5",
     "reactjs-popup": "^2.0.4",
     "styled-components": "^5.3.0"
   },

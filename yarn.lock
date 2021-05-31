@@ -10435,6 +10435,13 @@ react-select@^3.1.0:
     react-input-autosize "^3.0.0"
     react-transition-group "^4.3.0"
 
+react-to-print@^2.12.5:
+  version "2.12.5"
+  resolved "https://registry.yarnpkg.com/react-to-print/-/react-to-print-2.12.5.tgz#f9d7e7ee125a8b497e7e812e8cfbee1d4296096b"
+  integrity sha512-gnLMHs2t8m33qW8Jp482Dd9mNghF0OTtb5ePhzmPjy483Dv/s3kWrwxLFDcUOX1LXw9yjeMvWzR3ZlbQoSF+FA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-transition-group@^4.3.0, react-transition-group@^4.4.0, react-transition-group@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"

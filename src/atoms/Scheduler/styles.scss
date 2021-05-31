@@ -1,0 +1,103 @@
+:root {
+    --font14:  12px;
+}
+
+$fadeDuration: 250ms;
+
+@mixin applyFadeEffect {
+    -webkit-animation: fadein $fadeDuration;
+    -moz-animation: fadein $fadeDuration;
+    -ms-animation: fadein $fadeDuration;
+    -o-animation: fadein $fadeDuration;
+    animation: fadein $fadeDuration;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+// .scheduler-container {
+// height: calc(100vh - 50px - 200px);
+// height: 80vh;
+// width: 100vw;
+// @include applyFadeEffect();
+// z-index: 0;
+// }
+
+.react-daterange-picker__calendar {
+    z-index: 4;
+}
+.react-date-picker__calendar {
+    z-index: 4;
+}
+
+.react-date-picker__clear-button,
+.react-daterange-picker__clear-button {
+    display: none;
+}
+
+// .dhx_cal_container{
+    // @include applyFadeEffect();
+// }
+
+.header_dashboard_button {
+    margin: 0;
+    padding: 0;
+}
+
+.dhx_cal_navline.dhx_cal_navline_flex .dhx_cal_navbar_row.scheduler_header {
+    // display: grid;
+    // grid-template-columns: repeat(14, 1fr);
+    color: grey;
+}
+.dhx_cal_navline.dhx_cal_navline_flex .dhx_cal_date {
+    margin: 0px 20px;
+    width: 200px;
+}
+.dhx_cal_navline .dhx_cal_prev_button {
+    justify-self: end;
+}
+
+// .dhx_cal_scale_placeholder {
+//     height: 30px;
+// }
+.dhx_cal_header {
+    border: 1px solid #e0e0e0;
+    & div .dhx_scale_bar {
+        border: 1px solid #e0e0e0;
+        // height: 40px;
+    }
+}
+
+// .dhx_bottom_scale_container {
+//     // border: 1px solid #e0e0e0;
+// }
+
+.event_bar_container {
+    display: grid;
+    height: 100%;
+    align-content: space-between;
+    padding: 6px;
+    padding-right: 15px;
+
+    & .event_bar_aktor_initials {
+        background-color: grey;
+        border-radius: 50%;
+        color: whitesmoke;
+        font-size: var(--font14);
+        padding: 3px;
+    }
+    & .event_bar_tright{
+        float:right;
+    }
+    
+    & .event_bar_bright{
+        float:right;
+    }
+
+}
+

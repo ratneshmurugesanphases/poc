@@ -1,7 +1,6 @@
 import React from "react";
-import Search from "monday-ui-react-core/dist/Search";
-import SearchIcon from "monday-ui-react-core/dist/icons/Search";
-import CloseSmall from "monday-ui-react-core/dist/icons/CloseSmall";
+import TextField from "monday-ui-react-core/dist/TextField";
+
 // import {DebounceInput} from 'react-debounce-input';
 
 export default function SearchField({
@@ -11,23 +10,15 @@ export default function SearchField({
   autoFocus = false,
 }) {
   return (
-    <Search
+    <TextField
       inputAriaLabel={placeholder}
       autoFocus={autoFocus}
       placeholder={placeholder}
-      debounceRate={0}
       onChange={handleSearchChange}
       value={searchTerm}
-      iconName={SearchIcon}
-      secondaryIconName={CloseSmall}
-      validation={{
-        None: null,
-        Error: { status: "error" },
-        Success: { status: "success" },
-      }}
-      id="SearchKnobs"
+      id="SearchField"
       disabled={false}
-      size={Search.sizes.MEDIUM}
+      size={TextField.sizes.MEDIUM}
     />
   );
 }

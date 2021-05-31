@@ -95,7 +95,7 @@ function App() {
   return (
     <Suspense fallback="Loading........">
       <BrowserRouter>
-        {routes.map(({ pageKey, routeId, componentName, isShown }) => {
+        {/* {routes.map(({ pageKey, routeId, componentName, isShown }) => {
           return (
             isShown && (
               <div key={pageKey}>
@@ -110,7 +110,7 @@ function App() {
               </div>
             )
           );
-        })}
+        })} */}
         <Switch>
           <Route path={"/auth/:authType"} exact strict component={AuthView} />
           {routes.map(({ routeId }) => {
